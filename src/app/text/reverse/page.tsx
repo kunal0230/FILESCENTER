@@ -50,16 +50,16 @@ export default function TextReversePage() {
             category="text"
         >
             <div className="space-y-6">
-                <div className="bg-white/5 p-4 rounded-xl border border-white/10">
-                    <h3 className="text-sm font-medium text-gray-400 uppercase tracking-wider mb-3">Reverse Mode</h3>
+                <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+                    <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-3">Reverse Mode</h3>
                     <div className="grid grid-cols-3 gap-2">
                         {modes.map(({ id, label, desc }) => (
                             <button
                                 key={id}
                                 onClick={() => setMode(id)}
                                 className={`p-3 rounded-lg text-left transition-all ${mode === id
-                                        ? 'bg-indigo-500 text-white'
-                                        : 'bg-black/20 text-gray-400 hover:bg-white/10 hover:text-white'
+                                    ? 'bg-indigo-600 text-white'
+                                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-900'
                                     }`}
                             >
                                 <p className="font-medium text-sm">{label}</p>
@@ -70,27 +70,27 @@ export default function TextReversePage() {
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                    <div className="bg-white/5 rounded-xl border border-white/10 overflow-hidden">
-                        <div className="p-3 border-b border-white/5 bg-black/20">
-                            <h3 className="text-sm font-medium text-gray-400">Input Text</h3>
+                    <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
+                        <div className="p-3 border-b border-gray-200 bg-gray-50">
+                            <h3 className="text-sm font-medium text-gray-700">Input Text</h3>
                         </div>
                         <textarea
                             value={input}
                             onChange={(e) => setInput(e.target.value)}
                             placeholder="Enter text to reverse..."
-                            className="w-full h-40 p-4 bg-transparent text-white outline-none resize-none font-mono text-sm"
+                            className="w-full h-40 p-4 bg-transparent text-gray-900 outline-none resize-none font-mono text-sm"
                         />
                     </div>
 
-                    <div className="bg-white/5 rounded-xl border border-white/10 overflow-hidden">
-                        <div className="p-3 border-b border-white/5 bg-black/20 flex justify-between items-center">
-                            <h3 className="text-sm font-medium text-gray-400">Reversed Text</h3>
+                    <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
+                        <div className="p-3 border-b border-gray-200 bg-gray-50 flex justify-between items-center">
+                            <h3 className="text-sm font-medium text-gray-700">Reversed Text</h3>
                             {output && (
                                 <button
                                     onClick={copyToClipboard}
-                                    className="p-1.5 rounded-lg hover:bg-white/10 text-gray-400 hover:text-white"
+                                    className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-500 hover:text-gray-900"
                                 >
-                                    {copied ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
+                                    {copied ? <Check className="w-4 h-4 text-green-600" /> : <Copy className="w-4 h-4" />}
                                 </button>
                             )}
                         </div>
@@ -98,7 +98,7 @@ export default function TextReversePage() {
                             value={output}
                             readOnly
                             placeholder="Reversed text will appear here..."
-                            className="w-full h-40 p-4 bg-transparent text-indigo-300 outline-none resize-none font-mono text-sm"
+                            className="w-full h-40 p-4 bg-transparent text-indigo-600 outline-none resize-none font-mono text-sm"
                         />
                     </div>
                 </div>
@@ -106,7 +106,7 @@ export default function TextReversePage() {
                 <button
                     onClick={reverseText}
                     disabled={!input}
-                    className="w-full py-3 rounded-xl font-medium bg-indigo-500 text-white shadow-lg shadow-indigo-500/25 hover:bg-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                    className="w-full py-3 rounded-xl font-medium bg-indigo-600 text-white shadow-lg shadow-indigo-500/25 hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
                     <RefreshCw className="w-4 h-4" />
                     Reverse Text

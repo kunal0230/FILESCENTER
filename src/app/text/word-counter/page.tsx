@@ -126,25 +126,25 @@ export default function WordCounterPage() {
             title="Word Counter"
             description="Count words, characters, sentences, and more"
             icon={<FileText className="w-6 h-6 text-white" />}
-            category="image"
+            category="text"
         >
             {/* Main Stats Grid */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
-                <div className="p-4 rounded-xl bg-indigo-500/10 border border-indigo-500/30 text-center">
-                    <p className="text-3xl font-bold text-indigo-400">{stats.words.toLocaleString()}</p>
-                    <p className="text-sm text-gray-400">Words</p>
+                <div className="p-4 rounded-xl bg-indigo-50 text-center border border-indigo-100">
+                    <p className="text-3xl font-bold text-indigo-600">{stats.words.toLocaleString()}</p>
+                    <p className="text-sm text-indigo-600/80">Words</p>
                 </div>
-                <div className="p-4 rounded-xl bg-purple-500/10 border border-purple-500/30 text-center">
-                    <p className="text-3xl font-bold text-purple-400">{stats.characters.toLocaleString()}</p>
-                    <p className="text-sm text-gray-400">Characters</p>
+                <div className="p-4 rounded-xl bg-purple-50 text-center border border-purple-100">
+                    <p className="text-3xl font-bold text-purple-600">{stats.characters.toLocaleString()}</p>
+                    <p className="text-sm text-purple-600/80">Characters</p>
                 </div>
-                <div className="p-4 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-center">
-                    <p className="text-3xl font-bold text-cyan-400">{stats.sentences.toLocaleString()}</p>
-                    <p className="text-sm text-gray-400">Sentences</p>
+                <div className="p-4 rounded-xl bg-cyan-50 text-center border border-cyan-100">
+                    <p className="text-3xl font-bold text-cyan-600">{stats.sentences.toLocaleString()}</p>
+                    <p className="text-sm text-cyan-600/80">Sentences</p>
                 </div>
-                <div className="p-4 rounded-xl bg-green-500/10 border border-green-500/30 text-center">
-                    <p className="text-3xl font-bold text-green-400">{stats.paragraphs.toLocaleString()}</p>
-                    <p className="text-sm text-gray-400">Paragraphs</p>
+                <div className="p-4 rounded-xl bg-green-50 text-center border border-green-100">
+                    <p className="text-3xl font-bold text-green-600">{stats.paragraphs.toLocaleString()}</p>
+                    <p className="text-sm text-green-600/80">Paragraphs</p>
                 </div>
             </div>
 
@@ -154,7 +154,7 @@ export default function WordCounterPage() {
                     value={text}
                     onChange={(e) => setText(e.target.value)}
                     placeholder="Type or paste your text here to analyze..."
-                    className="w-full h-64 p-4 rounded-xl bg-white/5 border border-white/10 focus:border-indigo-500 focus:outline-none resize-none text-white placeholder-gray-500"
+                    className="w-full h-64 p-4 rounded-xl bg-[var(--input-bg)] border border-[var(--input-border)] text-[var(--input-text)] placeholder-[var(--input-placeholder)] focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none resize-none"
                     spellCheck={false}
                 />
                 {text.length > 0 && (
@@ -165,35 +165,36 @@ export default function WordCounterPage() {
             </div>
 
             {/* Additional Stats */}
+            {/* Additional Stats */}
             <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm">
-                <div className="p-3 rounded-lg bg-white/5">
-                    <p className="text-gray-400">Chars (no spaces)</p>
-                    <p className="font-semibold">{stats.charactersNoSpaces.toLocaleString()}</p>
+                <div className="p-3 rounded-lg bg-white border border-gray-200">
+                    <p className="text-gray-500">Chars (no spaces)</p>
+                    <p className="font-semibold text-gray-900">{stats.charactersNoSpaces.toLocaleString()}</p>
                 </div>
-                <div className="p-3 rounded-lg bg-white/5">
-                    <p className="text-gray-400">Lines</p>
-                    <p className="font-semibold">{stats.lines.toLocaleString()}</p>
+                <div className="p-3 rounded-lg bg-white border border-gray-200">
+                    <p className="text-gray-500">Lines</p>
+                    <p className="font-semibold text-gray-900">{stats.lines.toLocaleString()}</p>
                 </div>
-                <div className="p-3 rounded-lg bg-white/5">
-                    <p className="text-gray-400">Reading Time</p>
-                    <p className="font-semibold">{stats.readingTime} min</p>
+                <div className="p-3 rounded-lg bg-white border border-gray-200">
+                    <p className="text-gray-500">Reading Time</p>
+                    <p className="font-semibold text-gray-900">{stats.readingTime} min</p>
                 </div>
-                <div className="p-3 rounded-lg bg-white/5">
-                    <p className="text-gray-400">Speaking Time</p>
-                    <p className="font-semibold">{stats.speakingTime} min</p>
+                <div className="p-3 rounded-lg bg-white border border-gray-200">
+                    <p className="text-gray-500">Speaking Time</p>
+                    <p className="font-semibold text-gray-900">{stats.speakingTime} min</p>
                 </div>
             </div>
 
             {/* Extra Stats */}
             {stats.words > 0 && (
                 <div className="mt-4 grid grid-cols-2 gap-4 text-sm">
-                    <div className="p-3 rounded-lg bg-white/5">
-                        <p className="text-gray-400">Avg Word Length</p>
-                        <p className="font-semibold">{stats.avgWordLength} chars</p>
+                    <div className="p-3 rounded-lg bg-white border border-gray-200">
+                        <p className="text-gray-500">Avg Word Length</p>
+                        <p className="font-semibold text-gray-900">{stats.avgWordLength} chars</p>
                     </div>
-                    <div className="p-3 rounded-lg bg-white/5">
-                        <p className="text-gray-400">Longest Word</p>
-                        <p className="font-semibold truncate" title={stats.longestWord}>
+                    <div className="p-3 rounded-lg bg-white border border-gray-200">
+                        <p className="text-gray-500">Longest Word</p>
+                        <p className="font-semibold truncate text-gray-900" title={stats.longestWord}>
                             {stats.longestWord || '-'}
                         </p>
                     </div>

@@ -160,9 +160,9 @@ export default function PasswordGeneratorPage() {
         >
             {/* Error */}
             {error && (
-                <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/30 flex items-start gap-3">
-                    <AlertCircle className="w-5 h-5 text-red-400 shrink-0" />
-                    <p className="text-red-400 text-sm">{error}</p>
+                <div className="mb-6 p-4 rounded-xl bg-red-50 border border-red-200 flex items-start gap-3">
+                    <AlertCircle className="w-5 h-5 text-red-500 shrink-0" />
+                    <p className="text-red-600 text-sm">{error}</p>
                 </div>
             )}
 
@@ -174,12 +174,12 @@ export default function PasswordGeneratorPage() {
                         value={password}
                         readOnly
                         placeholder="Click generate to create a password"
-                        className="w-full px-4 py-4 pr-24 rounded-xl bg-white/5 border border-white/10 font-mono text-lg text-center tracking-wider"
+                        className="w-full px-4 py-4 pr-24 rounded-xl bg-white border border-gray-200 font-mono text-lg text-center tracking-wider text-gray-900 shadow-sm"
                     />
                     {password && (
                         <button
                             onClick={() => copyPassword(password)}
-                            className="absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-lg hover:bg-white/10 transition-colors"
+                            className="absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-lg hover:bg-gray-100 transition-colors"
                         >
                             {copied ? <Check className="w-5 h-5 text-green-400" /> : <Copy className="w-5 h-5" />}
                         </button>
@@ -189,7 +189,7 @@ export default function PasswordGeneratorPage() {
                 {/* Strength indicator */}
                 {password && (
                     <div className="mt-3 flex items-center gap-3">
-                        <div className="flex-1 h-2 bg-white/10 rounded-full overflow-hidden">
+                        <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
                             <div
                                 className={`h-full ${passwordStrength.color.split(' ')[1]} transition-all`}
                                 style={{ width: `${(passwordStrength.score / 8) * 100}%` }}
@@ -213,7 +213,7 @@ export default function PasswordGeneratorPage() {
                 {/* Length Slider */}
                 <div>
                     <div className="flex justify-between items-center mb-2">
-                        <label className="text-sm font-medium">Length: {options.length}</label>
+                        <label className="text-sm font-medium text-gray-700">Length: {options.length}</label>
                         <span className="text-xs text-gray-500">4-128 characters</span>
                     </div>
                     <input
@@ -234,37 +234,37 @@ export default function PasswordGeneratorPage() {
                         { key: 'numbers' as const, label: 'Numbers (0-9)' },
                         { key: 'symbols' as const, label: 'Symbols (!@#$...)' },
                     ].map(({ key, label }) => (
-                        <label key={key} className="flex items-center gap-2 p-3 rounded-lg bg-white/5 cursor-pointer hover:bg-white/10 transition-colors">
+                        <label key={key} className="flex items-center gap-2 p-3 rounded-lg bg-white border border-gray-200 cursor-pointer hover:bg-gray-50 transition-colors shadow-sm">
                             <input
                                 type="checkbox"
                                 checked={options[key]}
                                 onChange={(e) => updateOption(key, e.target.checked)}
-                                className="w-4 h-4 rounded"
+                                className="w-4 h-4 rounded border-gray-300"
                             />
-                            <span className="text-sm">{label}</span>
+                            <span className="text-sm text-gray-700">{label}</span>
                         </label>
                     ))}
                 </div>
 
                 {/* Advanced Options */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <label className="flex items-center gap-2 p-3 rounded-lg bg-white/5 cursor-pointer hover:bg-white/10 transition-colors">
+                    <label className="flex items-center gap-2 p-3 rounded-lg bg-white border border-gray-200 cursor-pointer hover:bg-gray-50 transition-colors shadow-sm">
                         <input
                             type="checkbox"
                             checked={options.excludeAmbiguous}
                             onChange={(e) => updateOption('excludeAmbiguous', e.target.checked)}
-                            className="w-4 h-4 rounded"
+                            className="w-4 h-4 rounded border-gray-300"
                         />
-                        <span className="text-sm">Exclude ambiguous (0, O, l)</span>
+                        <span className="text-sm text-gray-700">Exclude ambiguous (0, O, l)</span>
                     </label>
-                    <label className="flex items-center gap-2 p-3 rounded-lg bg-white/5 cursor-pointer hover:bg-white/10 transition-colors">
+                    <label className="flex items-center gap-2 p-3 rounded-lg bg-white border border-gray-200 cursor-pointer hover:bg-gray-50 transition-colors shadow-sm">
                         <input
                             type="checkbox"
                             checked={options.excludeSimilar}
                             onChange={(e) => updateOption('excludeSimilar', e.target.checked)}
-                            className="w-4 h-4 rounded"
+                            className="w-4 h-4 rounded border-gray-300"
                         />
-                        <span className="text-sm">Exclude similar (i, l, 1, L, o, 0, O)</span>
+                        <span className="text-sm text-gray-700">Exclude similar (i, l, 1, L, o, 0, O)</span>
                     </label>
                 </div>
             </div>
@@ -272,14 +272,14 @@ export default function PasswordGeneratorPage() {
             {/* History */}
             {history.length > 0 && (
                 <div className="mt-8">
-                    <h3 className="text-sm font-medium mb-3">Recent Passwords</h3>
+                    <h3 className="text-sm font-medium mb-3 text-gray-500">Recent Passwords</h3>
                     <div className="space-y-2 max-h-40 overflow-y-auto">
                         {history.map((pw, index) => (
-                            <div key={index} className="flex items-center gap-2 p-2 rounded-lg bg-white/5 text-sm">
-                                <span className="font-mono flex-1 truncate text-gray-400">{pw}</span>
+                            <div key={index} className="flex items-center gap-2 p-2 rounded-lg bg-gray-50 border border-gray-200 text-sm">
+                                <span className="font-mono flex-1 truncate text-gray-700">{pw}</span>
                                 <button
                                     onClick={() => copyPassword(pw)}
-                                    className="p-1.5 rounded hover:bg-white/10"
+                                    className="p-1.5 rounded hover:bg-gray-200 text-gray-500"
                                 >
                                     <Copy className="w-4 h-4" />
                                 </button>

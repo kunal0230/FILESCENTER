@@ -1,6 +1,6 @@
 # FilesCenter
 
-**50+ Free Online PDF, Image & Developer Tools**
+## 50+ Free Online PDF, Image & Developer Tools
 
 FilesCenter is a comprehensive collection of free, privacy-first online tools. All processing happens directly in your browser - your files never leave your device.
 

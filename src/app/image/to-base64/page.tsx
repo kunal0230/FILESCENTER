@@ -74,8 +74,8 @@ export default function ImageToBase64Page() {
                         onRemoveFile={handleRemoveFile}
                     />
 
-                    <div className="bg-white/5 p-4 rounded-xl border border-white/10">
-                        <label className="flex items-center gap-2 text-sm text-gray-400 cursor-pointer">
+                    <div className="bg-white/50 p-4 rounded-xl border border-gray-200 shadow-sm">
+                        <label className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
                             <input
                                 type="checkbox"
                                 checked={includeDataUri}
@@ -83,7 +83,7 @@ export default function ImageToBase64Page() {
                                     setIncludeDataUri(e.target.checked);
                                     if (files[0]) convertToBase64(files[0]);
                                 }}
-                                className="rounded bg-black/30 border-white/20"
+                                className="rounded bg-gray-100 border-gray-300 text-indigo-500 focus:ring-indigo-500"
                             />
                             Include data URI prefix
                         </label>
@@ -96,14 +96,14 @@ export default function ImageToBase64Page() {
                         <div className="flex gap-2">
                             <button
                                 onClick={copyToClipboard}
-                                className="flex-1 py-2.5 rounded-xl font-medium bg-indigo-500 text-white hover:bg-indigo-600 flex items-center justify-center gap-2"
+                                className="flex-1 py-2.5 rounded-xl font-medium bg-indigo-500 text-white hover:bg-indigo-600 flex items-center justify-center gap-2 shadow-sm"
                             >
                                 {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                                 {copied ? 'Copied!' : 'Copy'}
                             </button>
                             <button
                                 onClick={downloadAsText}
-                                className="px-4 py-2.5 rounded-xl bg-white/10 text-white hover:bg-white/20"
+                                className="px-4 py-2.5 rounded-xl bg-white text-gray-600 hover:bg-gray-50 border border-gray-200 shadow-sm"
                             >
                                 <Download className="w-4 h-4" />
                             </button>
@@ -120,8 +120,8 @@ export default function ImageToBase64Page() {
                 {/* Right: Preview & Result */}
                 <div className="flex-1 flex flex-col gap-4">
                     {files[0] && (
-                        <div className="bg-white/5 rounded-xl border border-white/10 p-4">
-                            <h3 className="text-sm font-medium text-gray-400 mb-3">Image Preview</h3>
+                        <div className="bg-white/50 rounded-xl border border-gray-200 p-4 shadow-sm">
+                            <h3 className="text-sm font-medium text-gray-500 mb-3">Image Preview</h3>
                             <img
                                 src={URL.createObjectURL(files[0])}
                                 alt="Preview"
@@ -130,13 +130,13 @@ export default function ImageToBase64Page() {
                         </div>
                     )}
 
-                    <div className="flex-1 bg-white/5 rounded-xl border border-white/10 overflow-hidden">
-                        <div className="p-3 border-b border-white/5 bg-black/20">
-                            <h3 className="text-sm font-medium text-gray-400">Base64 Output</h3>
+                    <div className="flex-1 bg-white/50 rounded-xl border border-gray-200 overflow-hidden shadow-sm">
+                        <div className="p-3 border-b border-gray-200 bg-gray-50/50">
+                            <h3 className="text-sm font-medium text-gray-700">Base64 Output</h3>
                         </div>
-                        <div className="p-4 h-64 overflow-auto">
+                        <div className="p-4 h-64 overflow-auto custom-scrollbar">
                             {base64Result ? (
-                                <pre className="font-mono text-xs text-indigo-300 whitespace-pre-wrap break-all">
+                                <pre className="font-mono text-xs text-indigo-600 whitespace-pre-wrap break-all">
                                     {getDisplayResult()}
                                 </pre>
                             ) : (

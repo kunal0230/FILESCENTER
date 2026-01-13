@@ -54,27 +54,27 @@ export default function RemoveDuplicatesPage() {
         >
             <div className="space-y-6">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                    <div className="bg-white/5 rounded-xl border border-white/10 overflow-hidden">
-                        <div className="p-3 border-b border-white/5 bg-black/20">
-                            <h3 className="text-sm font-medium text-gray-400">Input Text</h3>
+                    <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
+                        <div className="p-3 border-b border-gray-200 bg-gray-50">
+                            <h3 className="text-sm font-medium text-gray-700">Input Text</h3>
                         </div>
                         <textarea
                             value={input}
                             onChange={(e) => setInput(e.target.value)}
                             placeholder="Paste text with duplicate lines..."
-                            className="w-full h-48 p-4 bg-transparent text-white outline-none resize-none font-mono text-sm"
+                            className="w-full h-48 p-4 bg-transparent text-gray-900 outline-none resize-none font-mono text-sm"
                         />
                     </div>
 
-                    <div className="bg-white/5 rounded-xl border border-white/10 overflow-hidden">
-                        <div className="p-3 border-b border-white/5 bg-black/20 flex justify-between items-center">
-                            <h3 className="text-sm font-medium text-gray-400">Result</h3>
+                    <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
+                        <div className="p-3 border-b border-gray-200 bg-gray-50 flex justify-between items-center">
+                            <h3 className="text-sm font-medium text-gray-700">Result</h3>
                             {output && (
                                 <button
                                     onClick={copyToClipboard}
-                                    className="p-1.5 rounded-lg hover:bg-white/10 text-gray-400 hover:text-white"
+                                    className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-500 hover:text-gray-900"
                                 >
-                                    {copied ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
+                                    {copied ? <Check className="w-4 h-4 text-green-600" /> : <Copy className="w-4 h-4" />}
                                 </button>
                             )}
                         </div>
@@ -82,27 +82,27 @@ export default function RemoveDuplicatesPage() {
                             value={output}
                             readOnly
                             placeholder="Unique lines will appear here..."
-                            className="w-full h-48 p-4 bg-transparent text-green-300 outline-none resize-none font-mono text-sm"
+                            className="w-full h-48 p-4 bg-transparent text-green-700 outline-none resize-none font-mono text-sm"
                         />
                     </div>
                 </div>
 
                 <div className="flex flex-wrap items-center gap-4">
-                    <label className="flex items-center gap-2 text-sm text-gray-400">
+                    <label className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
                         <input
                             type="checkbox"
                             checked={caseSensitive}
                             onChange={(e) => setCaseSensitive(e.target.checked)}
-                            className="rounded bg-black/30 border-white/20"
+                            className="rounded border-gray-300"
                         />
                         Case sensitive
                     </label>
-                    <label className="flex items-center gap-2 text-sm text-gray-400">
+                    <label className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
                         <input
                             type="checkbox"
                             checked={trimWhitespace}
                             onChange={(e) => setTrimWhitespace(e.target.checked)}
-                            className="rounded bg-black/30 border-white/20"
+                            className="rounded border-gray-300"
                         />
                         Trim whitespace
                     </label>
@@ -117,8 +117,8 @@ export default function RemoveDuplicatesPage() {
                 </button>
 
                 {stats.removed > 0 && (
-                    <div className="p-4 bg-green-500/10 rounded-xl border border-green-500/20 text-center">
-                        <p className="text-green-400">
+                    <div className="p-4 bg-green-50 rounded-xl border border-green-200 text-center shadow-sm">
+                        <p className="text-green-700">
                             Removed <strong>{stats.removed}</strong> duplicate line{stats.removed !== 1 ? 's' : ''}
                             ({stats.original} → {stats.unique})
                         </p>

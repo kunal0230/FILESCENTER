@@ -60,7 +60,7 @@ export default function CaseConverterPage() {
                 value={text}
                 onChange={(e) => setText(e.target.value)}
                 placeholder="Type or paste your text here..."
-                className="w-full h-48 p-4 rounded-xl bg-white/5 border border-white/10 focus:border-indigo-500 focus:outline-none resize-none text-white placeholder-gray-500"
+                className="w-full h-48 p-4 rounded-xl bg-white border border-gray-200 focus:border-indigo-500 focus:outline-none resize-none text-gray-900 placeholder-gray-500 shadow-sm"
             />
 
             {/* Case Buttons */}
@@ -69,9 +69,9 @@ export default function CaseConverterPage() {
                     <button
                         key={type}
                         onClick={() => applyConversion(type)}
-                        className="p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-indigo-500/50 transition-all text-left"
+                        className="p-4 rounded-xl bg-white border border-gray-200 hover:bg-gray-50 hover:border-indigo-400 transition-all text-left shadow-sm group"
                     >
-                        <p className="font-medium">{label}</p>
+                        <p className="font-medium text-gray-700 group-hover:text-indigo-600">{label}</p>
                         <p className="text-xs text-gray-500 mt-1">{example}</p>
                     </button>
                 ))}

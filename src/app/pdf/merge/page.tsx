@@ -150,23 +150,23 @@ export default function PDFMergePage() {
 
                     {/* Error Display */}
                     {error && (
-                        <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/30 flex items-start gap-2">
-                            <AlertCircle className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
-                            <div className="text-red-400 text-xs whitespace-pre-wrap">{error}</div>
+                        <div className="p-3 rounded-lg bg-red-50 border border-red-200 flex items-start gap-2">
+                            <AlertCircle className="w-4 h-4 text-red-500 shrink-0 mt-0.5" />
+                            <div className="text-red-600 text-xs whitespace-pre-wrap">{error}</div>
                         </div>
                     )}
 
                     {/* Info Panel */}
-                    <div className="bg-white/5 p-5 rounded-xl border border-white/10">
-                        <h3 className="text-sm font-medium text-gray-400 uppercase tracking-wider mb-4">Merge Settings</h3>
-                        <div className="space-y-3 text-xs text-gray-400">
+                    <div className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
+                        <h3 className="text-sm font-medium text-gray-700 uppercase tracking-wider mb-4">Merge Settings</h3>
+                        <div className="space-y-3 text-xs text-gray-500">
                             <p>• PDFs will merge in the order shown</p>
                             <p>• Use arrows to reorder files</p>
                             <p>• Max 50 files, 500MB total</p>
                         </div>
                         {files.length > 0 && (
-                            <div className="mt-4 pt-3 border-t border-white/10">
-                                <p className="text-sm text-indigo-400">{files.length} file{files.length > 1 ? 's' : ''} • {formatSize(totalSize)}</p>
+                            <div className="mt-4 pt-3 border-t border-gray-200">
+                                <p className="text-sm text-indigo-600 font-medium">{files.length} file{files.length > 1 ? 's' : ''} • {formatSize(totalSize)}</p>
                             </div>
                         )}
                     </div>
@@ -177,8 +177,8 @@ export default function PDFMergePage() {
                         onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
                         onDragLeave={() => setIsDragging(false)}
                         className={`relative border-2 border-dashed rounded-xl p-4 text-center transition-all cursor-pointer ${isDragging
-                            ? 'border-indigo-500 bg-indigo-500/10'
-                            : 'border-white/20 hover:border-indigo-500/50 hover:bg-white/5'
+                            ? 'border-indigo-500 bg-indigo-50'
+                            : 'border-gray-300 hover:border-indigo-400 hover:bg-gray-50'
                             }`}
                         onClick={() => document.getElementById('merge-file-input')?.click()}
                     >
@@ -190,9 +190,9 @@ export default function PDFMergePage() {
                             className="hidden"
                             onChange={(e) => handleFilesSelected(Array.from(e.target.files || []))}
                         />
-                        <Upload className="w-6 h-6 mx-auto mb-2 text-indigo-400" />
-                        <p className="text-sm text-gray-300">Drop PDF files or click to upload</p>
-                        <p className="text-xs text-gray-500 mt-1">Up to 50 files</p>
+                        <Upload className="w-6 h-6 mx-auto mb-2 text-indigo-500" />
+                        <p className="text-sm text-gray-600">Drop PDF files or click to upload</p>
+                        <p className="text-xs text-gray-400 mt-1">Up to 50 files</p>
                     </div>
 
                     {/* Action Button */}
@@ -200,10 +200,10 @@ export default function PDFMergePage() {
                         onClick={mergedBlob ? resetAll : handleMerge}
                         disabled={isProcessing || files.length < 2}
                         className={`w-full py-3 rounded-xl font-medium flex items-center justify-center gap-2 transition-all ${files.length < 2
-                            ? 'bg-gray-700 text-gray-500 cursor-not-allowed'
+                            ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
                             : mergedBlob
-                                ? 'bg-white/10 text-white hover:bg-white/20'
-                                : 'bg-indigo-500 text-white shadow-lg shadow-indigo-500/25 hover:bg-indigo-600'
+                                ? 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200 shadow-sm'
+                                : 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/25 hover:bg-indigo-700'
                             }`}
                     >
                         {isProcessing ? (
@@ -222,25 +222,25 @@ export default function PDFMergePage() {
                     </button>
 
                     {isProcessing && (
-                        <div className="bg-white/5 rounded-xl p-4">
+                        <div className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
                             <ProgressBar progress={progress} label="Merging PDFs..." />
                         </div>
                     )}
                 </div>
 
                 {/* RIGHT: File List / Results */}
-                <div className="flex-1 bg-white/5 rounded-xl border border-white/10 overflow-hidden flex flex-col min-h-[400px]">
+                <div className="flex-1 bg-white rounded-xl border border-gray-200 overflow-hidden flex flex-col min-h-[400px] shadow-sm">
                     {/* Header */}
-                    <div className="p-4 border-b border-white/5 flex justify-between items-center bg-black/20">
-                        <h2 className="text-sm font-medium text-white flex items-center gap-2">
+                    <div className="p-4 border-b border-gray-200 flex justify-between items-center bg-gray-50/50">
+                        <h2 className="text-sm font-medium text-gray-700 flex items-center gap-2">
                             {mergedBlob ? (
                                 <>
-                                    <CheckCircle2 className="w-4 h-4 text-green-400" />
+                                    <CheckCircle2 className="w-4 h-4 text-green-500" />
                                     Merge Complete
                                 </>
                             ) : (
                                 <>
-                                    <FileText className="w-4 h-4 text-indigo-400" />
+                                    <FileText className="w-4 h-4 text-indigo-500" />
                                     PDF Files
                                 </>
                             )}
@@ -248,7 +248,7 @@ export default function PDFMergePage() {
                         {mergedBlob && (
                             <button
                                 onClick={downloadMerged}
-                                className="px-3 py-1.5 rounded-lg bg-green-500/20 text-green-400 text-xs font-medium hover:bg-green-500 hover:text-white transition-colors flex items-center gap-1.5"
+                                className="px-3 py-1.5 rounded-lg bg-green-50 text-green-600 text-xs font-medium hover:bg-green-100 transition-colors flex items-center gap-1.5 border border-green-200"
                             >
                                 <Download className="w-3.5 h-3.5" />
                                 Download
@@ -260,18 +260,18 @@ export default function PDFMergePage() {
                     <div className="flex-1 overflow-y-auto p-4 custom-scrollbar">
                         {files.length === 0 ? (
                             <div className="h-full flex items-center justify-center text-center">
-                                <div className="text-gray-500">
-                                    <FileText className="w-12 h-12 mx-auto mb-3 opacity-30" />
-                                    <p className="text-sm">No files selected</p>
-                                    <p className="text-xs mt-1 opacity-70">Upload at least 2 PDFs to merge</p>
+                                <div className="text-gray-400">
+                                    <FileText className="w-12 h-12 mx-auto mb-3 opacity-20" />
+                                    <p className="text-sm font-medium text-gray-500">No files selected</p>
+                                    <p className="text-xs mt-1">Upload at least 2 PDFs to merge</p>
                                 </div>
                             </div>
                         ) : mergedBlob ? (
                             <div className="p-6 text-center">
-                                <CheckCircle2 className="w-16 h-16 text-green-400 mx-auto mb-4" />
-                                <p className="text-lg font-semibold text-white mb-2">PDFs Merged Successfully!</p>
-                                <p className="text-sm text-gray-400">{files.length} files → 1 PDF ({formatSize(mergedBlob.size)})</p>
-                                <button onClick={downloadMerged} className="btn-primary mt-6 inline-flex items-center gap-2">
+                                <CheckCircle2 className="w-16 h-16 text-green-500 mx-auto mb-4" />
+                                <p className="text-lg font-semibold text-gray-900 mb-2">PDFs Merged Successfully!</p>
+                                <p className="text-sm text-gray-500">{files.length} files → 1 PDF ({formatSize(mergedBlob.size)})</p>
+                                <button onClick={downloadMerged} className="btn-primary mt-6 inline-flex items-center gap-2 shadow-lg shadow-indigo-500/25">
                                     <Download className="w-4 h-4" />
                                     Download Merged PDF
                                 </button>
@@ -279,29 +279,29 @@ export default function PDFMergePage() {
                         ) : (
                             <div className="space-y-2">
                                 {files.map((file, index) => (
-                                    <div key={`${file.name}-${index}`} className="flex items-center gap-3 p-3 rounded-lg bg-black/20 border border-white/5 hover:border-indigo-500/30 transition-all group">
-                                        <span className="text-gray-500 text-sm w-6 shrink-0">{index + 1}.</span>
-                                        <div className="w-10 h-10 bg-red-500/10 rounded-lg flex items-center justify-center shrink-0">
-                                            <FileText className="w-4 h-4 text-red-400" />
+                                    <div key={`${file.name}-${index}`} className="flex items-center gap-3 p-3 rounded-lg bg-white border border-gray-200 hover:border-indigo-300 transition-all group shadow-sm">
+                                        <span className="text-gray-400 text-sm w-6 shrink-0 font-medium">{index + 1}.</span>
+                                        <div className="w-10 h-10 bg-red-50 rounded-lg flex items-center justify-center shrink-0 border border-red-100">
+                                            <FileText className="w-4 h-4 text-red-500" />
                                         </div>
                                         <div className="flex-1 min-w-0">
-                                            <p className="font-medium truncate text-gray-200 text-sm">{file.name}</p>
-                                            <p className="text-xs text-gray-500 mt-0.5">{formatSize(file.size)}</p>
+                                            <p className="font-medium truncate text-gray-700 text-sm">{file.name}</p>
+                                            <p className="text-xs text-gray-400 mt-0.5">{formatSize(file.size)}</p>
                                         </div>
                                         <div className="flex gap-1 shrink-0">
                                             <button
                                                 onClick={() => moveFile(index, index - 1)}
                                                 disabled={index === 0}
-                                                className="p-1.5 rounded text-gray-500 hover:bg-white/10 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed"
+                                                className="p-1.5 rounded text-gray-400 hover:bg-gray-100 hover:text-gray-600 disabled:opacity-30 disabled:cursor-not-allowed"
                                             >↑</button>
                                             <button
                                                 onClick={() => moveFile(index, index + 1)}
                                                 disabled={index === files.length - 1}
-                                                className="p-1.5 rounded text-gray-500 hover:bg-white/10 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed"
+                                                className="p-1.5 rounded text-gray-400 hover:bg-gray-100 hover:text-gray-600 disabled:opacity-30 disabled:cursor-not-allowed"
                                             >↓</button>
                                             <button
                                                 onClick={() => handleRemoveFile(index)}
-                                                className="p-1.5 rounded text-gray-500 hover:bg-red-500/20 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity"
+                                                className="p-1.5 rounded text-gray-400 hover:bg-red-50 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"
                                             >
                                                 <X className="w-4 h-4" />
                                             </button>

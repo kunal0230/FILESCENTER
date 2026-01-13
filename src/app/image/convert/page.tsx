@@ -124,16 +124,16 @@ export default function ImageConvertPage() {
                 <div className="w-full lg:w-[320px] shrink-0 flex flex-col gap-5">
 
                     {/* Target Format Selection */}
-                    <div className="bg-white/5 p-5 rounded-xl border border-white/10">
-                        <h3 className="text-sm font-medium text-gray-400 uppercase tracking-wider mb-4">Target Format</h3>
+                    <div className="bg-white/50 p-5 rounded-xl border border-gray-200 shadow-sm">
+                        <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-4">Target Format</h3>
                         <div className="grid grid-cols-4 gap-2">
                             {formatOptions.map((fmt) => (
                                 <button
                                     key={fmt.value}
                                     onClick={() => setTargetFormat(fmt.value)}
                                     className={`flex flex-col items-center justify-center p-2.5 rounded-lg border transition-all ${targetFormat === fmt.value
-                                        ? 'bg-indigo-500/20 border-indigo-500 text-white'
-                                        : 'bg-black/20 border-transparent text-gray-400 hover:bg-white/5 hover:text-white'
+                                        ? 'bg-indigo-500 text-white shadow-sm'
+                                        : 'bg-white border-gray-200 text-gray-600 hover:bg-indigo-50 hover:text-indigo-600 hover:border-indigo-200'
                                         }`}
                                 >
                                     <span className="text-xs font-bold uppercase">{fmt.ext}</span>
@@ -148,8 +148,8 @@ export default function ImageConvertPage() {
                         onDragOver={handleDragOver}
                         onDragLeave={handleDragLeave}
                         className={`relative border-2 border-dashed rounded-xl p-4 text-center transition-all cursor-pointer ${isDragging
-                            ? 'border-indigo-500 bg-indigo-500/10'
-                            : 'border-white/20 hover:border-indigo-500/50 hover:bg-white/5'
+                            ? 'border-indigo-500 bg-indigo-50'
+                            : 'border-gray-200 hover:border-indigo-400 hover:bg-gray-50'
                             }`}
                         onClick={() => document.getElementById('file-input')?.click()}
                     >
@@ -161,8 +161,8 @@ export default function ImageConvertPage() {
                             className="hidden"
                             onChange={(e) => handleFilesSelected(Array.from(e.target.files || []))}
                         />
-                        <Upload className="w-6 h-6 mx-auto mb-2 text-indigo-400" />
-                        <p className="text-sm text-gray-300">Drop files or click to upload</p>
+                        <Upload className="w-6 h-6 mx-auto mb-2 text-indigo-500" />
+                        <p className="text-sm text-gray-600">Drop files or click to upload</p>
                         <p className="text-xs text-gray-500 mt-1">Up to 20 images</p>
                     </div>
 
@@ -171,43 +171,45 @@ export default function ImageConvertPage() {
                         onClick={convertedFiles.length > 0 ? resetAll : handleConvert}
                         disabled={isProcessing || files.length === 0}
                         className={`w-full py-3 rounded-xl font-medium flex items-center justify-center gap-2 transition-all ${files.length === 0
-                            ? 'bg-gray-700 text-gray-500 cursor-not-allowed'
+                            ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
                             : convertedFiles.length > 0
-                                ? 'bg-white/10 text-white hover:bg-white/20'
-                                : 'bg-indigo-500 text-white shadow-lg shadow-indigo-500/25 hover:bg-indigo-600'
+                                ? 'bg-white text-gray-900 hover:bg-gray-50 border border-gray-200'
+                                : 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/25 hover:bg-indigo-700'
                             }`}
                     >
                         {isProcessing ? (
                             <>
                                 <Loader2 className="w-4 h-4 animate-spin" />
-                                <span>Converting...</span>
+                                <span className="text-white">Converting...</span>
                             </>
                         ) : convertedFiles.length > 0 ? (
                             <span>Convert More Files</span>
                         ) : (
                             <>
                                 <ArrowRightLeft className="w-4 h-4" />
-                                <span>{files.length > 0 ? `Convert ${files.length} File${files.length > 1 ? 's' : ''}` : 'Add Files to Convert'}</span>
+                                <span className={files.length === 0 ? 'text-gray-400' : 'text-white'}>
+                                    {files.length > 0 ? `Convert ${files.length} File${files.length > 1 ? 's' : ''}` : 'Add Files to Convert'}
+                                </span>
                             </>
                         )}
                     </button>
 
                     {/* Progress */}
                     {isProcessing && (
-                        <div className="bg-white/5 rounded-xl p-4">
+                        <div className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
                             <ProgressBar progress={progress} label={`Converting to ${formatOptions.find(f => f.value === targetFormat)?.ext}...`} />
                         </div>
                     )}
                 </div>
 
                 {/* RIGHT: File List / Results */}
-                <div className="flex-1 bg-white/5 rounded-xl border border-white/10 overflow-hidden flex flex-col min-h-[400px]">
+                <div className="flex-1 bg-white/50 rounded-xl border border-gray-200 overflow-hidden flex flex-col min-h-[400px]">
                     {/* Header */}
-                    <div className="p-4 border-b border-white/5 flex justify-between items-center bg-black/20">
-                        <h2 className="text-sm font-medium text-white flex items-center gap-2">
+                    <div className="p-4 border-b border-gray-200 flex justify-between items-center bg-gray-50/50">
+                        <h2 className="text-sm font-medium text-gray-700 flex items-center gap-2">
                             {convertedFiles.length > 0 ? (
                                 <>
-                                    <CheckCircle2 className="w-4 h-4 text-green-400" />
+                                    <CheckCircle2 className="w-4 h-4 text-green-500" />
                                     Converted Files
                                 </>
                             ) : (
@@ -220,7 +222,7 @@ export default function ImageConvertPage() {
                         {convertedFiles.length > 0 && (
                             <button
                                 onClick={downloadAll}
-                                className="px-3 py-1.5 rounded-lg bg-green-500/20 text-green-400 text-xs font-medium hover:bg-green-500 hover:text-white transition-colors flex items-center gap-1.5"
+                                className="px-3 py-1.5 rounded-lg bg-green-500/20 text-green-600 text-xs font-medium hover:bg-green-500 hover:text-white transition-colors flex items-center gap-1.5"
                             >
                                 <Download className="w-3.5 h-3.5" />
                                 Download All
@@ -241,21 +243,21 @@ export default function ImageConvertPage() {
                         ) : convertedFiles.length > 0 ? (
                             <div className="space-y-2">
                                 {convertedFiles.map(({ original, converted, format }, index) => (
-                                    <div key={index} className="flex items-center gap-3 p-3 rounded-lg bg-black/20 border border-white/5 hover:border-green-500/30 transition-all group">
-                                        <div className="w-10 h-10 bg-green-500/20 rounded-lg flex items-center justify-center shrink-0">
-                                            <span className="text-[10px] font-bold text-green-400 uppercase">{format}</span>
+                                    <div key={index} className="flex items-center gap-3 p-3 rounded-lg bg-white border border-gray-200 hover:border-green-400 transition-all group shadow-sm">
+                                        <div className="w-10 h-10 bg-green-50 text-green-600 rounded-lg flex items-center justify-center shrink-0">
+                                            <span className="text-[10px] font-bold uppercase">{format}</span>
                                         </div>
                                         <div className="flex-1 min-w-0">
-                                            <p className="font-medium truncate text-gray-200 text-sm">{original.name}</p>
+                                            <p className="font-medium truncate text-gray-900 text-sm">{original.name}</p>
                                             <div className="flex items-center gap-2 mt-0.5">
                                                 <span className="text-xs text-gray-500">{formatSize(original.size)}</span>
-                                                <span className="text-gray-600">→</span>
-                                                <span className="text-xs text-green-400">{formatSize(converted.size)}</span>
+                                                <span className="text-gray-400">→</span>
+                                                <span className="text-xs text-green-600">{formatSize(converted.size)}</span>
                                             </div>
                                         </div>
                                         <button
                                             onClick={() => downloadFile(converted, original.name, format)}
-                                            className="p-2 rounded-lg bg-green-500/10 text-green-400 hover:bg-green-500 hover:text-white transition-colors"
+                                            className="p-2 rounded-lg bg-green-50 text-green-600 hover:bg-green-100 transition-colors"
                                             title="Download"
                                         >
                                             <Download className="w-4 h-4" />
@@ -266,17 +268,17 @@ export default function ImageConvertPage() {
                         ) : (
                             <div className="space-y-2">
                                 {files.map((file, i) => (
-                                    <div key={i} className="flex items-center gap-3 p-3 rounded-lg bg-black/20 border border-white/5 hover:border-indigo-500/30 transition-all group">
-                                        <div className="w-10 h-10 bg-indigo-500/10 rounded-lg flex items-center justify-center shrink-0">
-                                            <span className="text-[10px] font-bold text-indigo-400 uppercase">{file.name.split('.').pop()}</span>
+                                    <div key={i} className="flex items-center gap-3 p-3 rounded-lg bg-white border border-gray-200 hover:border-indigo-300 transition-all group shadow-sm">
+                                        <div className="w-10 h-10 bg-indigo-50 text-indigo-600 rounded-lg flex items-center justify-center shrink-0">
+                                            <span className="text-[10px] font-bold uppercase">{file.name.split('.').pop()}</span>
                                         </div>
                                         <div className="flex-1 min-w-0">
-                                            <p className="font-medium truncate text-gray-200 text-sm">{file.name}</p>
+                                            <p className="font-medium truncate text-gray-900 text-sm">{file.name}</p>
                                             <p className="text-xs text-gray-500 mt-0.5">{formatSize(file.size)}</p>
                                         </div>
                                         <button
                                             onClick={() => handleRemoveFile(i)}
-                                            className="p-1.5 rounded-lg text-gray-500 hover:bg-red-500/20 hover:text-red-400 transition-colors opacity-0 group-hover:opacity-100"
+                                            className="p-1.5 rounded-lg text-gray-400 hover:bg-red-50 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100"
                                             title="Remove"
                                         >
                                             <X className="w-4 h-4" />

@@ -64,15 +64,15 @@ export default function JWTDecoderPage() {
             category="developer"
         >
             <div className="space-y-6">
-                <div className="bg-white/5 rounded-xl border border-white/10 overflow-hidden">
-                    <div className="p-3 border-b border-white/5 bg-black/20">
-                        <h3 className="text-sm font-medium text-gray-400">JWT Token</h3>
+                <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
+                    <div className="p-3 border-b border-gray-200 bg-gray-50">
+                        <h3 className="text-sm font-medium text-gray-500">JWT Token</h3>
                     </div>
                     <textarea
                         value={token}
                         onChange={(e) => { setToken(e.target.value); decodeJWT(e.target.value); }}
                         placeholder="Paste your JWT token here..."
-                        className="w-full h-24 p-4 bg-transparent text-white outline-none resize-none font-mono text-sm"
+                        className="w-full h-24 p-4 bg-white text-gray-900 outline-none resize-none font-mono text-sm"
                     />
                 </div>
 
@@ -93,28 +93,28 @@ export default function JWTDecoderPage() {
                 {(header || payload) && (
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                         {header && (
-                            <div className="bg-white/5 rounded-xl border border-white/10 overflow-hidden">
-                                <div className="p-3 border-b border-white/5 bg-black/20 flex justify-between">
-                                    <h3 className="text-sm font-medium text-gray-400">Header</h3>
-                                    <button onClick={() => copyJson('header')} className="p-1 rounded hover:bg-white/10">
-                                        {copied === 'header' ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4 text-gray-400" />}
+                            <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
+                                <div className="p-3 border-b border-gray-200 bg-gray-50 flex justify-between">
+                                    <h3 className="text-sm font-medium text-gray-500">Header</h3>
+                                    <button onClick={() => copyJson('header')} className="p-1 rounded hover:bg-gray-200 transition-colors">
+                                        {copied === 'header' ? <Check className="w-4 h-4 text-green-600" /> : <Copy className="w-4 h-4 text-gray-400" />}
                                     </button>
                                 </div>
-                                <pre className="p-4 text-sm font-mono text-indigo-300 overflow-auto max-h-48">
+                                <pre className="p-4 text-sm font-mono text-indigo-600 overflow-auto max-h-48">
                                     {JSON.stringify(header, null, 2)}
                                 </pre>
                             </div>
                         )}
 
                         {payload && (
-                            <div className="bg-white/5 rounded-xl border border-white/10 overflow-hidden">
-                                <div className="p-3 border-b border-white/5 bg-black/20 flex justify-between">
-                                    <h3 className="text-sm font-medium text-gray-400">Payload</h3>
-                                    <button onClick={() => copyJson('payload')} className="p-1 rounded hover:bg-white/10">
-                                        {copied === 'payload' ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4 text-gray-400" />}
+                            <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
+                                <div className="p-3 border-b border-gray-200 bg-gray-50 flex justify-between">
+                                    <h3 className="text-sm font-medium text-gray-500">Payload</h3>
+                                    <button onClick={() => copyJson('payload')} className="p-1 rounded hover:bg-gray-200 transition-colors">
+                                        {copied === 'payload' ? <Check className="w-4 h-4 text-green-600" /> : <Copy className="w-4 h-4 text-gray-400" />}
                                     </button>
                                 </div>
-                                <pre className="p-4 text-sm font-mono text-green-300 overflow-auto max-h-48">
+                                <pre className="p-4 text-sm font-mono text-green-600 overflow-auto max-h-48">
                                     {JSON.stringify(payload, null, 2)}
                                 </pre>
                             </div>
@@ -123,12 +123,12 @@ export default function JWTDecoderPage() {
                 )}
 
                 {payload && (payload.iat || payload.exp || payload.nbf) && (
-                    <div className="bg-white/5 p-4 rounded-xl border border-white/10">
-                        <h3 className="text-sm font-medium text-gray-400 mb-3">Token Dates</h3>
+                    <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+                        <h3 className="text-sm font-medium text-gray-500 mb-3">Token Dates</h3>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
-                            {payload.iat && <div className="p-3 bg-black/20 rounded-lg"><span className="text-gray-500">Issued:</span> <span className="text-white">{formatDate(payload.iat)}</span></div>}
-                            {payload.exp && <div className={`p-3 rounded-lg ${isExpired ? 'bg-red-500/20' : 'bg-black/20'}`}><span className="text-gray-500">Expires:</span> <span className={isExpired ? 'text-red-400' : 'text-white'}>{formatDate(payload.exp)}</span></div>}
-                            {payload.nbf && <div className="p-3 bg-black/20 rounded-lg"><span className="text-gray-500">Not Before:</span> <span className="text-white">{formatDate(payload.nbf)}</span></div>}
+                            {payload.iat && <div className="p-3 bg-gray-50 rounded-lg"><span className="text-gray-500">Issued:</span> <span className="text-gray-900">{formatDate(payload.iat)}</span></div>}
+                            {payload.exp && <div className={`p-3 rounded-lg ${isExpired ? 'bg-red-50 border border-red-100' : 'bg-gray-50'}`}><span className="text-gray-500">Expires:</span> <span className={isExpired ? 'text-red-500' : 'text-gray-900'}>{formatDate(payload.exp)}</span></div>}
+                            {payload.nbf && <div className="p-3 bg-gray-50 rounded-lg"><span className="text-gray-500">Not Before:</span> <span className="text-gray-900">{formatDate(payload.nbf)}</span></div>}
                         </div>
                     </div>
                 )}

@@ -243,9 +243,9 @@ export default function UnlockPDFPage() {
         >
             {/* Error */}
             {error && (
-                <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/30 flex items-start gap-3">
-                    <AlertCircle className="w-5 h-5 text-red-400 shrink-0" />
-                    <p className="text-red-400 text-sm">{error}</p>
+                <div className="mb-6 p-4 rounded-xl bg-red-50 border border-red-200 flex items-start gap-3">
+                    <AlertCircle className="w-5 h-5 text-red-500 shrink-0" />
+                    <p className="text-red-700 text-sm">{error}</p>
                 </div>
             )}
 
@@ -264,20 +264,20 @@ export default function UnlockPDFPage() {
                 <div className="mt-6 space-y-6">
                     {needsPassword && (
                         <div>
-                            <label className="text-sm font-medium mb-2 block">PDF Password</label>
+                            <label className="text-sm font-medium mb-2 block text-gray-700">PDF Password</label>
                             <div className="relative">
                                 <input
                                     type={showPassword ? 'text' : 'password'}
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                     placeholder="Enter the PDF password"
-                                    className="w-full px-4 py-3 pr-12 rounded-lg bg-white/5 border border-white/10 focus:border-indigo-500 focus:outline-none"
+                                    className="w-full px-4 py-3 pr-12 rounded-lg bg-white border border-gray-200 focus:border-indigo-500 focus:outline-none text-gray-900 shadow-sm"
                                     onKeyDown={(e) => e.key === 'Enter' && handleUnlock()}
                                 />
                                 <button
                                     type="button"
                                     onClick={() => setShowPassword(!showPassword)}
-                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white"
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
                                 >
                                     {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                                 </button>
@@ -286,8 +286,8 @@ export default function UnlockPDFPage() {
                     )}
 
                     {!needsPassword && (
-                        <div className="p-4 rounded-xl bg-green-500/10 border border-green-500/30">
-                            <p className="text-green-400 text-sm flex items-center gap-2">
+                        <div className="p-4 rounded-xl bg-green-50 border border-green-200 shadow-sm">
+                            <p className="text-green-700 text-sm flex items-center gap-2">
                                 <Unlock className="w-4 h-4" />
                                 This PDF is not password protected. You can process it to ensure it's fully decrypted.
                             </p>
@@ -329,11 +329,11 @@ export default function UnlockPDFPage() {
             {/* Result */}
             {resultBlob && (
                 <div className="mt-6 space-y-4">
-                    <div className="p-4 rounded-xl bg-green-500/10 border border-green-500/30">
+                    <div className="p-4 rounded-xl bg-green-50 border border-green-200 shadow-sm">
                         <div className="flex items-center justify-between flex-wrap gap-4">
                             <div>
-                                <p className="text-green-400 font-semibold">PDF Unlocked Successfully!</p>
-                                <p className="text-sm text-gray-400">{formatSize(resultBlob.size)}</p>
+                                <p className="text-green-700 font-semibold">PDF Unlocked Successfully!</p>
+                                <p className="text-sm text-gray-500">{formatSize(resultBlob.size)}</p>
                             </div>
                             <button onClick={downloadResult} className="btn-primary flex items-center gap-2">
                                 <Download className="w-4 h-4" />

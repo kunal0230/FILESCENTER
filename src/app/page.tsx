@@ -146,7 +146,7 @@ function ToolSection({ title, description, tools, icon: Icon, color }: {
   color: string;
 }) {
   return (
-    <section className="py-12">
+    <section className="py-8 sm:py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-3 mb-6">
           <div className={`p-2 rounded-lg ${color}`}>
@@ -157,7 +157,7 @@ function ToolSection({ title, description, tools, icon: Icon, color }: {
             <p className="text-gray-600 text-sm">{description}</p>
           </div>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {tools.map((tool) => (
             <ToolCard key={tool.href} tool={tool} />
           ))}
@@ -171,7 +171,7 @@ export default function HomePage() {
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative overflow-hidden py-20">
+      <section className="relative overflow-hidden py-12 sm:py-20">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute -top-40 -right-40 w-96 h-96 bg-teal-100/40 rounded-full blur-3xl"></div>
           <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-indigo-100/40 rounded-full blur-3xl"></div>
@@ -179,7 +179,7 @@ export default function HomePage() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="text-center max-w-3xl mx-auto">
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 tracking-tight">
+            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold mb-6 tracking-tight">
               <span className="gradient-text">50+ Powerful Tools</span>
               <br />
               <span style={{ color: 'var(--text-heading)' }}>Built for You</span>

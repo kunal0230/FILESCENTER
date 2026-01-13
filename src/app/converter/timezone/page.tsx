@@ -72,25 +72,25 @@ export default function TimezoneConverterPage() {
             category="converter"
         >
             <div className="max-w-2xl mx-auto space-y-6">
-                <div className="bg-white/5 p-6 rounded-xl border border-white/10 space-y-5">
+                <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm space-y-5">
                     {/* Input time and date */}
                     <div className="grid grid-cols-2 gap-4">
                         <div>
-                            <label className="text-sm text-gray-400 block mb-2">Time</label>
+                            <label className="text-sm text-gray-500 block mb-2">Time</label>
                             <input
                                 type="time"
                                 value={inputTime}
                                 onChange={(e) => setInputTime(e.target.value)}
-                                className="w-full px-4 py-3 rounded-lg bg-black/30 border border-white/10 focus:border-indigo-500 text-white outline-none"
+                                className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 text-gray-900 outline-none transition-all"
                             />
                         </div>
                         <div>
-                            <label className="text-sm text-gray-400 block mb-2">Date</label>
+                            <label className="text-sm text-gray-500 block mb-2">Date</label>
                             <input
                                 type="date"
                                 value={inputDate}
                                 onChange={(e) => setInputDate(e.target.value)}
-                                className="w-full px-4 py-3 rounded-lg bg-black/30 border border-white/10 focus:border-indigo-500 text-white outline-none"
+                                className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 text-gray-900 outline-none transition-all"
                             />
                         </div>
                     </div>
@@ -98,11 +98,11 @@ export default function TimezoneConverterPage() {
                     {/* Timezone selectors */}
                     <div className="flex items-center gap-3">
                         <div className="flex-1">
-                            <label className="text-sm text-gray-400 block mb-2">From</label>
+                            <label className="text-sm text-gray-500 block mb-2">From</label>
                             <select
                                 value={fromTz}
                                 onChange={(e) => setFromTz(e.target.value)}
-                                className="w-full px-4 py-3 rounded-lg bg-black/30 border border-white/10 text-white outline-none"
+                                className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 text-gray-900 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all"
                             >
                                 {timezones.map((tz) => (
                                     <option key={tz.id} value={tz.id}>{tz.label}</option>
@@ -112,17 +112,17 @@ export default function TimezoneConverterPage() {
 
                         <button
                             onClick={swapTimezones}
-                            className="mt-6 p-3 rounded-lg bg-indigo-500/20 text-indigo-400 hover:bg-indigo-500 hover:text-white transition-colors"
+                            className="mt-6 p-3 rounded-lg bg-indigo-50 text-indigo-600 hover:bg-indigo-100 hover:text-indigo-700 transition-colors shadow-sm"
                         >
                             <ArrowRightLeft className="w-4 h-4" />
                         </button>
 
                         <div className="flex-1">
-                            <label className="text-sm text-gray-400 block mb-2">To</label>
+                            <label className="text-sm text-gray-500 block mb-2">To</label>
                             <select
                                 value={toTz}
                                 onChange={(e) => setToTz(e.target.value)}
-                                className="w-full px-4 py-3 rounded-lg bg-black/30 border border-white/10 text-white outline-none"
+                                className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 text-gray-900 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all"
                             >
                                 {timezones.map((tz) => (
                                     <option key={tz.id} value={tz.id}>{tz.label}</option>
@@ -134,10 +134,10 @@ export default function TimezoneConverterPage() {
 
                 {/* Result */}
                 {result && (
-                    <div className="bg-gradient-to-br from-indigo-500/20 to-purple-500/20 p-6 rounded-xl border border-indigo-500/30 text-center">
-                        <p className="text-sm text-gray-400 mb-2">Converted Time</p>
-                        <p className="text-2xl font-bold text-white">{result}</p>
-                        <p className="text-sm text-indigo-400 mt-2">
+                    <div className="bg-gradient-to-br from-indigo-50 to-purple-50 p-6 rounded-xl border border-indigo-100 shadow-sm text-center">
+                        <p className="text-sm text-gray-500 mb-2">Converted Time</p>
+                        <p className="text-2xl font-bold text-gray-900">{result}</p>
+                        <p className="text-sm text-indigo-600 mt-2">
                             {timezones.find(t => t.id === toTz)?.label}
                         </p>
                     </div>

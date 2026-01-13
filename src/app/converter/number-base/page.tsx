@@ -68,28 +68,28 @@ export default function NumberBaseConverterPage() {
             category="converter"
         >
             <div className="max-w-2xl mx-auto space-y-6">
-                <div className="bg-white/5 p-6 rounded-xl border border-white/10 space-y-4">
+                <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm space-y-4">
                     <div>
-                        <label className="text-sm text-gray-400 block mb-2">Input Number</label>
+                        <label className="text-sm text-gray-500 block mb-2">Input Number</label>
                         <input
                             type="text"
                             value={input}
                             onChange={(e) => setInput(e.target.value)}
                             placeholder="Enter a number..."
-                            className="w-full px-4 py-3 rounded-lg bg-black/30 border border-white/10 focus:border-indigo-500 text-white outline-none font-mono text-lg"
+                            className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 text-gray-900 outline-none font-mono text-lg transition-all"
                         />
                     </div>
 
                     <div>
-                        <label className="text-sm text-gray-400 block mb-2">Input Base</label>
+                        <label className="text-sm text-gray-500 block mb-2">Input Base</label>
                         <div className="grid grid-cols-4 gap-2">
                             {bases.map(({ id, label }) => (
                                 <button
                                     key={id}
                                     onClick={() => setFromBase(id)}
                                     className={`py-2.5 px-3 rounded-lg text-sm font-medium transition-all ${fromBase === id
-                                            ? 'bg-indigo-500 text-white'
-                                            : 'bg-black/20 text-gray-400 hover:bg-white/10 hover:text-white'
+                                        ? 'bg-indigo-600 text-white shadow-sm'
+                                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-900'
                                         }`}
                                 >
                                     {label}
@@ -110,24 +110,24 @@ export default function NumberBaseConverterPage() {
                             <div
                                 key={id}
                                 className={`p-4 rounded-xl border transition-all ${fromBase === id
-                                        ? 'bg-indigo-500/10 border-indigo-500/30'
-                                        : 'bg-white/5 border-white/10'
+                                    ? 'bg-indigo-50 border-indigo-200 shadow-sm'
+                                    : 'bg-white border-gray-200 shadow-sm'
                                     }`}
                             >
                                 <div className="flex justify-between items-center mb-2">
-                                    <span className="text-sm text-gray-400">{label}</span>
+                                    <span className={`text-sm ${fromBase === id ? 'text-indigo-600' : 'text-gray-500'}`}>{label}</span>
                                     <button
                                         onClick={() => copyToClipboard(id)}
-                                        className="p-1.5 rounded-lg hover:bg-white/10 text-gray-400 hover:text-white"
+                                        className={`p-1.5 rounded-lg hover:bg-gray-200 ${fromBase === id ? 'text-indigo-600 hover:bg-indigo-100' : 'text-gray-400 hover:text-gray-600'}`}
                                     >
                                         {copied === id ? (
-                                            <Check className="w-3.5 h-3.5 text-green-400" />
+                                            <Check className="w-3.5 h-3.5 text-green-600" />
                                         ) : (
                                             <Copy className="w-3.5 h-3.5" />
                                         )}
                                     </button>
                                 </div>
-                                <p className="font-mono text-lg text-white break-all">
+                                <p className="font-mono text-lg text-gray-900 break-all">
                                     <span className="text-gray-500">{prefix}</span>
                                     {results[id]}
                                 </p>

@@ -70,43 +70,43 @@ export default function SortLinesPage() {
             category="text"
         >
             <div className="space-y-6">
-                <div className="bg-white/5 p-4 rounded-xl border border-white/10">
-                    <h3 className="text-sm font-medium text-gray-400 uppercase tracking-wider mb-3">Sort Order</h3>
+                <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+                    <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-3">Sort Order</h3>
                     <div className="grid grid-cols-3 md:grid-cols-6 gap-2">
                         {sortOptions.map(({ id, label }) => (
                             <button
                                 key={id}
                                 onClick={() => setSortOrder(id)}
-                                className={`py-2 px-3 rounded-lg text-sm font-medium transition-all ${sortOrder === id ? 'bg-indigo-500 text-white' : 'bg-black/20 text-gray-400 hover:bg-white/10'
+                                className={`py-2 px-3 rounded-lg text-sm font-medium transition-all ${sortOrder === id ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                                     }`}
                             >
                                 {label}
                             </button>
                         ))}
                     </div>
-                    <label className="flex items-center gap-2 text-sm text-gray-400 mt-3">
-                        <input type="checkbox" checked={removeBlanks} onChange={(e) => setRemoveBlanks(e.target.checked)} className="rounded bg-black/30" />
+                    <label className="flex items-center gap-2 text-sm text-gray-600 mt-3 cursor-pointer">
+                        <input type="checkbox" checked={removeBlanks} onChange={(e) => setRemoveBlanks(e.target.checked)} className="rounded border-gray-300" />
                         Remove blank lines
                     </label>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                    <div className="bg-white/5 rounded-xl border border-white/10 overflow-hidden">
-                        <div className="p-3 border-b border-white/5 bg-black/20">
-                            <h3 className="text-sm font-medium text-gray-400">Input</h3>
+                    <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
+                        <div className="p-3 border-b border-gray-200 bg-gray-50">
+                            <h3 className="text-sm font-medium text-gray-700">Input</h3>
                         </div>
-                        <textarea value={input} onChange={(e) => setInput(e.target.value)} placeholder="Enter lines to sort..." className="w-full h-48 p-4 bg-transparent text-white outline-none resize-none font-mono text-sm" />
+                        <textarea value={input} onChange={(e) => setInput(e.target.value)} placeholder="Enter lines to sort..." className="w-full h-48 p-4 bg-transparent text-gray-900 outline-none resize-none font-mono text-sm" />
                     </div>
-                    <div className="bg-white/5 rounded-xl border border-white/10 overflow-hidden">
-                        <div className="p-3 border-b border-white/5 bg-black/20 flex justify-between">
-                            <h3 className="text-sm font-medium text-gray-400">Sorted Output</h3>
-                            {output && <button onClick={copyToClipboard} className="p-1.5 rounded-lg hover:bg-white/10 text-gray-400 hover:text-white">{copied ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}</button>}
+                    <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
+                        <div className="p-3 border-b border-gray-200 bg-gray-50 flex justify-between">
+                            <h3 className="text-sm font-medium text-gray-700">Sorted Output</h3>
+                            {output && <button onClick={copyToClipboard} className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-500 hover:text-gray-900">{copied ? <Check className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4" />}</button>}
                         </div>
-                        <textarea value={output} readOnly placeholder="Sorted lines..." className="w-full h-48 p-4 bg-transparent text-indigo-300 outline-none resize-none font-mono text-sm" />
+                        <textarea value={output} readOnly placeholder="Sorted lines..." className="w-full h-48 p-4 bg-transparent text-indigo-600 outline-none resize-none font-mono text-sm" />
                     </div>
                 </div>
 
-                <button onClick={sortLines} disabled={!input} className="w-full py-3 rounded-xl font-medium bg-indigo-500 text-white shadow-lg shadow-indigo-500/25 hover:bg-indigo-600 disabled:opacity-50 flex items-center justify-center gap-2">
+                <button onClick={sortLines} disabled={!input} className="w-full py-3 rounded-xl font-medium bg-indigo-600 text-white shadow-lg shadow-indigo-500/25 hover:bg-indigo-700 disabled:opacity-50 flex items-center justify-center gap-2">
                     <ArrowUpDown className="w-4 h-4" />
                     Sort Lines
                 </button>

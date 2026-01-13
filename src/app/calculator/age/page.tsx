@@ -84,21 +84,21 @@ export default function AgeCalculatorPage() {
             {/* Date Inputs */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
                 <div>
-                    <label className="block text-sm font-medium mb-2">Date of Birth</label>
+                    <label className="block text-sm font-medium mb-2 text-gray-700">Date of Birth</label>
                     <input
                         type="date"
                         value={birthDate}
                         onChange={(e) => setBirthDate(e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-indigo-500 focus:outline-none"
+                        className="w-full px-4 py-3 rounded-xl bg-white border border-gray-200 text-gray-900 focus:border-indigo-500 focus:outline-none shadow-sm"
                     />
                 </div>
                 <div>
-                    <label className="block text-sm font-medium mb-2">Age at Date</label>
+                    <label className="block text-sm font-medium mb-2 text-gray-700">Age at Date</label>
                     <input
                         type="date"
                         value={toDate}
                         onChange={(e) => setToDate(e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-indigo-500 focus:outline-none"
+                        className="w-full px-4 py-3 rounded-xl bg-white border border-gray-200 text-gray-900 focus:border-indigo-500 focus:outline-none shadow-sm"
                     />
                 </div>
             </div>
@@ -111,32 +111,32 @@ export default function AgeCalculatorPage() {
             {result && (
                 <div className="space-y-6">
                     {/* Main Result */}
-                    <div className="p-6 rounded-xl bg-gradient-to-br from-indigo-500/20 to-purple-500/20 border border-indigo-500/30 text-center">
-                        <p className="text-gray-400 mb-2">Your age is</p>
-                        <p className="text-4xl font-bold">
-                            <span className="text-indigo-400">{result.years}</span> years,{' '}
-                            <span className="text-purple-400">{result.months}</span> months,{' '}
-                            <span className="text-cyan-400">{result.days}</span> days
+                    <div className="p-6 rounded-xl bg-indigo-50 border border-indigo-100 text-center">
+                        <p className="text-gray-500 mb-2">Your age is</p>
+                        <p className="text-4xl font-bold text-gray-900">
+                            <span className="text-indigo-600">{result.years}</span> years,{' '}
+                            <span className="text-purple-600">{result.months}</span> months,{' '}
+                            <span className="text-cyan-600">{result.days}</span> days
                         </p>
                     </div>
 
                     {/* Stats Grid */}
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                        <div className="p-4 rounded-xl bg-white/5 text-center">
-                            <p className="text-2xl font-bold text-indigo-400">{result.totalMonths.toLocaleString()}</p>
-                            <p className="text-sm text-gray-400">Total Months</p>
+                        <div className="p-4 rounded-xl bg-white border border-gray-200 text-center shadow-sm">
+                            <p className="text-2xl font-bold text-indigo-600">{result.totalMonths.toLocaleString()}</p>
+                            <p className="text-sm text-gray-500">Total Months</p>
                         </div>
-                        <div className="p-4 rounded-xl bg-white/5 text-center">
-                            <p className="text-2xl font-bold text-purple-400">{result.totalWeeks.toLocaleString()}</p>
-                            <p className="text-sm text-gray-400">Total Weeks</p>
+                        <div className="p-4 rounded-xl bg-white border border-gray-200 text-center shadow-sm">
+                            <p className="text-2xl font-bold text-purple-600">{result.totalWeeks.toLocaleString()}</p>
+                            <p className="text-sm text-gray-500">Total Weeks</p>
                         </div>
-                        <div className="p-4 rounded-xl bg-white/5 text-center">
-                            <p className="text-2xl font-bold text-cyan-400">{result.totalDays.toLocaleString()}</p>
-                            <p className="text-sm text-gray-400">Total Days</p>
+                        <div className="p-4 rounded-xl bg-white border border-gray-200 text-center shadow-sm">
+                            <p className="text-2xl font-bold text-cyan-600">{result.totalDays.toLocaleString()}</p>
+                            <p className="text-sm text-gray-500">Total Days</p>
                         </div>
-                        <div className="p-4 rounded-xl bg-white/5 text-center">
-                            <p className="text-2xl font-bold text-green-400">{result.nextBirthday}</p>
-                            <p className="text-sm text-gray-400">Days to Birthday</p>
+                        <div className="p-4 rounded-xl bg-white border border-gray-200 text-center shadow-sm">
+                            <p className="text-2xl font-bold text-green-600">{result.nextBirthday}</p>
+                            <p className="text-sm text-gray-500">Days to Birthday</p>
                         </div>
                     </div>
 

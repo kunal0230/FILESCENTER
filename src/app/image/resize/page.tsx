@@ -198,13 +198,13 @@ export default function ImageResizePage() {
                 <div className="w-full lg:w-[320px] shrink-0 flex flex-col gap-5">
 
                     {/* Resize Mode Toggle */}
-                    <div className="bg-white/5 p-5 rounded-xl border border-white/10">
-                        <div className="flex gap-2 mb-5 bg-black/20 p-1 rounded-lg">
+                    <div className="bg-white/50 p-5 rounded-xl border border-gray-200 shadow-sm">
+                        <div className="flex gap-2 mb-5 bg-gray-100 p-1 rounded-lg">
                             <button
                                 onClick={() => setResizeMode('dimensions')}
                                 className={`flex-1 py-2 px-3 rounded-md text-xs font-medium transition-all ${resizeMode === 'dimensions'
                                     ? 'bg-indigo-500 text-white shadow-sm'
-                                    : 'text-gray-400 hover:text-white hover:bg-white/5'
+                                    : 'text-gray-600 hover:text-indigo-600 hover:bg-indigo-50'
                                     }`}
                             >
                                 Dimensions
@@ -213,7 +213,7 @@ export default function ImageResizePage() {
                                 onClick={() => setResizeMode('percentage')}
                                 className={`flex-1 py-2 px-3 rounded-md text-xs font-medium transition-all ${resizeMode === 'percentage'
                                     ? 'bg-indigo-500 text-white shadow-sm'
-                                    : 'text-gray-400 hover:text-white hover:bg-white/5'
+                                    : 'text-gray-600 hover:text-indigo-600 hover:bg-indigo-50'
                                     }`}
                             >
                                 Percentage
@@ -235,7 +235,7 @@ export default function ImageResizePage() {
                                                     setHeight(Math.round(newWidth / originalAspectRatio));
                                                 }
                                             }}
-                                            className="w-full pl-3 pr-8 py-2 rounded-lg bg-black/30 border border-white/10 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 text-sm text-white transition-all outline-none"
+                                            className="w-full pl-3 pr-8 py-2 rounded-lg bg-gray-50 border border-gray-200 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 text-sm text-gray-900 transition-all outline-none"
                                         />
                                         <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-500">px</span>
                                     </div>
@@ -253,7 +253,7 @@ export default function ImageResizePage() {
                                                     setWidth(Math.round(newHeight * originalAspectRatio));
                                                 }
                                             }}
-                                            className="w-full pl-3 pr-8 py-2 rounded-lg bg-black/30 border border-white/10 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 text-sm text-white transition-all outline-none"
+                                            className="w-full pl-3 pr-8 py-2 rounded-lg bg-gray-50 border border-gray-200 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 text-sm text-gray-900 transition-all outline-none"
                                         />
                                         <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-500">px</span>
                                     </div>
@@ -271,12 +271,12 @@ export default function ImageResizePage() {
                                     max="200"
                                     value={percentage}
                                     onChange={(e) => setPercentage(Number(e.target.value))}
-                                    className="w-full h-1.5 bg-black/40 rounded-lg appearance-none cursor-pointer accent-indigo-500"
+                                    className="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-indigo-500"
                                 />
                             </div>
                         )}
 
-                        <div className="mt-5 pt-4 border-t border-white/5">
+                        <div className="mt-5 pt-4 border-t border-gray-200">
                             <label className="flex items-center gap-3 cursor-pointer group">
                                 <div className={`w-4 h-4 rounded border flex items-center justify-center transition-colors ${maintainAspectRatio ? 'bg-indigo-500 border-indigo-500' : 'border-gray-600 group-hover:border-gray-500'}`}>
                                     {maintainAspectRatio && <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>}
@@ -287,7 +287,7 @@ export default function ImageResizePage() {
                                     onChange={(e) => setMaintainAspectRatio(e.target.checked)}
                                     className="hidden"
                                 />
-                                <span className="text-xs text-gray-400 group-hover:text-gray-300 transition-colors">Maintain aspect ratio</span>
+                                <span className="text-xs text-gray-500 group-hover:text-gray-700 transition-colors">Maintain aspect ratio</span>
                             </label>
                         </div>
                     </div>
@@ -298,8 +298,8 @@ export default function ImageResizePage() {
                         onDragOver={handleDragOver}
                         onDragLeave={() => setIsDragging(false)}
                         className={`relative border-2 border-dashed rounded-xl p-4 text-center transition-all cursor-pointer ${isDragging
-                            ? 'border-indigo-500 bg-indigo-500/10'
-                            : 'border-white/20 hover:border-indigo-500/50 hover:bg-white/5'
+                            ? 'border-indigo-500 bg-indigo-50'
+                            : 'border-gray-200 hover:border-indigo-400 hover:bg-gray-50'
                             }`}
                         onClick={() => document.getElementById('resize-file-input')?.click()}
                     >
@@ -311,8 +311,8 @@ export default function ImageResizePage() {
                             className="hidden"
                             onChange={(e) => handleFilesSelected(Array.from(e.target.files || []))}
                         />
-                        <Upload className="w-6 h-6 mx-auto mb-2 text-indigo-400" />
-                        <p className="text-sm text-gray-300">Drop files or click to upload</p>
+                        <Upload className="w-6 h-6 mx-auto mb-2 text-indigo-500" />
+                        <p className="text-sm text-gray-600">Drop files or click to upload</p>
                         <p className="text-xs text-gray-500 mt-1">Up to 20 images</p>
                     </div>
 
@@ -324,7 +324,7 @@ export default function ImageResizePage() {
                             ? 'bg-gray-700 text-gray-500 cursor-not-allowed'
                             : resizedFiles.length > 0
                                 ? 'bg-white/10 text-white hover:bg-white/20'
-                                : 'bg-indigo-500 text-white shadow-lg shadow-indigo-500/25 hover:bg-indigo-600'
+                                : 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/25 hover:bg-indigo-700'
                             }`}
                     >
                         {isProcessing ? (
@@ -343,17 +343,17 @@ export default function ImageResizePage() {
                     </button>
 
                     {isProcessing && (
-                        <div className="bg-white/5 rounded-xl p-4">
+                        <div className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
                             <ProgressBar progress={progress} label="Resizing images..." />
                         </div>
                     )}
                 </div>
 
                 {/* RIGHT: Preview / Results */}
-                <div className="flex-1 bg-white/5 rounded-xl border border-white/10 overflow-hidden flex flex-col min-h-[400px]">
+                <div className="flex-1 bg-white/50 rounded-xl border border-gray-200 overflow-hidden flex flex-col min-h-[400px]">
                     {/* Header */}
-                    <div className="p-4 border-b border-white/5 flex justify-between items-center bg-black/20">
-                        <h2 className="text-sm font-medium text-white flex items-center gap-2">
+                    <div className="p-4 border-b border-gray-200 flex justify-between items-center bg-gray-50/50">
+                        <h2 className="text-sm font-medium text-gray-700 flex items-center gap-2">
                             {resizedFiles.length > 0 ? (
                                 <>
                                     <CheckCircle2 className="w-4 h-4 text-green-400" />
@@ -395,17 +395,17 @@ export default function ImageResizePage() {
                         ) : resizedFiles.length > 0 ? (
                             <div className="space-y-2">
                                 {resizedFiles.map(({ original, resized, dimensions }, index) => (
-                                    <div key={index} className="flex items-center gap-3 p-3 rounded-lg bg-black/20 border border-white/5 hover:border-green-500/30 transition-all group">
-                                        <div className="w-10 h-10 bg-green-500/20 rounded-lg flex items-center justify-center shrink-0">
-                                            <RefreshCw className="w-4 h-4 text-green-400" />
+                                    <div key={index} className="flex items-center gap-3 p-3 rounded-lg bg-white border border-gray-200 hover:border-green-400 transition-all group shadow-sm">
+                                        <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center shrink-0">
+                                            <RefreshCw className="w-4 h-4 text-green-600" />
                                         </div>
                                         <div className="flex-1 min-w-0">
-                                            <p className="font-medium truncate text-gray-200 text-sm">{original.name}</p>
-                                            <p className="text-xs text-green-400 mt-0.5">{dimensions.width} × {dimensions.height} • {formatSize(resized.size)}</p>
+                                            <p className="font-medium truncate text-gray-900 text-sm">{original.name}</p>
+                                            <p className="text-xs text-green-600 mt-0.5">{dimensions.width} × {dimensions.height} • {formatSize(resized.size)}</p>
                                         </div>
                                         <button
                                             onClick={() => downloadFile(resized, `resized_${original.name}`)}
-                                            className="p-2 rounded-lg bg-green-500/10 text-green-400 hover:bg-green-500 hover:text-white transition-colors"
+                                            className="p-2 rounded-lg bg-green-50 text-green-600 hover:bg-green-100 transition-colors"
                                         >
                                             <Download className="w-4 h-4" />
                                         </button>
@@ -426,7 +426,7 @@ export default function ImageResizePage() {
                                             <img
                                                 src={previewUrl}
                                                 alt="Preview"
-                                                className="max-w-full max-h-[300px] object-contain rounded-lg border border-white/10"
+                                                className="max-w-full max-h-[300px] object-contain rounded-lg border border-gray-200 shadow-sm"
                                             />
                                             {previewDimensions && (
                                                 <div className="absolute bottom-2 left-1/2 -translate-x-1/2 bg-black/80 px-3 py-1 rounded-full text-xs text-white">
@@ -438,12 +438,12 @@ export default function ImageResizePage() {
                                 </div>
 
                                 {/* File List */}
-                                <div className="border-t border-white/5 pt-4 mt-4">
+                                <div className="border-t border-gray-200 pt-4 mt-4">
                                     <p className="text-xs text-gray-500 mb-2">{files.length} file{files.length > 1 ? 's' : ''} selected</p>
                                     <div className="space-y-1.5 max-h-[150px] overflow-y-auto custom-scrollbar">
                                         {files.map((file, i) => (
-                                            <div key={i} className="flex items-center gap-2 p-2 rounded-lg bg-black/20 text-xs group">
-                                                <span className="flex-1 truncate text-gray-300">{file.name}</span>
+                                            <div key={i} className="flex items-center gap-2 p-2 rounded-lg bg-white/50 text-xs group border border-gray-100">
+                                                <span className="flex-1 truncate text-gray-700">{file.name}</span>
                                                 <span className="text-gray-500">{formatSize(file.size)}</span>
                                                 <button
                                                     onClick={() => handleRemoveFile(i)}

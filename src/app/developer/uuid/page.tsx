@@ -59,7 +59,7 @@ export default function UUIDGeneratorPage() {
                                 <div className="flex gap-2">
                                     <button
                                         onClick={() => setVersion('v4')}
-                                        className={`flex-1 py-2 px-3 rounded-lg text-sm font-medium transition-all ${version === 'v4' ? 'bg-indigo-500 text-white' : 'bg-black/20 text-gray-400 hover:bg-white/10'
+                                        className={`flex-1 py-2 px-3 rounded-lg text-sm font-medium transition-all ${version === 'v4' ? 'bg-indigo-600 text-white shadow-sm' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                                             }`}
                                     >
                                         UUID v4 (Random)
@@ -95,19 +95,19 @@ export default function UUIDGeneratorPage() {
                     {uuids.length > 1 && (
                         <button
                             onClick={copyAll}
-                            className="w-full py-2.5 rounded-xl font-medium bg-white/10 text-white hover:bg-white/20 flex items-center justify-center gap-2"
+                            className="w-full py-2.5 rounded-xl font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 flex items-center justify-center gap-2 transition-colors"
                         >
-                            {copiedIndex === -1 ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
+                            {copiedIndex === -1 ? <Check className="w-4 h-4 text-green-600" /> : <Copy className="w-4 h-4" />}
                             Copy All
                         </button>
                     )}
                 </div>
 
                 {/* RIGHT: Results */}
-                <div className="flex-1 bg-white/5 rounded-xl border border-white/10 flex flex-col min-h-[400px]">
-                    <div className="p-4 border-b border-white/5 bg-black/20">
-                        <h2 className="text-sm font-medium text-white flex items-center gap-2">
-                            <Fingerprint className="w-4 h-4 text-indigo-400" />
+                <div className="flex-1 bg-white rounded-xl border border-gray-200 shadow-sm flex flex-col min-h-[400px]">
+                    <div className="p-4 border-b border-gray-200 bg-gray-50 rounded-t-xl">
+                        <h2 className="text-sm font-medium text-gray-700 flex items-center gap-2">
+                            <Fingerprint className="w-4 h-4 text-indigo-600" />
                             Generated UUIDs
                         </h2>
                     </div>
@@ -125,16 +125,16 @@ export default function UUIDGeneratorPage() {
                                 {uuids.map((uuid, index) => (
                                     <div
                                         key={index}
-                                        className="flex items-center gap-3 p-3 rounded-lg bg-black/20 border border-white/5 hover:border-indigo-500/30 group transition-all"
+                                        className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 border border-gray-100 hover:border-indigo-300 group transition-all"
                                     >
-                                        <span className="text-xs text-gray-500 w-6">{index + 1}.</span>
-                                        <code className="flex-1 font-mono text-sm text-indigo-300 select-all">{uuid}</code>
+                                        <span className="text-xs text-gray-400 w-6">{index + 1}.</span>
+                                        <code className="flex-1 font-mono text-sm text-indigo-600 select-all">{uuid}</code>
                                         <button
                                             onClick={() => copyToClipboard(uuid, index)}
-                                            className="p-2 rounded-lg bg-black/20 text-gray-400 hover:text-white hover:bg-indigo-500/20 transition-colors"
+                                            className="p-2 rounded-lg bg-gray-100 text-gray-400 hover:text-gray-900 hover:bg-gray-200 transition-colors"
                                         >
                                             {copiedIndex === index ? (
-                                                <Check className="w-4 h-4 text-green-400" />
+                                                <Check className="w-4 h-4 text-green-600" />
                                             ) : (
                                                 <Copy className="w-4 h-4" />
                                             )}

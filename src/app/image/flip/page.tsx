@@ -89,14 +89,14 @@ export default function FlipImagePage() {
 
                     {files.length > 0 && (
                         <>
-                            <div className="bg-white/5 p-4 rounded-xl border border-white/10">
-                                <h3 className="text-sm font-medium text-gray-400 uppercase tracking-wider mb-3">Flip Options</h3>
+                            <div className="bg-white/50 p-4 rounded-xl border border-gray-200 shadow-sm">
+                                <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-3">Flip Options</h3>
                                 <div className="grid grid-cols-2 gap-3">
                                     <button
                                         onClick={() => setFlipH(!flipH)}
                                         className={`p-4 rounded-xl flex flex-col items-center gap-2 transition-all ${flipH
-                                                ? 'bg-indigo-500 text-white'
-                                                : 'bg-black/20 text-gray-400 hover:bg-white/10'
+                                            ? 'bg-indigo-500 text-white shadow-sm'
+                                            : 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-200'
                                             }`}
                                     >
                                         <FlipHorizontal className="w-6 h-6" />
@@ -105,8 +105,8 @@ export default function FlipImagePage() {
                                     <button
                                         onClick={() => setFlipV(!flipV)}
                                         className={`p-4 rounded-xl flex flex-col items-center gap-2 transition-all ${flipV
-                                                ? 'bg-indigo-500 text-white'
-                                                : 'bg-black/20 text-gray-400 hover:bg-white/10'
+                                            ? 'bg-indigo-500 text-white shadow-sm'
+                                            : 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-200'
                                             }`}
                                     >
                                         <FlipVertical className="w-6 h-6" />
@@ -117,7 +117,7 @@ export default function FlipImagePage() {
 
                             <button
                                 onClick={() => { setFlipH(false); setFlipV(false); }}
-                                className="w-full py-2.5 rounded-xl font-medium bg-white/10 text-white hover:bg-white/20"
+                                className="w-full py-2.5 rounded-xl font-medium bg-white text-gray-600 hover:bg-gray-50 border border-gray-200"
                             >
                                 Reset
                             </button>
@@ -135,7 +135,7 @@ export default function FlipImagePage() {
                 </div>
 
                 {/* Right: Preview */}
-                <div className="flex-1 bg-white/5 rounded-xl border border-white/10 min-h-[400px] flex items-center justify-center overflow-hidden">
+                <div className="flex-1 bg-white/50 rounded-xl border border-gray-200 min-h-[400px] flex items-center justify-center overflow-hidden">
                     {previewUrl ? (
                         <div className="p-8">
                             <img

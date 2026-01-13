@@ -259,9 +259,9 @@ export default function WatermarkPDFPage() {
 
             {/* Error */}
             {error && (
-                <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/30 flex items-start gap-3">
-                    <AlertCircle className="w-5 h-5 text-red-400 shrink-0" />
-                    <p className="text-red-400 text-sm">{error}</p>
+                <div className="mb-6 p-4 rounded-xl bg-red-50 border border-red-200 flex items-start gap-3">
+                    <AlertCircle className="w-5 h-5 text-red-500 shrink-0" />
+                    <p className="text-red-700 text-sm">{error}</p>
                 </div>
             )}
 
@@ -276,43 +276,43 @@ export default function WatermarkPDFPage() {
             />
 
             {pageCount > 0 && (
-                <p className="mt-2 text-sm text-indigo-400 text-center">
+                <p className="mt-2 text-sm text-indigo-600 text-center font-medium">
                     PDF has {pageCount} page{pageCount !== 1 ? 's' : ''}
                 </p>
             )}
 
             {/* Options */}
             {files.length > 0 && !resultBlob && (
-                <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
                     {/* Left Column - Controls */}
-                    <div className="space-y-5">
+                    <div className="space-y-5 bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
                         {/* Watermark Text */}
                         <div>
-                            <label className="text-sm font-medium mb-2 block flex items-center gap-2">
-                                <Type className="w-4 h-4" /> Watermark Text
+                            <label className="text-sm font-medium text-gray-700 mb-2 block flex items-center gap-2">
+                                <Type className="w-4 h-4 text-indigo-500" /> Watermark Text
                             </label>
                             <input
                                 type="text"
                                 value={watermarkText}
                                 onChange={(e) => setWatermarkText(e.target.value)}
                                 placeholder="Enter watermark text"
-                                className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 focus:border-indigo-500 focus:outline-none text-lg"
+                                className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-100 text-lg text-gray-900 placeholder:text-gray-400"
                             />
                         </div>
 
                         {/* Position Grid */}
                         <div>
-                            <label className="text-sm font-medium mb-2 block flex items-center gap-2">
-                                <Move className="w-4 h-4" /> Position
+                            <label className="text-sm font-medium text-gray-700 mb-2 block flex items-center gap-2">
+                                <Move className="w-4 h-4 text-indigo-500" /> Position
                             </label>
                             <div className="grid grid-cols-3 gap-2">
                                 {positions.map(({ value, label }) => (
                                     <button
                                         key={value}
                                         onClick={() => setPosition(value)}
-                                        className={`py-2 px-2 rounded-lg text-xs transition-colors ${position === value
-                                            ? 'bg-indigo-500 text-white'
-                                            : 'bg-white/5 hover:bg-white/10'
+                                        className={`py-2 px-2 rounded-lg text-xs font-medium transition-all ${position === value
+                                            ? 'bg-indigo-600 text-white shadow-md shadow-indigo-500/20'
+                                            : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                                             }`}
                                     >
                                         {label}
@@ -324,7 +324,7 @@ export default function WatermarkPDFPage() {
                         {/* Font Size */}
                         <div>
                             <div className="flex justify-between items-center mb-2">
-                                <label className="text-sm font-medium">Font Size: {fontSize}px</label>
+                                <label className="text-sm font-medium text-gray-700">Font Size: {fontSize}px</label>
                             </div>
                             <input
                                 type="range"
@@ -332,9 +332,9 @@ export default function WatermarkPDFPage() {
                                 max="120"
                                 value={fontSize}
                                 onChange={(e) => setFontSize(Number(e.target.value))}
-                                className="w-full"
+                                className="w-full accent-indigo-600"
                             />
-                            <div className="flex justify-between text-xs text-gray-500">
+                            <div className="flex justify-between text-xs text-gray-400">
                                 <span>Small</span>
                                 <span>Large</span>
                             </div>
@@ -342,30 +342,33 @@ export default function WatermarkPDFPage() {
 
                         {/* Color */}
                         <div>
-                            <label className="text-sm font-medium mb-2 block">Color</label>
+                            <label className="text-sm font-medium text-gray-700 mb-2 block">Color</label>
                             <div className="flex gap-2 items-center">
                                 {presetColors.map((c) => (
                                     <button
                                         key={c}
                                         onClick={() => setColor(c)}
-                                        className={`w-8 h-8 rounded-lg border-2 transition-transform ${color === c ? 'border-white scale-110' : 'border-transparent'
+                                        className={`w-8 h-8 rounded-lg border-2 transition-transform shadow-sm ${color === c ? 'border-gray-900 scale-110' : 'border-transparent hover:scale-105'
                                             }`}
                                         style={{ backgroundColor: c }}
+                                        title={c}
                                     />
                                 ))}
-                                <input
-                                    type="color"
-                                    value={color}
-                                    onChange={(e) => setColor(e.target.value)}
-                                    className="w-8 h-8 rounded-lg cursor-pointer"
-                                />
+                                <div className="relative w-8 h-8 rounded-lg overflow-hidden border border-gray-200 shadow-sm">
+                                    <input
+                                        type="color"
+                                        value={color}
+                                        onChange={(e) => setColor(e.target.value)}
+                                        className="absolute -top-2 -left-2 w-16 h-16 cursor-pointer"
+                                    />
+                                </div>
                             </div>
                         </div>
 
                         {/* Opacity */}
                         <div>
                             <div className="flex justify-between items-center mb-2">
-                                <label className="text-sm font-medium">Opacity: {opacity}%</label>
+                                <label className="text-sm font-medium text-gray-700">Opacity: {opacity}%</label>
                             </div>
                             <input
                                 type="range"
@@ -374,143 +377,141 @@ export default function WatermarkPDFPage() {
                                 step="5"
                                 value={opacity}
                                 onChange={(e) => setOpacity(Number(e.target.value))}
-                                className="w-full"
+                                className="w-full accent-indigo-600"
                             />
-                            <div className="flex justify-between text-xs text-gray-500">
+                            <div className="flex justify-between text-xs text-gray-400">
                                 <span>Subtle</span>
                                 <span>Visible</span>
                             </div>
                         </div>
                     </div>
 
-                    {/* Right Column - Preview */}
-                    <div>
-                        <label className="text-sm font-medium mb-2 block">Live Preview</label>
-                        <div className="relative rounded-xl overflow-hidden border border-white/10 bg-gray-900">
-                            {isLoadingPreview ? (
-                                <div className="h-80 flex items-center justify-center">
-                                    <Loader2 className="w-8 h-8 animate-spin text-indigo-400" />
-                                </div>
-                            ) : previewUrl ? (
-                                <div className="relative">
-                                    <img
-                                        src={previewUrl}
-                                        alt="PDF Preview"
-                                        className="w-full h-auto max-h-80 object-contain"
-                                    />
-                                    {/* Watermark overlay */}
-                                    <div
-                                        className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden"
-                                        style={{
-                                            ...(position === 'tile' ? {
-                                                background: `repeating-linear-gradient(
+                    {/* Right Column - Preview & Action */}
+                    <div className="flex flex-col gap-6">
+                        <div className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
+                            <label className="text-sm font-medium text-gray-700 mb-2 block">Live Preview</label>
+                            <div className="relative rounded-xl overflow-hidden border border-gray-200 bg-gray-50 flex items-center justify-center min-h-[300px]">
+                                {isLoadingPreview ? (
+                                    <div className="h-80 flex items-center justify-center">
+                                        <Loader2 className="w-8 h-8 animate-spin text-indigo-600" />
+                                    </div>
+                                ) : previewUrl ? (
+                                    <div className="relative w-full">
+                                        <img
+                                            src={previewUrl}
+                                            alt="PDF Preview"
+                                            className="w-full h-auto max-h-[400px] object-contain mx-auto shadow-sm"
+                                        />
+                                        {/* Watermark overlay */}
+                                        <div
+                                            className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden"
+                                            style={{
+                                                ...(position === 'tile' ? {
+                                                    background: `repeating-linear-gradient(
                           -45deg,
                           transparent,
                           transparent 80px,
                           ${color}${Math.round(opacity * 0.3).toString(16).padStart(2, '0')} 80px,
                           ${color}${Math.round(opacity * 0.3).toString(16).padStart(2, '0')} 81px
                         )`
-                                            } : {})
-                                        }}
-                                    >
-                                        {position !== 'tile' && (
-                                            <span
-                                                className="whitespace-nowrap font-bold"
-                                                style={{
-                                                    color: color,
-                                                    opacity: opacity / 100,
-                                                    fontSize: `${Math.min(fontSize * 0.5, 48)}px`,
-                                                    transform: position === 'diagonal' ? 'rotate(-45deg)' : 'none',
-                                                    position: 'absolute',
-                                                    ...(position === 'top-left' && { top: '10%', left: '5%' }),
-                                                    ...(position === 'top-center' && { top: '10%', left: '50%', transform: 'translateX(-50%)' }),
-                                                    ...(position === 'top-right' && { top: '10%', right: '5%' }),
-                                                    ...(position === 'center' && { top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }),
-                                                    ...(position === 'diagonal' && { top: '50%', left: '50%', transform: 'translate(-50%, -50%) rotate(-45deg)' }),
-                                                    ...(position === 'bottom-left' && { bottom: '10%', left: '5%' }),
-                                                    ...(position === 'bottom-center' && { bottom: '10%', left: '50%', transform: 'translateX(-50%)' }),
-                                                    ...(position === 'bottom-right' && { bottom: '10%', right: '5%' }),
-                                                }}
-                                            >
-                                                {watermarkText || 'WATERMARK'}
-                                            </span>
-                                        )}
-                                        {position === 'tile' && (
-                                            <div className="absolute inset-0 flex flex-wrap justify-center items-center gap-8" style={{ transform: 'rotate(-45deg) scale(1.5)' }}>
-                                                {Array(9).fill(0).map((_, i) => (
-                                                    <span
-                                                        key={i}
-                                                        style={{
-                                                            color: color,
-                                                            opacity: (opacity / 100) * 0.5,
-                                                            fontSize: `${Math.min(fontSize * 0.4, 24)}px`,
-                                                        }}
-                                                        className="font-bold"
-                                                    >
-                                                        {watermarkText}
-                                                    </span>
-                                                ))}
-                                            </div>
-                                        )}
+                                                } : {})
+                                            }}
+                                        >
+                                            {position !== 'tile' && (
+                                                <span
+                                                    className="whitespace-nowrap font-bold"
+                                                    style={{
+                                                        color: color,
+                                                        opacity: opacity / 100,
+                                                        fontSize: `${Math.min(fontSize * 0.5, 48)}px`,
+                                                        transform: position === 'diagonal' ? 'rotate(-45deg)' : 'none',
+                                                        position: 'absolute',
+                                                        ...(position === 'top-left' && { top: '10%', left: '5%' }),
+                                                        ...(position === 'top-center' && { top: '10%', left: '50%', transform: 'translateX(-50%)' }),
+                                                        ...(position === 'top-right' && { top: '10%', right: '5%' }),
+                                                        ...(position === 'center' && { top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }),
+                                                        ...(position === 'diagonal' && { top: '50%', left: '50%', transform: 'translate(-50%, -50%) rotate(-45deg)' }),
+                                                        ...(position === 'bottom-left' && { bottom: '10%', left: '5%' }),
+                                                        ...(position === 'bottom-center' && { bottom: '10%', left: '50%', transform: 'translateX(-50%)' }),
+                                                        ...(position === 'bottom-right' && { bottom: '10%', right: '5%' }),
+                                                    }}
+                                                >
+                                                    {watermarkText || 'WATERMARK'}
+                                                </span>
+                                            )}
+                                            {position === 'tile' && (
+                                                <div className="absolute inset-0 flex flex-wrap justify-center items-center gap-8" style={{ transform: 'rotate(-45deg) scale(1.5)' }}>
+                                                    {Array(9).fill(0).map((_, i) => (
+                                                        <span
+                                                            key={i}
+                                                            style={{
+                                                                color: color,
+                                                                opacity: (opacity / 100) * 0.5,
+                                                                fontSize: `${Math.min(fontSize * 0.4, 24)}px`,
+                                                            }}
+                                                            className="font-bold"
+                                                        >
+                                                            {watermarkText}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                            )}
+                                        </div>
                                     </div>
-                                </div>
-                            ) : (
-                                <div className="h-80 flex items-center justify-center text-gray-500">
-                                    Preview will appear here
-                                </div>
-                            )}
+                                ) : (
+                                    <div className="h-80 flex items-center justify-center text-gray-400">
+                                        Preview will appear here
+                                    </div>
+                                )}
+                            </div>
                         </div>
-                    </div>
-                </div>
-            )}
 
-            {/* Add Watermark Button */}
-            {files.length > 0 && !resultBlob && (
-                <div className="mt-6">
-                    <button
-                        onClick={handleAddWatermark}
-                        disabled={isProcessing || !watermarkText.trim()}
-                        className="btn-primary w-full flex items-center justify-center gap-2 disabled:opacity-50"
-                    >
-                        {isProcessing ? (
-                            <>
-                                <Loader2 className="w-5 h-5 animate-spin" />
-                                Adding watermark... ({Math.round(progress)}%)
-                            </>
-                        ) : (
-                            <>
-                                <Layers className="w-5 h-5" />
-                                Add Watermark to All Pages
-                            </>
-                        )}
-                    </button>
+                        {/* Add Watermark Button */}
+                        <button
+                            onClick={handleAddWatermark}
+                            disabled={isProcessing || !watermarkText.trim()}
+                            className="w-full py-4 rounded-xl font-bold bg-indigo-600 text-white shadow-lg shadow-indigo-500/25 hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-lg transition-all"
+                        >
+                            {isProcessing ? (
+                                <>
+                                    <Loader2 className="w-5 h-5 animate-spin" />
+                                    Adding watermark... ({Math.round(progress)}%)
+                                </>
+                            ) : (
+                                <>
+                                    <Layers className="w-5 h-5" />
+                                    Add Watermark to All Pages
+                                </>
+                            )}
+                        </button>
+                    </div>
                 </div>
             )}
 
             {/* Progress */}
             {isProcessing && (
-                <div className="mt-6">
+                <div className="mt-8 max-w-md mx-auto">
                     <ProgressBar progress={progress} label="Adding watermark to pages..." />
                 </div>
             )}
 
             {/* Result */}
             {resultBlob && (
-                <div className="mt-6 space-y-4">
-                    <div className="p-4 rounded-xl bg-green-500/10 border border-green-500/30">
-                        <div className="flex items-center justify-between flex-wrap gap-4">
-                            <div>
-                                <p className="text-green-400 font-semibold">Watermark added successfully!</p>
-                                <p className="text-sm text-gray-400">{formatSize(resultBlob.size)}</p>
-                            </div>
-                            <button onClick={downloadResult} className="btn-primary flex items-center gap-2">
-                                <Download className="w-4 h-4" />
-                                Download
-                            </button>
+                <div className="mt-8 space-y-4 max-w-lg mx-auto">
+                    <div className="p-6 rounded-xl bg-green-50 border border-green-200 shadow-sm text-center">
+                        <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <Layers className="w-8 h-8 text-green-600" />
                         </div>
+                        <h3 className="text-xl font-bold text-gray-900 mb-2">Watermark Added Successfully!</h3>
+                        <p className="text-gray-500 mb-6">{formatSize(resultBlob.size)} • Ready for download</p>
+
+                        <button onClick={downloadResult} className="w-full py-3 rounded-xl font-bold bg-green-600 text-white shadow-lg shadow-green-500/25 hover:bg-green-700 flex items-center justify-center gap-2 transition-all">
+                            <Download className="w-5 h-5" />
+                            Download Watermarked PDF
+                        </button>
                     </div>
 
-                    <button onClick={resetAll} className="btn-secondary w-full">
+                    <button onClick={resetAll} className="w-full py-3 rounded-xl font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors">
                         Watermark Another PDF
                     </button>
                 </div>

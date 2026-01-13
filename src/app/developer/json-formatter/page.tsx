@@ -1,7 +1,5 @@
-'use client';
-
 import { useState, useCallback, useMemo } from 'react';
-import { Code, Copy, Check, RefreshCw, AlertCircle } from 'lucide-react';
+import { FileJson, Copy, Check, RefreshCw, AlertCircle } from 'lucide-react';
 import { ToolLayout } from '@/components/tools/ToolLayout';
 
 interface JsonError {
@@ -180,24 +178,24 @@ export default function JsonFormatterPage() {
         <ToolLayout
             title="JSON Formatter"
             description="Format, validate, and minify JSON data"
-            icon={<Code className="w-6 h-6 text-white" />}
-            category="image"
+            icon={<FileJson className="w-6 h-6 text-white" />}
+            category="developer"
         >
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 {/* Input */}
                 <div>
                     <div className="flex justify-between items-center mb-2">
-                        <label className="text-sm font-medium">Input JSON</label>
+                        <label className="text-sm font-medium text-gray-700">Input JSON</label>
                         <div className="flex gap-2">
                             <button
                                 onClick={sampleJson}
-                                className="text-xs text-indigo-400 hover:text-indigo-300 transition-colors"
+                                className="text-xs text-indigo-600 hover:text-indigo-700 transition-colors"
                             >
                                 Load Sample
                             </button>
                             <button
                                 onClick={clearAll}
-                                className="text-xs text-gray-400 hover:text-gray-300 transition-colors"
+                                className="text-xs text-gray-500 hover:text-gray-700 transition-colors"
                             >
                                 Clear
                             </button>
@@ -210,7 +208,7 @@ export default function JsonFormatterPage() {
                             setError(null);
                         }}
                         placeholder='{"key": "value"}'
-                        className={`w-full h-64 p-4 rounded-xl bg-white/5 border focus:outline-none resize-none font-mono text-sm text-white placeholder-gray-500 ${error ? 'border-red-500/50 focus:border-red-500' : 'border-white/10 focus:border-indigo-500'
+                        className={`w-full h-64 p-4 rounded-xl bg-white border focus:outline-none resize-none font-mono text-sm text-gray-900 placeholder-gray-400 shadow-sm transition-colors ${error ? 'border-red-300 focus:border-red-500' : 'border-gray-200 focus:border-indigo-500'
                             }`}
                         spellCheck={false}
                     />
@@ -224,9 +222,9 @@ export default function JsonFormatterPage() {
                 {/* Output */}
                 <div>
                     <div className="flex justify-between items-center mb-2">
-                        <label className="text-sm font-medium">Output</label>
+                        <label className="text-sm font-medium text-gray-700">Output</label>
                         {stats && (
-                            <span className="text-xs text-gray-400">
+                            <span className="text-xs text-gray-500">
                                 {stats.type} • {stats.keys > 0 ? `${stats.keys} keys • ` : ''}{stats.size.toLocaleString()} bytes
                             </span>
                         )}
@@ -235,36 +233,38 @@ export default function JsonFormatterPage() {
                         value={output}
                         readOnly
                         placeholder="Formatted JSON will appear here..."
-                        className={`w-full h-64 p-4 rounded-xl bg-white/5 border border-white/10 resize-none font-mono text-sm placeholder-gray-500 ${output === '✓ Valid JSON' ? 'text-green-400' : 'text-green-400'
+                        className={`w-full h-64 p-4 rounded-xl bg-gray-50 border border-gray-200 resize-none font-mono text-sm shadow-sm ${output === '✓ Valid JSON' ? 'text-green-600' : 'text-gray-900 placeholder-gray-400'
                             }`}
                     />
                 </div>
             </div>
 
             {/* Error */}
-            {error && (
-                <div className="mt-4 p-4 rounded-xl bg-red-500/10 border border-red-500/30 flex items-start gap-3">
-                    <AlertCircle className="w-5 h-5 text-red-400 shrink-0 mt-0.5" />
-                    <div>
-                        <p className="text-red-400 text-sm font-medium">Invalid JSON</p>
-                        <p className="text-red-400/80 text-sm mt-1">{error.message}</p>
-                        {error.line && (
-                            <p className="text-red-400/60 text-xs mt-1">
-                                Line {error.line}, Column {error.column}
-                            </p>
-                        )}
+            {
+                error && (
+                    <div className="mt-4 p-4 rounded-xl bg-red-50 border border-red-200 flex items-start gap-3">
+                        <AlertCircle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
+                        <div>
+                            <p className="text-red-700 text-sm font-medium">Invalid JSON</p>
+                            <p className="text-red-600 text-sm mt-1">{error.message}</p>
+                            {error.line && (
+                                <p className="text-red-500 text-xs mt-1">
+                                    Line {error.line}, Column {error.column}
+                                </p>
+                            )}
+                        </div>
                     </div>
-                </div>
-            )}
+                )
+            }
 
             {/* Controls */}
             <div className="mt-6 flex flex-wrap gap-3 items-center">
                 <div className="flex items-center gap-2">
-                    <label className="text-sm text-gray-400">Indent:</label>
+                    <label className="text-sm text-gray-500">Indent:</label>
                     <select
                         value={indentSize}
                         onChange={(e) => setIndentSize(Number(e.target.value))}
-                        className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-sm focus:outline-none focus:border-indigo-500"
+                        className="px-3 py-1.5 rounded-lg bg-white border border-gray-200 text-sm text-gray-700 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
                     >
                         <option value={2}>2 spaces</option>
                         <option value={4}>4 spaces</option>
@@ -282,14 +282,14 @@ export default function JsonFormatterPage() {
                 </button>
                 <button
                     onClick={minifyJson}
-                    className="btn-secondary"
+                    className="btn-secondary text-gray-700 bg-white border-gray-200 hover:bg-gray-50"
                     disabled={!input.trim()}
                 >
                     Minify
                 </button>
                 <button
                     onClick={validateJson}
-                    className="btn-secondary"
+                    className="btn-secondary text-gray-700 bg-white border-gray-200 hover:bg-gray-50"
                     disabled={!input.trim()}
                 >
                     Validate
@@ -297,13 +297,13 @@ export default function JsonFormatterPage() {
                 {output && output !== '✓ Valid JSON' && (
                     <button
                         onClick={copyOutput}
-                        className="btn-secondary flex items-center gap-2"
+                        className="btn-secondary flex items-center gap-2 text-gray-700 bg-white border-gray-200 hover:bg-gray-50"
                     >
-                        {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                        {copied ? <Check className="w-4 h-4 text-green-600" /> : <Copy className="w-4 h-4" />}
                         {copied ? 'Copied!' : 'Copy'}
                     </button>
                 )}
             </div>
-        </ToolLayout>
+        </ToolLayout >
     );
 }

@@ -137,11 +137,11 @@ export default function LoremGeneratorPage() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
                 {/* Type */}
                 <div>
-                    <label className="text-sm font-medium mb-2 block">Generate</label>
+                    <label className="text-sm font-medium mb-2 block text-gray-700">Generate</label>
                     <select
                         value={type}
                         onChange={(e) => setType(e.target.value as LoremType)}
-                        className="w-full px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 focus:border-indigo-500 focus:outline-none"
+                        className="w-full px-4 py-2.5 rounded-lg bg-white border border-gray-200 focus:border-indigo-500 focus:outline-none text-gray-900"
                     >
                         <option value="paragraphs">Paragraphs</option>
                         <option value="sentences">Sentences</option>
@@ -151,7 +151,7 @@ export default function LoremGeneratorPage() {
 
                 {/* Count */}
                 <div>
-                    <label className="text-sm font-medium mb-2 block">Count: {count}</label>
+                    <label className="text-sm font-medium mb-2 block text-gray-700">Count: {count}</label>
                     <input
                         type="range"
                         min="1"
@@ -164,14 +164,14 @@ export default function LoremGeneratorPage() {
 
                 {/* Start with Lorem */}
                 <div className="flex items-end">
-                    <label className="flex items-center gap-2 p-2.5 rounded-lg bg-white/5 cursor-pointer hover:bg-white/10 w-full">
+                    <label className="flex items-center gap-2 p-2.5 rounded-lg bg-white border border-gray-200 cursor-pointer hover:bg-gray-50 w-full shadow-sm">
                         <input
                             type="checkbox"
                             checked={startWithLorem}
                             onChange={(e) => setStartWithLorem(e.target.checked)}
-                            className="w-4 h-4 rounded"
+                            className="w-4 h-4 rounded border-gray-300"
                         />
-                        <span className="text-sm">Start with "Lorem ipsum"</span>
+                        <span className="text-sm text-gray-700">Start with "Lorem ipsum"</span>
                     </label>
                 </div>
             </div>
@@ -189,13 +189,13 @@ export default function LoremGeneratorPage() {
                         <textarea
                             value={output}
                             readOnly
-                            className="w-full h-64 p-4 rounded-xl bg-white/5 border border-white/10 resize-none text-sm"
+                            className="w-full h-64 p-4 rounded-xl bg-white border border-gray-200 resize-none text-sm text-gray-900 shadow-sm"
                         />
                     </div>
 
                     {/* Stats and Copy */}
                     <div className="mt-4 flex items-center justify-between">
-                        <p className="text-sm text-gray-400">
+                        <p className="text-sm text-gray-500">
                             {wordCount.toLocaleString()} words • {charCount.toLocaleString()} characters
                         </p>
                         <button onClick={copyOutput} className="btn-secondary flex items-center gap-2">

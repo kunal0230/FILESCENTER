@@ -88,16 +88,16 @@ export default function EpochConverterPage() {
                 </div>
 
                 {/* Unit Toggle */}
-                <div className="flex gap-2 bg-white/5 p-1.5 rounded-xl">
+                <div className="flex gap-2 bg-gray-100 p-1.5 rounded-xl border border-gray-200">
                     <button
                         onClick={() => setUnit('seconds')}
-                        className={`flex-1 py-2 px-4 rounded-lg text-sm font-medium ${unit === 'seconds' ? 'bg-indigo-500 text-white' : 'text-gray-400'}`}
+                        className={`flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all ${unit === 'seconds' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-900'}`}
                     >
                         Seconds
                     </button>
                     <button
                         onClick={() => setUnit('milliseconds')}
-                        className={`flex-1 py-2 px-4 rounded-lg text-sm font-medium ${unit === 'milliseconds' ? 'bg-indigo-500 text-white' : 'text-gray-400'}`}
+                        className={`flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all ${unit === 'milliseconds' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-900'}`}
                     >
                         Milliseconds
                     </button>
@@ -105,44 +105,44 @@ export default function EpochConverterPage() {
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                     {/* Epoch to Date */}
-                    <div className="bg-white/5 p-4 rounded-xl border border-white/10">
-                        <h3 className="text-sm font-medium text-gray-400 mb-3">Epoch → Date</h3>
+                    <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+                        <h3 className="text-sm font-medium text-gray-500 mb-3">Epoch → Date</h3>
                         <input
                             type="number"
                             value={epochInput}
                             onChange={(e) => setEpochInput(e.target.value)}
                             placeholder={unit === 'seconds' ? '1704067200' : '1704067200000'}
-                            className="w-full px-4 py-3 rounded-lg bg-black/30 border border-white/10 focus:border-indigo-500 text-white outline-none font-mono"
+                            className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 text-gray-900 outline-none font-mono placeholder-gray-400 transition-all"
                         />
                         {convertedDate && (
-                            <div className="mt-3 p-3 bg-green-500/10 rounded-lg border border-green-500/20">
-                                <p className="text-sm text-green-400">{convertedDate}</p>
+                            <div className="mt-3 p-3 bg-green-50 rounded-lg border border-green-100">
+                                <p className="text-sm text-green-700">{convertedDate}</p>
                             </div>
                         )}
                     </div>
 
                     {/* Date to Epoch */}
-                    <div className="bg-white/5 p-4 rounded-xl border border-white/10">
-                        <h3 className="text-sm font-medium text-gray-400 mb-3">Date → Epoch</h3>
+                    <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+                        <h3 className="text-sm font-medium text-gray-500 mb-3">Date → Epoch</h3>
                         <div className="flex gap-2 mb-3">
                             <input
                                 type="date"
                                 value={dateInput}
                                 onChange={(e) => setDateInput(e.target.value)}
-                                className="flex-1 px-4 py-3 rounded-lg bg-black/30 border border-white/10 text-white outline-none"
+                                className="flex-1 px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 text-gray-900 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all"
                             />
                             <input
                                 type="time"
                                 value={timeInput}
                                 onChange={(e) => setTimeInput(e.target.value)}
-                                className="px-4 py-3 rounded-lg bg-black/30 border border-white/10 text-white outline-none"
+                                className="px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 text-gray-900 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all"
                             />
                         </div>
                         {convertedEpoch !== null && (
-                            <div className="p-3 bg-indigo-500/10 rounded-lg border border-indigo-500/20 flex justify-between items-center">
-                                <p className="font-mono text-indigo-400">{convertedEpoch}</p>
-                                <button onClick={() => copyValue(convertedEpoch.toString())} className="p-1 hover:bg-white/10 rounded">
-                                    {copied === convertedEpoch.toString() ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4 text-gray-400" />}
+                            <div className="p-3 bg-indigo-50 rounded-lg border border-indigo-100 flex justify-between items-center">
+                                <p className="font-mono text-indigo-600 font-medium">{convertedEpoch}</p>
+                                <button onClick={() => copyValue(convertedEpoch.toString())} className="p-1 hover:bg-white/50 rounded transition-colors">
+                                    {copied === convertedEpoch.toString() ? <Check className="w-4 h-4 text-green-600" /> : <Copy className="w-4 h-4 text-gray-400 hover:text-gray-600" />}
                                 </button>
                             </div>
                         )}

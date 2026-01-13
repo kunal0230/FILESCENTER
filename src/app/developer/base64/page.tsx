@@ -159,14 +159,14 @@ export default function Base64Page() {
             <div className="flex gap-2 mb-6">
                 <button
                     onClick={() => { setMode('encode'); setOutput(''); setError(null); setFileInfo(null); }}
-                    className={`flex-1 py-3 rounded-lg font-medium transition-colors ${mode === 'encode' ? 'bg-indigo-500 text-white' : 'bg-white/5 text-gray-300 hover:bg-white/10'
+                    className={`flex-1 py-3 rounded-lg font-medium transition-colors ${mode === 'encode' ? 'bg-indigo-600 text-white shadow-sm' : 'bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-900'
                         }`}
                 >
                     Encode
                 </button>
                 <button
                     onClick={() => { setMode('decode'); setOutput(''); setError(null); setFileInfo(null); }}
-                    className={`flex-1 py-3 rounded-lg font-medium transition-colors ${mode === 'decode' ? 'bg-indigo-500 text-white' : 'bg-white/5 text-gray-300 hover:bg-white/10'
+                    className={`flex-1 py-3 rounded-lg font-medium transition-colors ${mode === 'decode' ? 'bg-indigo-600 text-white shadow-sm' : 'bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-900'
                         }`}
                 >
                     Decode
@@ -195,7 +195,7 @@ export default function Base64Page() {
                     value={input}
                     onChange={(e) => { setInput(e.target.value); setError(null); }}
                     placeholder={mode === 'encode' ? 'Enter text to encode (supports Unicode)...' : 'Enter Base64 string to decode...'}
-                    className="w-full h-32 p-4 rounded-xl bg-white/5 border border-white/10 focus:border-indigo-500 focus:outline-none resize-none font-mono text-sm text-white placeholder-gray-500"
+                    className="w-full h-32 p-4 rounded-xl bg-white border border-gray-200 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none resize-none font-mono text-sm text-gray-900 placeholder-gray-400 shadow-sm transition-all"
                     spellCheck={false}
                 />
                 {input && (
@@ -223,7 +223,7 @@ export default function Base64Page() {
 
             {/* Info */}
             {fileInfo && (
-                <p className="text-sm text-indigo-400 mb-4">{fileInfo}</p>
+                <p className="text-sm text-indigo-600 mb-4">{fileInfo}</p>
             )}
 
             {/* Output */}
@@ -243,15 +243,15 @@ export default function Base64Page() {
                     <textarea
                         value={output}
                         readOnly
-                        className="w-full h-32 p-4 rounded-xl bg-white/5 border border-white/10 resize-none font-mono text-sm text-green-400"
+                        className="w-full h-32 p-4 rounded-xl bg-gray-50 border border-gray-200 resize-none font-mono text-sm text-gray-900 shadow-sm"
                     />
                     <div className="flex items-center justify-between mt-2">
                         <p className="text-xs text-gray-500">{output.length.toLocaleString()} characters</p>
                         <button
                             onClick={copyOutput}
-                            className="btn-secondary flex items-center gap-2 text-sm py-2"
+                            className="btn-secondary flex items-center gap-2 text-sm py-2 hover:bg-gray-100 text-gray-600 hover:text-gray-900"
                         >
-                            {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                            {copied ? <Check className="w-4 h-4 text-green-600" /> : <Copy className="w-4 h-4" />}
                             {copied ? 'Copied!' : 'Copy'}
                         </button>
                     </div>

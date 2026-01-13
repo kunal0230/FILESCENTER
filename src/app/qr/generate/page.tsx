@@ -99,16 +99,16 @@ export default function QRGeneratorPage() {
                 <div className="w-full lg:w-[360px] shrink-0 flex flex-col gap-5">
 
                     {/* QR Type Selection */}
-                    <div className="bg-white/5 p-4 rounded-xl border border-white/10">
-                        <h3 className="text-sm font-medium text-gray-400 uppercase tracking-wider mb-3">QR Type</h3>
+                    <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+                        <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-3">QR Type</h3>
                         <div className="grid grid-cols-5 gap-2">
                             {qrTypes.map(({ id, label, icon: Icon }) => (
                                 <button
                                     key={id}
                                     onClick={() => setQrType(id as QRType)}
                                     className={`p-3 rounded-lg flex flex-col items-center gap-1 transition-all ${qrType === id
-                                            ? 'bg-indigo-500 text-white'
-                                            : 'bg-black/20 text-gray-400 hover:bg-white/10 hover:text-white'
+                                        ? 'bg-indigo-600 text-white'
+                                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-900'
                                         }`}
                                 >
                                     <Icon className="w-4 h-4" />
@@ -119,8 +119,8 @@ export default function QRGeneratorPage() {
                     </div>
 
                     {/* Content Input */}
-                    <div className="bg-white/5 p-4 rounded-xl border border-white/10">
-                        <h3 className="text-sm font-medium text-gray-400 uppercase tracking-wider mb-3">Content</h3>
+                    <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+                        <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-3">Content</h3>
 
                         {qrType === 'url' && (
                             <input
@@ -128,7 +128,7 @@ export default function QRGeneratorPage() {
                                 value={content}
                                 onChange={(e) => setContent(e.target.value)}
                                 placeholder="https://example.com"
-                                className="w-full px-4 py-3 rounded-lg bg-black/30 border border-white/10 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 text-white outline-none"
+                                className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 text-gray-900 outline-none"
                             />
                         )}
 
@@ -138,7 +138,7 @@ export default function QRGeneratorPage() {
                                 onChange={(e) => setContent(e.target.value)}
                                 placeholder="Enter text..."
                                 rows={3}
-                                className="w-full px-4 py-3 rounded-lg bg-black/30 border border-white/10 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 text-white outline-none resize-none"
+                                className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 text-gray-900 outline-none resize-none"
                             />
                         )}
 
@@ -149,19 +149,19 @@ export default function QRGeneratorPage() {
                                     value={wifiName}
                                     onChange={(e) => setWifiName(e.target.value)}
                                     placeholder="Network name (SSID)"
-                                    className="w-full px-4 py-2.5 rounded-lg bg-black/30 border border-white/10 focus:border-indigo-500 text-white outline-none text-sm"
+                                    className="w-full px-4 py-2.5 rounded-lg bg-gray-50 border border-gray-200 focus:border-indigo-500 text-gray-900 outline-none text-sm"
                                 />
                                 <input
                                     type="password"
                                     value={wifiPassword}
                                     onChange={(e) => setWifiPassword(e.target.value)}
                                     placeholder="Password"
-                                    className="w-full px-4 py-2.5 rounded-lg bg-black/30 border border-white/10 focus:border-indigo-500 text-white outline-none text-sm"
+                                    className="w-full px-4 py-2.5 rounded-lg bg-gray-50 border border-gray-200 focus:border-indigo-500 text-gray-900 outline-none text-sm"
                                 />
                                 <select
                                     value={wifiEncryption}
                                     onChange={(e) => setWifiEncryption(e.target.value as any)}
-                                    className="w-full px-4 py-2.5 rounded-lg bg-black/30 border border-white/10 text-white outline-none text-sm"
+                                    className="w-full px-4 py-2.5 rounded-lg bg-gray-50 border border-gray-200 text-gray-900 outline-none text-sm"
                                 >
                                     <option value="WPA">WPA/WPA2</option>
                                     <option value="WEP">WEP</option>
@@ -177,21 +177,21 @@ export default function QRGeneratorPage() {
                                     value={emailTo}
                                     onChange={(e) => setEmailTo(e.target.value)}
                                     placeholder="Email address"
-                                    className="w-full px-4 py-2.5 rounded-lg bg-black/30 border border-white/10 focus:border-indigo-500 text-white outline-none text-sm"
+                                    className="w-full px-4 py-2.5 rounded-lg bg-gray-50 border border-gray-200 focus:border-indigo-500 text-gray-900 outline-none text-sm"
                                 />
                                 <input
                                     type="text"
                                     value={emailSubject}
                                     onChange={(e) => setEmailSubject(e.target.value)}
                                     placeholder="Subject"
-                                    className="w-full px-4 py-2.5 rounded-lg bg-black/30 border border-white/10 focus:border-indigo-500 text-white outline-none text-sm"
+                                    className="w-full px-4 py-2.5 rounded-lg bg-gray-50 border border-gray-200 focus:border-indigo-500 text-gray-900 outline-none text-sm"
                                 />
                                 <textarea
                                     value={emailBody}
                                     onChange={(e) => setEmailBody(e.target.value)}
                                     placeholder="Message body"
                                     rows={2}
-                                    className="w-full px-4 py-2.5 rounded-lg bg-black/30 border border-white/10 focus:border-indigo-500 text-white outline-none text-sm resize-none"
+                                    className="w-full px-4 py-2.5 rounded-lg bg-gray-50 border border-gray-200 focus:border-indigo-500 text-gray-900 outline-none text-sm resize-none"
                                 />
                             </div>
                         )}
@@ -203,36 +203,36 @@ export default function QRGeneratorPage() {
                                     value={vcardName}
                                     onChange={(e) => setVcardName(e.target.value)}
                                     placeholder="Full name"
-                                    className="w-full px-4 py-2.5 rounded-lg bg-black/30 border border-white/10 focus:border-indigo-500 text-white outline-none text-sm"
+                                    className="w-full px-4 py-2.5 rounded-lg bg-gray-50 border border-gray-200 focus:border-indigo-500 text-gray-900 outline-none text-sm"
                                 />
                                 <input
                                     type="tel"
                                     value={vcardPhone}
                                     onChange={(e) => setVcardPhone(e.target.value)}
                                     placeholder="Phone number"
-                                    className="w-full px-4 py-2.5 rounded-lg bg-black/30 border border-white/10 focus:border-indigo-500 text-white outline-none text-sm"
+                                    className="w-full px-4 py-2.5 rounded-lg bg-gray-50 border border-gray-200 focus:border-indigo-500 text-gray-900 outline-none text-sm"
                                 />
                                 <input
                                     type="email"
                                     value={vcardEmail}
                                     onChange={(e) => setVcardEmail(e.target.value)}
                                     placeholder="Email address"
-                                    className="w-full px-4 py-2.5 rounded-lg bg-black/30 border border-white/10 focus:border-indigo-500 text-white outline-none text-sm"
+                                    className="w-full px-4 py-2.5 rounded-lg bg-gray-50 border border-gray-200 focus:border-indigo-500 text-gray-900 outline-none text-sm"
                                 />
                             </div>
                         )}
                     </div>
 
                     {/* Style Options */}
-                    <div className="bg-white/5 p-4 rounded-xl border border-white/10">
-                        <h3 className="text-sm font-medium text-gray-400 uppercase tracking-wider mb-3">Style</h3>
+                    <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+                        <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-3">Style</h3>
                         <div className="grid grid-cols-2 gap-3">
                             <div>
                                 <label className="text-xs text-gray-500 block mb-1">Size</label>
                                 <select
                                     value={size}
                                     onChange={(e) => setSize(Number(e.target.value))}
-                                    className="w-full px-3 py-2 rounded-lg bg-black/30 border border-white/10 text-white outline-none text-sm"
+                                    className="w-full px-3 py-2 rounded-lg bg-gray-50 border border-gray-200 text-gray-900 outline-none text-sm"
                                 >
                                     <option value={128}>128px</option>
                                     <option value={256}>256px</option>
@@ -246,7 +246,7 @@ export default function QRGeneratorPage() {
                                     type="color"
                                     value={fgColor}
                                     onChange={(e) => setFgColor(e.target.value)}
-                                    className="w-full h-9 rounded-lg bg-black/30 border border-white/10 cursor-pointer"
+                                    className="w-full h-9 rounded-lg border border-gray-200 cursor-pointer"
                                 />
                             </div>
                         </div>
@@ -265,21 +265,21 @@ export default function QRGeneratorPage() {
                         <button
                             onClick={copyToClipboard}
                             disabled={!qrDataUrl}
-                            className="px-4 py-3 rounded-xl bg-white/10 text-white hover:bg-white/20 disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="px-4 py-3 rounded-xl bg-white text-gray-900 hover:bg-gray-50 border border-gray-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
                         >
-                            {copied ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
+                            {copied ? <Check className="w-4 h-4 text-green-600" /> : <Copy className="w-4 h-4" />}
                         </button>
                     </div>
                 </div>
 
                 {/* RIGHT: QR Preview */}
-                <div className="flex-1 bg-white/5 rounded-xl border border-white/10 flex items-center justify-center min-h-[400px]">
+                <div className="flex-1 bg-gray-50 rounded-xl border border-gray-200 flex items-center justify-center min-h-[400px]">
                     {qrDataUrl ? (
                         <div className="text-center">
                             <div className="p-6 bg-white rounded-2xl shadow-2xl inline-block">
                                 <img src={qrDataUrl} alt="QR Code" className="w-64 h-64" />
                             </div>
-                            <p className="mt-4 text-sm text-gray-400">Scan with your phone camera</p>
+                            <p className="mt-4 text-sm text-gray-500">Scan with your phone camera</p>
                         </div>
                     ) : (
                         <div className="text-center text-gray-500">

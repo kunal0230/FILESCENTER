@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import Navbar from "@/components/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -97,31 +98,8 @@ export default function RootLayout({
       <body className={`${inter.className} antialiased`}>
         <div className="min-h-screen flex flex-col">
           {/* Header */}
-          <header className="bg-white/95 backdrop-blur-sm border-b border-gray-200 sticky top-0 z-50">
-            <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-              <a href="/" className="flex items-center">
-                <img
-                  src="/logo-full.png"
-                  alt="FilesCenter"
-                  className="h-12"
-                />
-              </a>
-
-              <div className="hidden md:flex items-center gap-6">
-                <a href="/pdf" className="text-gray-600 hover:text-gray-900 transition-colors font-medium">PDF Tools</a>
-                <a href="/image" className="text-gray-600 hover:text-gray-900 transition-colors font-medium">Image Tools</a>
-                <a href="/catalog" className="text-gray-600 hover:text-gray-900 transition-colors font-medium">Catalog</a>
-                <a href="/" className="btn-primary text-sm">All Tools</a>
-              </div>
-
-              {/* Mobile menu button */}
-              <button className="md:hidden p-2 rounded-lg hover:bg-gray-100">
-                <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-              </button>
-            </nav>
-          </header>
+          {/* Header */}
+          <Navbar />
 
           {/* Main content */}
           <main className="flex-1">

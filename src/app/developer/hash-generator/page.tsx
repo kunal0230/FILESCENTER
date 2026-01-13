@@ -124,7 +124,7 @@ export default function HashGeneratorPage() {
                         setError(null);
                     }}
                     placeholder="Enter text to generate hash values..."
-                    className="w-full h-32 p-4 rounded-xl bg-white/5 border border-white/10 focus:border-indigo-500 focus:outline-none resize-none"
+                    className="w-full h-32 p-4 rounded-xl bg-white border border-gray-200 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none resize-none placeholder-gray-400 text-gray-900 transition-all shadow-sm"
                     spellCheck={false}
                 />
                 {input && (
@@ -160,15 +160,15 @@ export default function HashGeneratorPage() {
             {(hashes['SHA-256'] || isProcessing) && (
                 <div className="space-y-3">
                     {(Object.keys(hashes) as HashAlgorithm[]).map((algo) => (
-                        <div key={algo} className="p-4 rounded-xl bg-white/5 border border-white/10">
+                        <div key={algo} className="p-4 rounded-xl bg-white border border-gray-200 shadow-sm">
                             <div className="flex items-center justify-between mb-2">
                                 <div className="flex items-center gap-2">
-                                    <span className="font-medium">{algo}</span>
+                                    <span className="font-medium text-gray-900">{algo}</span>
                                     <span className="text-xs text-gray-500">
                                         ({hashInfo[algo].bits} bits)
                                     </span>
                                     {algo === 'SHA-1' && (
-                                        <span className="text-xs px-2 py-0.5 rounded-full bg-yellow-500/20 text-yellow-400">
+                                        <span className="text-xs px-2 py-0.5 rounded-full bg-yellow-100 text-yellow-700">
                                             Deprecated
                                         </span>
                                     )}
@@ -176,19 +176,19 @@ export default function HashGeneratorPage() {
                                 {hashes[algo] && (
                                     <button
                                         onClick={() => copyHash(hashes[algo], algo)}
-                                        className="p-1.5 rounded hover:bg-white/10 transition-colors"
+                                        className="p-1.5 rounded hover:bg-gray-100 text-gray-400 hover:text-gray-900 transition-colors"
                                     >
                                         {copied === algo ? (
-                                            <Check className="w-4 h-4 text-green-400" />
+                                            <Check className="w-4 h-4 text-green-600" />
                                         ) : (
                                             <Copy className="w-4 h-4" />
                                         )}
                                     </button>
                                 )}
                             </div>
-                            <div className="font-mono text-sm text-green-400 break-all">
+                            <div className="font-mono text-sm text-indigo-600 break-all bg-gray-50 p-2 rounded border border-gray-100">
                                 {hashes[algo] ? formatHash(hashes[algo]) : (
-                                    <span className="text-gray-500">Generating...</span>
+                                    <span className="text-gray-400">Generating...</span>
                                 )}
                             </div>
                         </div>
@@ -197,9 +197,9 @@ export default function HashGeneratorPage() {
             )}
 
             {/* Info */}
-            <div className="mt-6 p-4 rounded-xl bg-indigo-500/10 border border-indigo-500/30">
-                <h3 className="font-medium mb-2">About Hash Functions</h3>
-                <ul className="text-sm text-gray-400 space-y-1">
+            <div className="mt-6 p-4 rounded-xl bg-indigo-50 border border-indigo-100 text-indigo-900">
+                <h3 className="font-medium mb-2 text-indigo-800">About Hash Functions</h3>
+                <ul className="text-sm text-indigo-700/80 space-y-1">
                     <li>• <strong>SHA-256</strong> is recommended for most use cases</li>
                     <li>• <strong>SHA-512</strong> provides maximum security but longer output</li>
                     <li>• <strong>SHA-1</strong> is deprecated and should not be used for security</li>

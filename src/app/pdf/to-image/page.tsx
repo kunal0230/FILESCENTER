@@ -170,9 +170,9 @@ export default function PDFToImagePage() {
         >
             {/* Error */}
             {error && (
-                <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/30 flex items-start gap-3">
-                    <AlertCircle className="w-5 h-5 text-red-400 shrink-0" />
-                    <p className="text-red-400 text-sm">{error}</p>
+                <div className="mb-6 p-4 rounded-xl bg-red-50 border border-red-200 flex items-start gap-3">
+                    <AlertCircle className="w-5 h-5 text-red-500 shrink-0" />
+                    <p className="text-red-700 text-sm">{error}</p>
                 </div>
             )}
 
@@ -187,149 +187,163 @@ export default function PDFToImagePage() {
             />
 
             {pageCount > 0 && (
-                <p className="mt-2 text-sm text-indigo-400 text-center">
+                <p className="mt-2 text-sm text-indigo-600 text-center font-medium">
                     PDF has {pageCount} page{pageCount !== 1 ? 's' : ''}
                 </p>
             )}
 
             {/* Options */}
             {files.length > 0 && !results.length && (
-                <div className="mt-6 space-y-6">
-                    {/* Format Selection */}
-                    <div>
-                        <label className="text-sm font-medium mb-3 block">Image Format</label>
-                        <div className="flex gap-3">
-                            <button
-                                onClick={() => setFormat('png')}
-                                className={`flex-1 py-3 rounded-lg font-medium transition-colors ${format === 'png' ? 'bg-indigo-500 text-white' : 'bg-white/5 hover:bg-white/10'
-                                    }`}
-                            >
-                                PNG (Lossless)
-                            </button>
-                            <button
-                                onClick={() => setFormat('jpeg')}
-                                className={`flex-1 py-3 rounded-lg font-medium transition-colors ${format === 'jpeg' ? 'bg-indigo-500 text-white' : 'bg-white/5 hover:bg-white/10'
-                                    }`}
-                            >
-                                JPEG (Smaller)
-                            </button>
-                        </div>
-                    </div>
-
-                    {/* Quality (for JPEG) */}
-                    {format === 'jpeg' && (
+                <div className="mt-6 space-y-6 max-w-lg mx-auto">
+                    <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm space-y-6">
+                        {/* Format Selection */}
                         <div>
-                            <div className="flex justify-between items-center mb-2">
-                                <label className="text-sm font-medium">Quality: {quality}%</label>
-                            </div>
-                            <input
-                                type="range"
-                                min="50"
-                                max="100"
-                                step="5"
-                                value={quality}
-                                onChange={(e) => setQuality(Number(e.target.value))}
-                                className="w-full"
-                            />
-                        </div>
-                    )}
-
-                    {/* Scale */}
-                    <div>
-                        <label className="text-sm font-medium mb-3 block">Image Scale (Resolution)</label>
-                        <div className="flex gap-3">
-                            {[1, 2, 3].map((s) => (
+                            <label className="text-sm font-medium text-gray-700 mb-3 block">Image Format</label>
+                            <div className="flex gap-3">
                                 <button
-                                    key={s}
-                                    onClick={() => setScale(s)}
-                                    className={`flex-1 py-3 rounded-lg transition-colors ${scale === s ? 'bg-indigo-500 text-white' : 'bg-white/5 hover:bg-white/10'
+                                    onClick={() => setFormat('png')}
+                                    className={`flex-1 py-3 rounded-lg font-medium transition-all ${format === 'png'
+                                        ? 'bg-indigo-600 text-white shadow-md shadow-indigo-500/20'
+                                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                                         }`}
                                 >
-                                    {s}x {s === 1 ? '(72 DPI)' : s === 2 ? '(144 DPI)' : '(216 DPI)'}
+                                    PNG (Lossless)
                                 </button>
-                            ))}
+                                <button
+                                    onClick={() => setFormat('jpeg')}
+                                    className={`flex-1 py-3 rounded-lg font-medium transition-all ${format === 'jpeg'
+                                        ? 'bg-indigo-600 text-white shadow-md shadow-indigo-500/20'
+                                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                                        }`}
+                                >
+                                    JPEG (Smaller)
+                                </button>
+                            </div>
                         </div>
-                    </div>
 
-                    {/* Page Range */}
-                    <div>
-                        <label className="text-sm font-medium mb-2 block">Pages to Convert</label>
-                        <input
-                            type="text"
-                            value={pageRange}
-                            onChange={(e) => setPageRange(e.target.value)}
-                            placeholder="e.g., 1-5, 8, 10-12 (leave empty for all)"
-                            className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 focus:border-indigo-500 focus:outline-none"
-                        />
-                    </div>
-
-                    {/* Convert Button */}
-                    <button
-                        onClick={handleConvert}
-                        disabled={isProcessing}
-                        className="btn-primary w-full flex items-center justify-center gap-2"
-                    >
-                        {isProcessing ? (
-                            <>
-                                <Loader2 className="w-5 h-5 animate-spin" />
-                                Converting... ({Math.round(progress)}%)
-                            </>
-                        ) : (
-                            <>
-                                <Image className="w-5 h-5" />
-                                Convert to {format.toUpperCase()}
-                            </>
+                        {/* Quality (for JPEG) */}
+                        {format === 'jpeg' && (
+                            <div>
+                                <div className="flex justify-between items-center mb-2">
+                                    <label className="text-sm font-medium text-gray-700">Quality: {quality}%</label>
+                                </div>
+                                <input
+                                    type="range"
+                                    min="50"
+                                    max="100"
+                                    step="5"
+                                    value={quality}
+                                    onChange={(e) => setQuality(Number(e.target.value))}
+                                    className="w-full accent-indigo-600"
+                                />
+                            </div>
                         )}
-                    </button>
+
+                        {/* Scale */}
+                        <div>
+                            <label className="text-sm font-medium text-gray-700 mb-3 block">Image Scale (Resolution)</label>
+                            <div className="flex gap-3">
+                                {[1, 2, 3].map((s) => (
+                                    <button
+                                        key={s}
+                                        onClick={() => setScale(s)}
+                                        className={`flex-1 py-3 rounded-lg transition-all ${scale === s
+                                            ? 'bg-indigo-600 text-white shadow-md shadow-indigo-500/20'
+                                            : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                                            }`}
+                                    >
+                                        {s}x {s === 1 ? '(72 DPI)' : s === 2 ? '(144 DPI)' : '(216 DPI)'}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Page Range */}
+                        <div>
+                            <label className="text-sm font-medium text-gray-700 mb-2 block">Pages to Convert</label>
+                            <input
+                                type="text"
+                                value={pageRange}
+                                onChange={(e) => setPageRange(e.target.value)}
+                                placeholder="e.g., 1-5, 8, 10-12 (leave empty for all)"
+                                className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-100 text-gray-900"
+                            />
+                        </div>
+
+                        {/* Convert Button */}
+                        <button
+                            onClick={handleConvert}
+                            disabled={isProcessing}
+                            className="w-full py-4 rounded-xl font-bold bg-indigo-600 text-white shadow-lg shadow-indigo-500/25 hover:bg-indigo-700 flex items-center justify-center gap-2 transition-all"
+                        >
+                            {isProcessing ? (
+                                <>
+                                    <Loader2 className="w-5 h-5 animate-spin" />
+                                    Converting... ({Math.round(progress)}%)
+                                </>
+                            ) : (
+                                <>
+                                    <Image className="w-5 h-5" />
+                                    Convert to {format.toUpperCase()}
+                                </>
+                            )}
+                        </button>
+                    </div>
                 </div>
             )}
 
             {/* Progress */}
             {isProcessing && (
-                <div className="mt-6">
+                <div className="mt-8 max-w-md mx-auto">
                     <ProgressBar progress={progress} label="Converting pages to images..." />
                 </div>
             )}
 
             {/* Results */}
             {results.length > 0 && (
-                <div className="mt-6 space-y-4">
-                    <div className="p-4 rounded-xl bg-green-500/10 border border-green-500/30">
-                        <div className="flex items-center justify-between flex-wrap gap-4">
-                            <div>
-                                <p className="text-green-400 font-semibold">Conversion complete!</p>
-                                <p className="text-sm text-gray-400">{results.length} image{results.length !== 1 ? 's' : ''} created</p>
-                            </div>
-                            <button onClick={downloadAll} className="btn-primary flex items-center gap-2">
-                                <Download className="w-4 h-4" />
-                                Download All
-                            </button>
+                <div className="mt-8 space-y-6">
+                    <div className="p-6 rounded-xl bg-green-50 border border-green-200 shadow-sm text-center">
+                        <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <Image className="w-8 h-8 text-green-600" />
                         </div>
+                        <h3 className="text-xl font-bold text-gray-900 mb-2">Conversion Complete!</h3>
+                        <p className="text-gray-500 mb-6">{results.length} image{results.length !== 1 ? 's' : ''} created</p>
+
+                        <button onClick={downloadAll} className="w-full py-3 rounded-xl font-bold bg-green-600 text-white shadow-lg shadow-green-500/25 hover:bg-green-700 flex items-center justify-center gap-2 transition-all">
+                            <Download className="w-5 h-5" />
+                            Download All Images
+                        </button>
                     </div>
 
                     {/* Preview Grid */}
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 max-h-96 overflow-y-auto">
-                        {results.map(({ name, dataUrl }, index) => (
-                            <div key={index} className="relative group">
-                                <img
-                                    src={dataUrl}
-                                    alt={name}
-                                    className="w-full h-32 object-cover rounded-lg border border-white/10"
-                                />
-                                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-lg">
-                                    <button
-                                        onClick={() => downloadImage(dataUrl, name)}
-                                        className="p-2 bg-white/20 rounded-lg hover:bg-white/30"
-                                    >
-                                        <Download className="w-5 h-5" />
-                                    </button>
+                    <div className="bg-gray-50 p-4 rounded-xl border border-gray-200">
+                        <h4 className="text-sm font-medium text-gray-700 mb-3">Preview</h4>
+                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 max-h-96 overflow-y-auto custom-scrollbar">
+                            {results.map(({ name, dataUrl }, index) => (
+                                <div key={index} className="relative group bg-white p-2 rounded-lg border border-gray-200 shadow-sm">
+                                    <div className="aspect-[3/4] overflow-hidden rounded-md bg-gray-100 relative">
+                                        <img
+                                            src={dataUrl}
+                                            alt={name}
+                                            className="w-full h-full object-contain"
+                                        />
+                                        <div className="absolute inset-0 bg-gray-900/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                            <button
+                                                onClick={() => downloadImage(dataUrl, name)}
+                                                className="p-2 bg-white/90 rounded-lg hover:bg-white text-gray-900 shadow-lg transform translate-y-2 group-hover:translate-y-0 transition-all"
+                                                title="Download this image"
+                                            >
+                                                <Download className="w-5 h-5" />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <p className="text-xs text-gray-600 mt-2 truncate text-center font-medium" title={name}>{name}</p>
                                 </div>
-                                <p className="text-xs text-gray-400 mt-1 truncate">{name}</p>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                     </div>
 
-                    <button onClick={resetAll} className="btn-secondary w-full">
+                    <button onClick={resetAll} className="w-full py-3 rounded-xl font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors">
                         Convert Another PDF
                     </button>
                 </div>

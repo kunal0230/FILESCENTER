@@ -40,12 +40,12 @@ export default function CharacterCounterPage() {
     }, [text]);
 
     const statItems = [
-        { label: 'Characters', value: stats.characters, color: 'text-indigo-400' },
-        { label: 'Without Spaces', value: stats.charactersNoSpaces, color: 'text-purple-400' },
-        { label: 'Words', value: stats.words, color: 'text-blue-400' },
-        { label: 'Sentences', value: stats.sentences, color: 'text-cyan-400' },
-        { label: 'Paragraphs', value: stats.paragraphs, color: 'text-teal-400' },
-        { label: 'Lines', value: stats.lines, color: 'text-green-400' },
+        { label: 'Characters', value: stats.characters, color: 'text-indigo-600' },
+        { label: 'Without Spaces', value: stats.charactersNoSpaces, color: 'text-purple-600' },
+        { label: 'Words', value: stats.words, color: 'text-blue-600' },
+        { label: 'Sentences', value: stats.sentences, color: 'text-cyan-600' },
+        { label: 'Paragraphs', value: stats.paragraphs, color: 'text-teal-600' },
+        { label: 'Lines', value: stats.lines, color: 'text-green-600' },
     ];
 
     return (
@@ -58,16 +58,16 @@ export default function CharacterCounterPage() {
             <div className="space-y-6">
                 <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
                     {statItems.map(({ label, value, color }) => (
-                        <div key={label} className="bg-white/5 p-4 rounded-xl border border-white/10 text-center">
+                        <div key={label} className="bg-white p-4 rounded-xl border border-gray-200 text-center shadow-sm">
                             <p className={`text-2xl font-bold ${color}`}>{value}</p>
                             <p className="text-xs text-gray-500 mt-1">{label}</p>
                         </div>
                     ))}
                 </div>
 
-                <div className="bg-white/5 rounded-xl border border-white/10 overflow-hidden">
-                    <div className="p-3 border-b border-white/5 bg-black/20 flex justify-between items-center">
-                        <h3 className="text-sm font-medium text-gray-400">Enter your text</h3>
+                <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
+                    <div className="p-3 border-b border-gray-200 bg-gray-50 flex justify-between items-center">
+                        <h3 className="text-sm font-medium text-gray-700">Enter your text</h3>
                         <div className="text-xs text-gray-500">
                             ~{stats.readingTime} min read • ~{stats.speakingTime} min speak
                         </div>
@@ -76,29 +76,29 @@ export default function CharacterCounterPage() {
                         value={text}
                         onChange={(e) => setText(e.target.value)}
                         placeholder="Type or paste your text here..."
-                        className="w-full h-64 p-4 bg-transparent text-white outline-none resize-none"
+                        className="w-full h-64 p-4 bg-transparent text-gray-900 outline-none resize-none"
                     />
                 </div>
 
                 {text && (
-                    <div className="bg-white/5 p-4 rounded-xl border border-white/10">
-                        <h3 className="text-sm font-medium text-gray-400 mb-3">Character Breakdown</h3>
+                    <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+                        <h3 className="text-sm font-medium text-gray-700 mb-3">Character Breakdown</h3>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
-                            <div className="p-3 bg-black/20 rounded-lg">
-                                <span className="text-gray-400">Letters: </span>
-                                <span className="text-white">{text.replace(/[^a-zA-Z]/g, '').length}</span>
+                            <div className="p-3 bg-gray-50 rounded-lg">
+                                <span className="text-gray-500">Letters: </span>
+                                <span className="text-gray-900 font-medium">{text.replace(/[^a-zA-Z]/g, '').length}</span>
                             </div>
-                            <div className="p-3 bg-black/20 rounded-lg">
-                                <span className="text-gray-400">Numbers: </span>
-                                <span className="text-white">{text.replace(/[^0-9]/g, '').length}</span>
+                            <div className="p-3 bg-gray-50 rounded-lg">
+                                <span className="text-gray-500">Numbers: </span>
+                                <span className="text-gray-900 font-medium">{text.replace(/[^0-9]/g, '').length}</span>
                             </div>
-                            <div className="p-3 bg-black/20 rounded-lg">
-                                <span className="text-gray-400">Spaces: </span>
-                                <span className="text-white">{(text.match(/\s/g) || []).length}</span>
+                            <div className="p-3 bg-gray-50 rounded-lg">
+                                <span className="text-gray-500">Spaces: </span>
+                                <span className="text-gray-900 font-medium">{(text.match(/\s/g) || []).length}</span>
                             </div>
-                            <div className="p-3 bg-black/20 rounded-lg">
-                                <span className="text-gray-400">Special: </span>
-                                <span className="text-white">{text.replace(/[a-zA-Z0-9\s]/g, '').length}</span>
+                            <div className="p-3 bg-gray-50 rounded-lg">
+                                <span className="text-gray-500">Special: </span>
+                                <span className="text-gray-900 font-medium">{text.replace(/[a-zA-Z0-9\s]/g, '').length}</span>
                             </div>
                         </div>
                     </div>

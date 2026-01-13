@@ -111,7 +111,7 @@ export default function CatalogPage() {
                 <h1 className="text-4xl font-bold mb-4">
                     <span className="gradient-text">Complete Tools Catalog</span>
                 </h1>
-                <p className="text-gray-400 text-lg">
+                <p className="text-gray-600 text-lg">
                     {allTools.length} free tools to process files, convert formats, and boost productivity
                 </p>
             </div>
@@ -121,8 +121,8 @@ export default function CatalogPage() {
                 {categories.map((cat) => {
                     const count = allTools.filter(t => t.category === cat).length;
                     return (
-                        <div key={cat} className="bg-white/5 rounded-xl p-4 text-center border border-white/10">
-                            <p className="text-2xl font-bold text-white">{count}</p>
+                        <div key={cat} className="bg-white rounded-xl p-4 text-center border border-gray-200 shadow-sm">
+                            <p className="text-2xl font-bold text-gray-900">{count}</p>
                             <p className="text-xs text-gray-500">{cat}</p>
                         </div>
                     );
@@ -148,17 +148,17 @@ export default function CatalogPage() {
                                     <Link
                                         key={tool.href}
                                         href={tool.href}
-                                        className="bg-white/5 rounded-xl p-5 border border-white/10 hover:border-indigo-500/50 hover:bg-white/10 transition-all group"
+                                        className="bg-white rounded-xl p-5 border border-gray-200 hover:border-indigo-500/50 hover:bg-gray-50 transition-all group shadow-sm hover:shadow-md"
                                     >
                                         <div className="flex items-start gap-4">
                                             <div className={`p-2.5 rounded-lg ${categoryColors[category]}`}>
                                                 <Icon className="w-5 h-5 text-white" />
                                             </div>
                                             <div className="flex-1">
-                                                <h3 className="font-semibold text-white group-hover:text-indigo-400 transition-colors">
+                                                <h3 className="font-semibold text-gray-900 group-hover:text-indigo-600 transition-colors">
                                                     {tool.name}
                                                 </h3>
-                                                <p className="text-sm text-gray-400 mt-1">
+                                                <p className="text-sm text-gray-500 mt-1">
                                                     {tool.description}
                                                 </p>
                                             </div>
@@ -172,10 +172,10 @@ export default function CatalogPage() {
             })}
 
             {/* Footer CTA */}
-            <div className="text-center mt-16 p-8 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 rounded-2xl border border-indigo-500/30">
-                <h2 className="text-2xl font-bold text-white mb-3">All Tools are Free & Private</h2>
-                <p className="text-gray-400 mb-6">Files are processed locally in your browser. Nothing is uploaded to any server.</p>
-                <Link href="/" className="inline-flex px-6 py-3 bg-indigo-500 text-white font-medium rounded-xl hover:bg-indigo-600 transition-colors">
+            <div className="text-center mt-16 p-8 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 rounded-2xl border border-indigo-500/20">
+                <h2 className="text-2xl font-bold text-gray-900 mb-3">All Tools are Free & Private</h2>
+                <p className="text-gray-600 mb-6">Files are processed locally in your browser. Nothing is uploaded to any server.</p>
+                <Link href="/" className="inline-flex px-6 py-3 bg-indigo-600 text-white font-medium rounded-xl hover:bg-indigo-700 transition-colors shadow-sm">
                     Back to Home
                 </Link>
             </div>

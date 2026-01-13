@@ -46,74 +46,76 @@ export default function TextDiffPage() {
         >
             <div className="space-y-6">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                    <div className="bg-white/5 rounded-xl border border-white/10 overflow-hidden">
-                        <div className="p-3 border-b border-white/5 bg-black/20">
-                            <h3 className="text-sm font-medium text-gray-400">Original Text</h3>
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                        <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
+                            <div className="p-3 border-b border-gray-200 bg-gray-50">
+                                <h3 className="text-sm font-medium text-gray-700">Original Text</h3>
+                            </div>
+                            <textarea
+                                value={text1}
+                                onChange={(e) => setText1(e.target.value)}
+                                placeholder="Paste your original text here..."
+                                className="w-full h-48 p-4 bg-transparent text-gray-900 outline-none resize-none font-mono text-sm"
+                            />
                         </div>
-                        <textarea
-                            value={text1}
-                            onChange={(e) => setText1(e.target.value)}
-                            placeholder="Paste your original text here..."
-                            className="w-full h-48 p-4 bg-transparent text-white outline-none resize-none font-mono text-sm"
-                        />
+
+                        <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
+                            <div className="p-3 border-b border-gray-200 bg-gray-50">
+                                <h3 className="text-sm font-medium text-gray-700">Modified Text</h3>
+                            </div>
+                            <textarea
+                                value={text2}
+                                onChange={(e) => setText2(e.target.value)}
+                                placeholder="Paste your modified text here..."
+                                className="w-full h-48 p-4 bg-transparent text-gray-900 outline-none resize-none font-mono text-sm"
+                            />
+                        </div>
                     </div>
 
-                    <div className="bg-white/5 rounded-xl border border-white/10 overflow-hidden">
-                        <div className="p-3 border-b border-white/5 bg-black/20">
-                            <h3 className="text-sm font-medium text-gray-400">Modified Text</h3>
-                        </div>
-                        <textarea
-                            value={text2}
-                            onChange={(e) => setText2(e.target.value)}
-                            placeholder="Paste your modified text here..."
-                            className="w-full h-48 p-4 bg-transparent text-white outline-none resize-none font-mono text-sm"
-                        />
+                    <div className="flex gap-3">
+                        <button
+                            onClick={computeDiff}
+                            className="flex-1 py-3 rounded-xl font-medium bg-indigo-600 text-white shadow-lg shadow-indigo-500/25 hover:bg-indigo-700 flex items-center justify-center gap-2"
+                        >
+                            <FileOutput className="w-4 h-4" />
+                            Compare Texts
+                        </button>
+                        <button
+                            onClick={swapTexts}
+                            className="px-4 py-3 rounded-xl bg-white text-gray-900 hover:bg-gray-50 border border-gray-200"
+                        >
+                            <ArrowRightLeft className="w-4 h-4" />
+                        </button>
                     </div>
-                </div>
 
-                <div className="flex gap-3">
-                    <button
-                        onClick={computeDiff}
-                        className="flex-1 py-3 rounded-xl font-medium bg-indigo-500 text-white shadow-lg shadow-indigo-500/25 hover:bg-indigo-600 flex items-center justify-center gap-2"
-                    >
-                        <FileOutput className="w-4 h-4" />
-                        Compare Texts
-                    </button>
-                    <button
-                        onClick={swapTexts}
-                        className="px-4 py-3 rounded-xl bg-white/10 text-white hover:bg-white/20"
-                    >
-                        <ArrowRightLeft className="w-4 h-4" />
-                    </button>
-                </div>
-
-                {diffResult.length > 0 && (
-                    <div className="bg-white/5 rounded-xl border border-white/10 overflow-hidden">
-                        <div className="p-3 border-b border-white/5 bg-black/20 flex justify-between items-center">
-                            <h3 className="text-sm font-medium text-gray-400">Differences</h3>
-                            <div className="flex gap-4 text-xs">
-                                <span className="text-red-400">- Removed</span>
-                                <span className="text-green-400">+ Added</span>
+                    {diffResult.length > 0 && (
+                        <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
+                            <div className="p-3 border-b border-gray-200 bg-gray-50 flex justify-between items-center">
+                                <h3 className="text-sm font-medium text-gray-700">Differences</h3>
+                                <div className="flex gap-4 text-xs">
+                                    <span className="text-red-500">- Removed</span>
+                                    <span className="text-green-500">+ Added</span>
+                                </div>
+                            </div>
+                            <div className="p-4 font-mono text-sm max-h-64 overflow-y-auto">
+                                {diffResult.map((line, i) => (
+                                    <div
+                                        key={i}
+                                        className={`py-0.5 px-2 ${line.type === 'remove' ? 'bg-red-50 text-red-700' :
+                                            line.type === 'add' ? 'bg-green-50 text-green-700' :
+                                                'text-gray-500'
+                                            }`}
+                                    >
+                                        <span className="mr-2 opacity-50">
+                                            {line.type === 'remove' ? '-' : line.type === 'add' ? '+' : ' '}
+                                        </span>
+                                        {line.text || <span className="opacity-30">(empty line)</span>}
+                                    </div>
+                                ))}
                             </div>
                         </div>
-                        <div className="p-4 font-mono text-sm max-h-64 overflow-y-auto">
-                            {diffResult.map((line, i) => (
-                                <div
-                                    key={i}
-                                    className={`py-0.5 px-2 ${line.type === 'remove' ? 'bg-red-500/20 text-red-300' :
-                                            line.type === 'add' ? 'bg-green-500/20 text-green-300' :
-                                                'text-gray-400'
-                                        }`}
-                                >
-                                    <span className="mr-2 opacity-50">
-                                        {line.type === 'remove' ? '-' : line.type === 'add' ? '+' : ' '}
-                                    </span>
-                                    {line.text || <span className="opacity-30">(empty line)</span>}
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                )}
+                    )}
+                </div>
             </div>
         </ToolLayout>
     );

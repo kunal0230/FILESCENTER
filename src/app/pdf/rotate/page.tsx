@@ -200,9 +200,9 @@ export default function RotatePDFPage() {
         >
             {/* Error */}
             {error && (
-                <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/30 flex items-start gap-3">
-                    <AlertCircle className="w-5 h-5 text-red-400 shrink-0" />
-                    <p className="text-red-400 text-sm">{error}</p>
+                <div className="mb-6 p-4 rounded-xl bg-red-50 border border-red-200 flex items-start gap-3">
+                    <AlertCircle className="w-5 h-5 text-red-500 shrink-0" />
+                    <p className="text-red-700 text-sm">{error}</p>
                 </div>
             )}
 
@@ -217,26 +217,26 @@ export default function RotatePDFPage() {
             />
 
             {pageCount > 0 && (
-                <p className="mt-2 text-sm text-indigo-400 text-center">
+                <p className="mt-2 text-sm text-indigo-600 text-center font-medium">
                     PDF has {pageCount} page{pageCount !== 1 ? 's' : ''}
                 </p>
             )}
 
             {/* Options */}
             {files.length > 0 && !resultBlob && (
-                <div className="mt-6 space-y-6">
+                <div className="mt-6 space-y-6 max-w-4xl mx-auto">
                     {/* Rotation Controls */}
-                    <div className="p-4 rounded-xl bg-white/5 border border-white/10">
-                        <div className="flex items-center justify-between mb-4">
-                            <label className="text-sm font-medium">Rotation Angle</label>
+                    <div className="p-6 rounded-xl bg-white border border-gray-200 shadow-sm">
+                        <div className="flex flex-col sm:flex-row items-center justify-between mb-6 gap-4">
+                            <label className="text-sm font-medium text-gray-700">Rotation Angle</label>
                             <div className="flex gap-2">
                                 {([90, 180, 270] as RotationAngle[]).map((angle) => (
                                     <button
                                         key={angle}
                                         onClick={() => setRotation(angle)}
                                         className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${rotation === angle
-                                            ? 'bg-indigo-500 text-white'
-                                            : 'bg-white/10 hover:bg-white/20'
+                                            ? 'bg-indigo-600 text-white shadow-md shadow-indigo-500/20'
+                                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                                             }`}
                                     >
                                         {angle}°
@@ -249,14 +249,18 @@ export default function RotatePDFPage() {
                         <div className="flex gap-3">
                             <button
                                 onClick={() => setMode('all')}
-                                className={`flex-1 py-2 rounded-lg transition-colors ${mode === 'all' ? 'bg-indigo-500 text-white' : 'bg-white/10 hover:bg-white/20'
+                                className={`flex-1 py-3 rounded-lg font-medium transition-all ${mode === 'all'
+                                    ? 'bg-indigo-600 text-white shadow-md shadow-indigo-500/20'
+                                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                                     }`}
                             >
                                 Rotate All Pages
                             </button>
                             <button
                                 onClick={() => setMode('specific')}
-                                className={`flex-1 py-2 rounded-lg transition-colors ${mode === 'specific' ? 'bg-indigo-500 text-white' : 'bg-white/10 hover:bg-white/20'
+                                className={`flex-1 py-3 rounded-lg font-medium transition-all ${mode === 'specific'
+                                    ? 'bg-indigo-600 text-white shadow-md shadow-indigo-500/20'
+                                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                                     }`}
                             >
                                 Rotate Individual Pages
@@ -267,13 +271,13 @@ export default function RotatePDFPage() {
                     {/* Preview Section */}
                     <div>
                         <div className="flex items-center justify-between mb-3">
-                            <label className="text-sm font-medium">
+                            <label className="text-sm font-medium text-gray-700">
                                 {mode === 'all' ? 'Preview (all pages will rotate together)' : 'Click a page to rotate it'}
                             </label>
                             {mode === 'all' && (
                                 <button
                                     onClick={applyRotationToAll}
-                                    className="btn-secondary text-sm flex items-center gap-2"
+                                    className="px-3 py-1.5 rounded-lg bg-gray-100 text-gray-700 text-sm font-medium hover:bg-gray-200 flex items-center gap-2 transition-colors"
                                 >
                                     <RotateCw className="w-4 h-4" />
                                     Rotate {rotation}°
@@ -282,22 +286,22 @@ export default function RotatePDFPage() {
                         </div>
 
                         {isLoadingPreviews ? (
-                            <div className="flex items-center justify-center h-48">
-                                <Loader2 className="w-8 h-8 animate-spin text-indigo-400" />
-                                <span className="ml-2 text-gray-400">Loading previews...</span>
+                            <div className="flex items-center justify-center h-48 bg-gray-50 rounded-xl border border-gray-200">
+                                <Loader2 className="w-8 h-8 animate-spin text-indigo-600" />
+                                <span className="ml-2 text-gray-500 font-medium">Loading previews...</span>
                             </div>
                         ) : (
-                            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4 p-4 bg-white/5 rounded-xl max-h-80 overflow-y-auto">
+                            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4 p-4 bg-gray-50 rounded-xl border border-gray-200 max-h-96 overflow-y-auto custom-scrollbar">
                                 {previews.map((preview) => {
                                     const pageRot = mode === 'all' ? previewRotation : (pageRotations.get(preview.pageNum) || 0);
                                     return (
                                         <div
                                             key={preview.pageNum}
                                             onClick={() => mode === 'specific' && rotateSpecificPage(preview.pageNum)}
-                                            className={`relative rounded-lg overflow-hidden border-2 transition-all bg-gray-800 ${mode === 'specific' ? 'cursor-pointer hover:border-indigo-400' : ''
-                                                } ${pageRot !== 0 ? 'border-indigo-500' : 'border-transparent'}`}
+                                            className={`relative rounded-lg overflow-hidden border-2 transition-all bg-white shadow-sm ${mode === 'specific' ? 'cursor-pointer hover:border-indigo-400 hover:shadow-md' : ''
+                                                } ${pageRot !== 0 ? 'border-indigo-500 ring-2 ring-indigo-500/20' : 'border-transparent'}`}
                                         >
-                                            <div className="aspect-[3/4] flex items-center justify-center p-1">
+                                            <div className="aspect-[3/4] flex items-center justify-center p-2">
                                                 <img
                                                     src={preview.originalDataUrl}
                                                     alt={`Page ${preview.pageNum}`}
@@ -305,7 +309,7 @@ export default function RotatePDFPage() {
                                                     style={{ transform: `rotate(${pageRot}deg)` }}
                                                 />
                                             </div>
-                                            <div className={`absolute bottom-0 left-0 right-0 py-1 text-center text-xs font-medium ${pageRot !== 0 ? 'bg-indigo-500 text-white' : 'bg-black/70 text-gray-300'
+                                            <div className={`absolute bottom-0 left-0 right-0 py-1 text-center text-xs font-medium ${pageRot !== 0 ? 'bg-indigo-600 text-white' : 'bg-gray-900/80 text-white'
                                                 }`}>
                                                 {preview.pageNum} {pageRot !== 0 && `(${pageRot}°)`}
                                             </div>
@@ -316,7 +320,7 @@ export default function RotatePDFPage() {
                         )}
 
                         {pageCount > 12 && (
-                            <p className="text-xs text-gray-500 mt-2">
+                            <p className="text-xs text-gray-500 mt-2 text-center">
                                 Showing first 12 pages. All {pageCount} pages will be rotated.
                             </p>
                         )}
@@ -326,7 +330,7 @@ export default function RotatePDFPage() {
                     <button
                         onClick={handleRotate}
                         disabled={isProcessing || (mode === 'all' ? previewRotation === 0 : !Array.from(pageRotations.values()).some(r => r !== 0))}
-                        className="btn-primary w-full flex items-center justify-center gap-2 disabled:opacity-50"
+                        className="w-full py-4 rounded-xl font-bold bg-indigo-600 text-white shadow-lg shadow-indigo-500/25 hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-lg transition-all"
                     >
                         {isProcessing ? (
                             <>
@@ -345,28 +349,28 @@ export default function RotatePDFPage() {
 
             {/* Progress */}
             {isProcessing && (
-                <div className="mt-6">
+                <div className="mt-8 max-w-md mx-auto">
                     <ProgressBar progress={progress} label="Rotating pages..." />
                 </div>
             )}
 
             {/* Result */}
             {resultBlob && (
-                <div className="mt-6 space-y-4">
-                    <div className="p-4 rounded-xl bg-green-500/10 border border-green-500/30">
-                        <div className="flex items-center justify-between flex-wrap gap-4">
-                            <div>
-                                <p className="text-green-400 font-semibold">PDF rotated successfully!</p>
-                                <p className="text-sm text-gray-400">{formatSize(resultBlob.size)}</p>
-                            </div>
-                            <button onClick={downloadResult} className="btn-primary flex items-center gap-2">
-                                <Download className="w-4 h-4" />
-                                Download
-                            </button>
+                <div className="mt-8 space-y-4 max-w-lg mx-auto">
+                    <div className="p-6 rounded-xl bg-green-50 border border-green-200 shadow-sm text-center">
+                        <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <RotateCw className="w-8 h-8 text-green-600" />
                         </div>
+                        <h3 className="text-xl font-bold text-gray-900 mb-2">PDF Rotated Successfully!</h3>
+                        <p className="text-gray-500 mb-6">{formatSize(resultBlob.size)} • Ready for download</p>
+
+                        <button onClick={downloadResult} className="w-full py-3 rounded-xl font-bold bg-green-600 text-white shadow-lg shadow-green-500/25 hover:bg-green-700 flex items-center justify-center gap-2 transition-all">
+                            <Download className="w-5 h-5" />
+                            Download Rotated PDF
+                        </button>
                     </div>
 
-                    <button onClick={resetAll} className="btn-secondary w-full">
+                    <button onClick={resetAll} className="w-full py-3 rounded-xl font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors">
                         Rotate Another PDF
                     </button>
                 </div>

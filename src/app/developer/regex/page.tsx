@@ -84,39 +84,40 @@ export default function RegexTesterPage() {
         >
             <div className="space-y-6">
                 {/* Pattern Input */}
-                <div className="bg-white/5 p-4 rounded-xl border border-white/10">
+                {/* Pattern Input */}
+                <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
                     <div className="flex items-center gap-3 mb-3">
-                        <h3 className="text-sm font-medium text-gray-400 uppercase tracking-wider">Pattern</h3>
+                        <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider">Pattern</h3>
                         <button
                             onClick={copyPattern}
                             disabled={!pattern}
-                            className="p-1.5 rounded-lg hover:bg-white/10 text-gray-400 hover:text-white disabled:opacity-50"
+                            className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-gray-900 disabled:opacity-50 transition-colors"
                         >
-                            {copied ? <Check className="w-3.5 h-3.5 text-green-400" /> : <Copy className="w-3.5 h-3.5" />}
+                            {copied ? <Check className="w-3.5 h-3.5 text-green-600" /> : <Copy className="w-3.5 h-3.5" />}
                         </button>
                     </div>
                     <div className="flex items-center gap-2">
-                        <span className="text-gray-500 font-mono">/</span>
+                        <span className="text-gray-400 font-mono">/</span>
                         <input
                             type="text"
                             value={pattern}
                             onChange={(e) => setPattern(e.target.value)}
                             placeholder="Enter regex pattern..."
-                            className="flex-1 px-3 py-2 rounded-lg bg-black/30 border border-white/10 focus:border-indigo-500 text-white outline-none font-mono"
+                            className="flex-1 px-3 py-2 rounded-lg bg-gray-50 border border-gray-200 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 text-gray-900 outline-none font-mono placeholder-gray-400"
                         />
-                        <span className="text-gray-500 font-mono">/</span>
+                        <span className="text-gray-400 font-mono">/</span>
                         <input
                             type="text"
                             value={flags}
                             onChange={(e) => setFlags(e.target.value)}
-                            className="w-16 px-3 py-2 rounded-lg bg-black/30 border border-white/10 focus:border-indigo-500 text-white outline-none font-mono text-center"
+                            className="w-16 px-3 py-2 rounded-lg bg-gray-50 border border-gray-200 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 text-gray-900 outline-none font-mono text-center"
                         />
                     </div>
 
                     {/* Flag toggles */}
                     <div className="flex gap-3 mt-3">
                         {flagOptions.map(({ flag, label }) => (
-                            <label key={flag} className="flex items-center gap-1.5 text-xs text-gray-400 cursor-pointer">
+                            <label key={flag} className="flex items-center gap-1.5 text-xs text-gray-500 cursor-pointer hover:text-gray-900">
                                 <input
                                     type="checkbox"
                                     checked={flags.includes(flag)}
@@ -127,7 +128,7 @@ export default function RegexTesterPage() {
                                             setFlags(flags.replace(flag, ''));
                                         }
                                     }}
-                                    className="rounded bg-black/30 border-white/20"
+                                    className="rounded bg-gray-50 border-gray-300 text-indigo-600 focus:ring-indigo-500"
                                 />
                                 {label}
                             </label>
@@ -135,16 +136,19 @@ export default function RegexTesterPage() {
                     </div>
 
                     {error && (
-                        <p className="text-red-400 text-sm mt-2">{error}</p>
+                        <p className="text-red-500 text-sm mt-2 flex items-center gap-1">
+                            <span className="w-1 h-3 bg-red-500 rounded-full inline-block"></span> {error}
+                        </p>
                     )}
                 </div>
 
                 {/* Test String */}
-                <div className="bg-white/5 rounded-xl border border-white/10 overflow-hidden">
-                    <div className="p-3 border-b border-white/5 bg-black/20 flex justify-between items-center">
-                        <h3 className="text-sm font-medium text-gray-400">Test String</h3>
+                {/* Test String */}
+                <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
+                    <div className="p-3 border-b border-gray-200 bg-gray-50 flex justify-between items-center">
+                        <h3 className="text-sm font-medium text-gray-500">Test String</h3>
                         {matches.length > 0 && (
-                            <span className="text-xs text-green-400 font-mono">
+                            <span className="text-xs text-green-600 font-mono bg-green-50 px-2 py-0.5 rounded-full border border-green-100">
                                 {matches.length} match{matches.length !== 1 ? 'es' : ''}
                             </span>
                         )}
@@ -153,18 +157,18 @@ export default function RegexTesterPage() {
                         value={testString}
                         onChange={(e) => setTestString(e.target.value)}
                         placeholder="Enter text to test against..."
-                        className="w-full h-32 p-4 bg-transparent text-white outline-none resize-none font-mono text-sm"
+                        className="w-full h-32 p-4 bg-transparent text-gray-900 outline-none resize-none font-mono text-sm placeholder-gray-400"
                     />
                 </div>
 
                 {/* Highlighted Result */}
                 {testString && pattern && !error && (
-                    <div className="bg-white/5 rounded-xl border border-white/10 overflow-hidden">
-                        <div className="p-3 border-b border-white/5 bg-black/20">
-                            <h3 className="text-sm font-medium text-gray-400">Highlighted Matches</h3>
+                    <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
+                        <div className="p-3 border-b border-gray-200 bg-gray-50">
+                            <h3 className="text-sm font-medium text-gray-500">Highlighted Matches</h3>
                         </div>
                         <div
-                            className="p-4 font-mono text-sm text-gray-300 whitespace-pre-wrap"
+                            className="p-4 font-mono text-sm text-gray-600 whitespace-pre-wrap bg-gray-50/30"
                             dangerouslySetInnerHTML={{ __html: highlightMatches() }}
                         />
                     </div>
@@ -172,18 +176,18 @@ export default function RegexTesterPage() {
 
                 {/* Match Details */}
                 {matches.length > 0 && (
-                    <div className="bg-white/5 rounded-xl border border-white/10 overflow-hidden">
-                        <div className="p-3 border-b border-white/5 bg-black/20">
-                            <h3 className="text-sm font-medium text-gray-400">Match Details</h3>
+                    <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
+                        <div className="p-3 border-b border-gray-200 bg-gray-50">
+                            <h3 className="text-sm font-medium text-gray-500">Match Details</h3>
                         </div>
                         <div className="p-4 space-y-2 max-h-48 overflow-y-auto">
                             {matches.map((m, i) => (
-                                <div key={i} className="flex items-center gap-3 p-2 rounded-lg bg-black/20 font-mono text-sm">
-                                    <span className="text-gray-500 w-6">{i + 1}.</span>
-                                    <span className="text-green-400">&quot;{m.match}&quot;</span>
+                                <div key={i} className="flex items-center gap-3 p-2 rounded-lg bg-gray-50 border border-gray-100 font-mono text-sm hover:border-indigo-300 transition-all">
+                                    <span className="text-gray-400 w-6">{i + 1}.</span>
+                                    <span className="text-green-600 bg-green-50 px-1 rounded">&quot;{m.match}&quot;</span>
                                     <span className="text-gray-500">at index {m.index}</span>
                                     {m.groups && (
-                                        <span className="text-purple-400">
+                                        <span className="text-purple-600 bg-purple-50 px-1 rounded">
                                             groups: [{m.groups.join(', ')}]
                                         </span>
                                     )}

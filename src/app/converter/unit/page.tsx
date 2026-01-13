@@ -147,8 +147,8 @@ export default function UnitConverterPage() {
                             setToUnit(unitConfigs[cat].units[1]?.unit || unitConfigs[cat].units[0].unit);
                         }}
                         className={`px-4 py-2 rounded-lg text-sm transition-colors ${category === cat
-                                ? 'bg-indigo-500 text-white'
-                                : 'bg-white/5 text-gray-300 hover:bg-white/10'
+                            ? 'bg-indigo-600 text-white'
+                            : 'bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-900'
                             }`}
                     >
                         {unitConfigs[cat].name}
@@ -159,24 +159,24 @@ export default function UnitConverterPage() {
             {/* Converter */}
             <div className="space-y-4">
                 {/* From */}
-                <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+                <div className="p-4 rounded-xl bg-white border border-gray-200 shadow-sm">
                     <div className="flex gap-4">
                         <div className="flex-1">
-                            <label className="text-sm text-gray-400 mb-1 block">From</label>
+                            <label className="text-sm text-gray-500 mb-1 block">From</label>
                             <input
                                 type="number"
                                 value={fromValue}
                                 onChange={(e) => setFromValue(e.target.value)}
-                                className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-xl font-medium"
+                                className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 text-xl font-medium text-gray-900 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all"
                                 placeholder="Enter value"
                             />
                         </div>
                         <div className="w-40">
-                            <label className="text-sm text-gray-400 mb-1 block">Unit</label>
+                            <label className="text-sm text-gray-500 mb-1 block">Unit</label>
                             <select
                                 value={fromUnit}
                                 onChange={(e) => setFromUnit(e.target.value)}
-                                className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10"
+                                className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 text-gray-900 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all"
                             >
                                 {config.units.map((u) => (
                                     <option key={u.unit} value={u.unit}>{u.label}</option>
@@ -188,26 +188,26 @@ export default function UnitConverterPage() {
 
                 {/* Swap Button */}
                 <div className="flex justify-center">
-                    <button onClick={swapUnits} className="p-3 rounded-full bg-white/5 hover:bg-white/10 transition-colors">
+                    <button onClick={swapUnits} className="p-3 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 hover:text-gray-900 transition-colors shadow-sm">
                         <ArrowRightLeft className="w-5 h-5 rotate-90" />
                     </button>
                 </div>
 
                 {/* To */}
-                <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+                <div className="p-4 rounded-xl bg-white border border-gray-200 shadow-sm">
                     <div className="flex gap-4">
                         <div className="flex-1">
-                            <label className="text-sm text-gray-400 mb-1 block">To</label>
-                            <div className="w-full px-4 py-3 rounded-lg bg-indigo-500/10 border border-indigo-500/30 text-xl font-medium text-indigo-400">
+                            <label className="text-sm text-gray-500 mb-1 block">To</label>
+                            <div className="w-full px-4 py-3 rounded-lg bg-indigo-50 border border-indigo-100 text-xl font-medium text-indigo-700">
                                 {result || '0'}
                             </div>
                         </div>
                         <div className="w-40">
-                            <label className="text-sm text-gray-400 mb-1 block">Unit</label>
+                            <label className="text-sm text-gray-500 mb-1 block">Unit</label>
                             <select
                                 value={toUnit}
                                 onChange={(e) => setToUnit(e.target.value)}
-                                className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10"
+                                className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 text-gray-900 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all"
                             >
                                 {config.units.map((u) => (
                                     <option key={u.unit} value={u.unit}>{u.label}</option>

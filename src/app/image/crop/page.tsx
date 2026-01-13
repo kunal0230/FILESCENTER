@@ -127,8 +127,8 @@ export default function ImageCropPage() {
                 <div className="w-full lg:w-[280px] shrink-0 flex flex-col gap-5">
 
                     {/* Crop Settings */}
-                    <div className="bg-white/5 p-5 rounded-xl border border-white/10">
-                        <h3 className="text-sm font-medium text-gray-400 uppercase tracking-wider mb-4">Crop Settings</h3>
+                    <div className="bg-white/50 p-5 rounded-xl border border-gray-200 shadow-sm">
+                        <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-4">Crop Settings</h3>
 
                         {/* Aspect Ratio */}
                         <div className="mb-5">
@@ -140,7 +140,7 @@ export default function ImageCropPage() {
                                         onClick={() => handleAspectChange(ratio.value)}
                                         className={`px-2 py-2 rounded-lg text-xs font-medium transition-all border ${aspect === ratio.value
                                             ? 'bg-indigo-500 text-white border-indigo-500'
-                                            : 'bg-black/20 text-gray-400 border-transparent hover:bg-white/5 hover:text-white'
+                                            : 'bg-white text-gray-600 border-gray-200 hover:bg-gray-50 hover:text-gray-900 shadow-sm'
                                             }`}
                                     >
                                         {ratio.label}
@@ -152,31 +152,31 @@ export default function ImageCropPage() {
                         {/* Transform Controls */}
                         <div>
                             <label className="block text-xs text-gray-500 mb-2">Transform</label>
-                            <div className="grid grid-cols-4 gap-2 bg-black/20 p-1.5 rounded-lg">
+                            <div className="grid grid-cols-4 gap-2 bg-gray-50 p-1.5 rounded-lg border border-gray-200">
                                 <button
                                     onClick={() => setRotate(r => r - 90)}
-                                    className="p-2 hover:bg-white/10 rounded-md text-gray-400 hover:text-white transition-colors flex items-center justify-center"
+                                    className="p-2 hover:bg-white rounded-md text-gray-500 hover:text-gray-900 transition-colors flex items-center justify-center hover:shadow-sm"
                                     title="Rotate Left"
                                 >
                                     <RotateCcw className="w-4 h-4" />
                                 </button>
                                 <button
                                     onClick={() => setRotate(r => r + 90)}
-                                    className="p-2 hover:bg-white/10 rounded-md text-gray-400 hover:text-white transition-colors flex items-center justify-center"
+                                    className="p-2 hover:bg-white rounded-md text-gray-500 hover:text-gray-900 transition-colors flex items-center justify-center hover:shadow-sm"
                                     title="Rotate Right"
                                 >
                                     <RotateCw className="w-4 h-4" />
                                 </button>
                                 <button
                                     onClick={() => setFlip(f => ({ ...f, horizontal: !f.horizontal }))}
-                                    className={`p-2 rounded-md transition-colors flex items-center justify-center ${flip.horizontal ? 'bg-indigo-500 text-white' : 'text-gray-400 hover:bg-white/10 hover:text-white'}`}
+                                    className={`p-2 rounded-md transition-colors flex items-center justify-center ${flip.horizontal ? 'bg-indigo-500 text-white' : 'text-gray-500 hover:bg-white hover:text-gray-900 hover:shadow-sm'}`}
                                     title="Flip Horizontal"
                                 >
                                     <FlipHorizontal className="w-4 h-4" />
                                 </button>
                                 <button
                                     onClick={() => setFlip(f => ({ ...f, vertical: !f.vertical }))}
-                                    className={`p-2 rounded-md transition-colors flex items-center justify-center ${flip.vertical ? 'bg-indigo-500 text-white' : 'text-gray-400 hover:bg-white/10 hover:text-white'}`}
+                                    className={`p-2 rounded-md transition-colors flex items-center justify-center ${flip.vertical ? 'bg-indigo-500 text-white' : 'text-gray-500 hover:bg-white hover:text-gray-900 hover:shadow-sm'}`}
                                     title="Flip Vertical"
                                 >
                                     <FlipVertical className="w-4 h-4" />
@@ -191,8 +191,8 @@ export default function ImageCropPage() {
                         onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
                         onDragLeave={() => setIsDragging(false)}
                         className={`relative border-2 border-dashed rounded-xl p-4 text-center transition-all cursor-pointer ${isDragging
-                            ? 'border-indigo-500 bg-indigo-500/10'
-                            : 'border-white/20 hover:border-indigo-500/50 hover:bg-white/5'
+                            ? 'border-indigo-500 bg-indigo-50'
+                            : 'border-gray-200 hover:border-indigo-400 hover:bg-gray-50'
                             }`}
                         onClick={() => document.getElementById('crop-file-input')?.click()}
                     >
@@ -203,8 +203,8 @@ export default function ImageCropPage() {
                             className="hidden"
                             onChange={(e) => handleFilesSelected(Array.from(e.target.files || []))}
                         />
-                        <Upload className="w-6 h-6 mx-auto mb-2 text-indigo-400" />
-                        <p className="text-sm text-gray-300">{files.length > 0 ? 'Change image' : 'Drop file or click to upload'}</p>
+                        <Upload className="w-6 h-6 mx-auto mb-2 text-indigo-500" />
+                        <p className="text-sm text-gray-600">{files.length > 0 ? 'Change image' : 'Drop file or click to upload'}</p>
                     </div>
 
                     {/* Action Buttons */}
@@ -228,7 +228,7 @@ export default function ImageCropPage() {
                 </div>
 
                 {/* RIGHT: Editor / Placeholder */}
-                <div className="flex-1 bg-white/5 rounded-xl border border-white/10 overflow-hidden relative flex items-center justify-center min-h-[400px]">
+                <div className="flex-1 bg-[url('/grid.svg')] bg-gray-50 rounded-xl border border-gray-200 overflow-hidden relative flex items-center justify-center min-h-[400px]">
                     <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.03] pointer-events-none" />
 
                     {files.length > 0 && imgSrc ? (

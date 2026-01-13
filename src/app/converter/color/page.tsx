@@ -108,115 +108,115 @@ export default function ColorConverterPage() {
         >
             {/* Color Preview */}
             <div
-                className="h-32 rounded-xl mb-6 flex items-center justify-center"
+                className="h-32 rounded-xl mb-6 flex items-center justify-center border border-gray-200 shadow-sm"
                 style={{ backgroundColor: hex }}
             >
-                <button onClick={randomColor} className="px-4 py-2 rounded-lg bg-black/30 text-white text-sm hover:bg-black/50 transition-colors">
+                <button onClick={randomColor} className="px-4 py-2 rounded-lg bg-white/90 text-gray-900 shadow-sm text-sm hover:bg-white transition-colors">
                     Random Color
                 </button>
             </div>
 
             {/* HEX */}
-            <div className="p-4 rounded-xl bg-white/5 border border-white/10 mb-4">
+            <div className="p-4 rounded-xl bg-white border border-gray-200 shadow-sm mb-4">
                 <div className="flex items-center justify-between mb-2">
-                    <label className="font-medium">HEX</label>
-                    <button onClick={() => copy(hex, 'hex')} className="text-sm text-gray-400 hover:text-white flex items-center gap-1">
-                        {copied === 'hex' ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                    <label className="font-medium text-gray-700">HEX</label>
+                    <button onClick={() => copy(hex, 'hex')} className="text-sm text-gray-400 hover:text-gray-600 flex items-center gap-1">
+                        {copied === 'hex' ? <Check className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4" />}
                     </button>
                 </div>
                 <input
                     type="text"
                     value={hex}
                     onChange={(e) => updateFromHex(e.target.value)}
-                    className="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 font-mono"
+                    className="w-full px-4 py-2 rounded-lg bg-gray-50 border border-gray-200 font-mono text-gray-900 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 outline-none"
                 />
             </div>
 
             {/* RGB */}
-            <div className="p-4 rounded-xl bg-white/5 border border-white/10 mb-4">
+            <div className="p-4 rounded-xl bg-white border border-gray-200 shadow-sm mb-4">
                 <div className="flex items-center justify-between mb-2">
-                    <label className="font-medium">RGB</label>
-                    <button onClick={() => copy(`rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`, 'rgb')} className="text-sm text-gray-400 hover:text-white flex items-center gap-1">
-                        {copied === 'rgb' ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                    <label className="font-medium text-gray-700">RGB</label>
+                    <button onClick={() => copy(`rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`, 'rgb')} className="text-sm text-gray-400 hover:text-gray-600 flex items-center gap-1">
+                        {copied === 'rgb' ? <Check className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4" />}
                     </button>
                 </div>
                 <div className="grid grid-cols-3 gap-3">
                     <div>
-                        <label className="text-xs text-gray-400">R</label>
+                        <label className="text-xs text-gray-500">R</label>
                         <input
                             type="number"
                             min="0"
                             max="255"
                             value={rgb.r}
                             onChange={(e) => updateFromRgb({ ...rgb, r: parseInt(e.target.value) || 0 })}
-                            className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-center"
+                            className="w-full px-3 py-2 rounded-lg bg-gray-50 border border-gray-200 text-center text-gray-900 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 outline-none"
                         />
                     </div>
                     <div>
-                        <label className="text-xs text-gray-400">G</label>
+                        <label className="text-xs text-gray-500">G</label>
                         <input
                             type="number"
                             min="0"
                             max="255"
                             value={rgb.g}
                             onChange={(e) => updateFromRgb({ ...rgb, g: parseInt(e.target.value) || 0 })}
-                            className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-center"
+                            className="w-full px-3 py-2 rounded-lg bg-gray-50 border border-gray-200 text-center text-gray-900 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 outline-none"
                         />
                     </div>
                     <div>
-                        <label className="text-xs text-gray-400">B</label>
+                        <label className="text-xs text-gray-500">B</label>
                         <input
                             type="number"
                             min="0"
                             max="255"
                             value={rgb.b}
                             onChange={(e) => updateFromRgb({ ...rgb, b: parseInt(e.target.value) || 0 })}
-                            className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-center"
+                            className="w-full px-3 py-2 rounded-lg bg-gray-50 border border-gray-200 text-center text-gray-900 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 outline-none"
                         />
                     </div>
                 </div>
             </div>
 
             {/* HSL */}
-            <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+            <div className="p-4 rounded-xl bg-white border border-gray-200 shadow-sm">
                 <div className="flex items-center justify-between mb-2">
-                    <label className="font-medium">HSL</label>
-                    <button onClick={() => copy(`hsl(${hsl.h}, ${hsl.s}%, ${hsl.l}%)`, 'hsl')} className="text-sm text-gray-400 hover:text-white flex items-center gap-1">
-                        {copied === 'hsl' ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                    <label className="font-medium text-gray-700">HSL</label>
+                    <button onClick={() => copy(`hsl(${hsl.h}, ${hsl.s}%, ${hsl.l}%)`, 'hsl')} className="text-sm text-gray-400 hover:text-gray-600 flex items-center gap-1">
+                        {copied === 'hsl' ? <Check className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4" />}
                     </button>
                 </div>
                 <div className="grid grid-cols-3 gap-3">
                     <div>
-                        <label className="text-xs text-gray-400">H (°)</label>
+                        <label className="text-xs text-gray-500">H (°)</label>
                         <input
                             type="number"
                             min="0"
                             max="360"
                             value={hsl.h}
                             onChange={(e) => updateFromHsl({ ...hsl, h: parseInt(e.target.value) || 0 })}
-                            className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-center"
+                            className="w-full px-3 py-2 rounded-lg bg-gray-50 border border-gray-200 text-center text-gray-900 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 outline-none"
                         />
                     </div>
                     <div>
-                        <label className="text-xs text-gray-400">S (%)</label>
+                        <label className="text-xs text-gray-500">S (%)</label>
                         <input
                             type="number"
                             min="0"
                             max="100"
                             value={hsl.s}
                             onChange={(e) => updateFromHsl({ ...hsl, s: parseInt(e.target.value) || 0 })}
-                            className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-center"
+                            className="w-full px-3 py-2 rounded-lg bg-gray-50 border border-gray-200 text-center text-gray-900 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 outline-none"
                         />
                     </div>
                     <div>
-                        <label className="text-xs text-gray-400">L (%)</label>
+                        <label className="text-xs text-gray-500">L (%)</label>
                         <input
                             type="number"
                             min="0"
                             max="100"
                             value={hsl.l}
                             onChange={(e) => updateFromHsl({ ...hsl, l: parseInt(e.target.value) || 0 })}
-                            className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-center"
+                            className="w-full px-3 py-2 rounded-lg bg-gray-50 border border-gray-200 text-center text-gray-900 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 outline-none"
                         />
                     </div>
                 </div>

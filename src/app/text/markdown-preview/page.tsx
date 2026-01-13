@@ -65,30 +65,30 @@ console.log(hello);
             category="text"
         >
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 h-[600px]">
-                <div className="bg-white/5 rounded-xl border border-white/10 overflow-hidden flex flex-col">
-                    <div className="p-3 border-b border-white/5 bg-black/20">
-                        <h3 className="text-sm font-medium text-gray-400">Markdown</h3>
+                <div className="bg-white rounded-xl border border-gray-200 overflow-hidden flex flex-col shadow-sm">
+                    <div className="p-3 border-b border-gray-200 bg-gray-50">
+                        <h3 className="text-sm font-medium text-gray-700">Markdown</h3>
                     </div>
                     <textarea
                         value={markdown}
                         onChange={(e) => setMarkdown(e.target.value)}
-                        className="flex-1 p-4 bg-transparent text-white outline-none resize-none font-mono text-sm"
+                        className="flex-1 p-4 bg-transparent text-gray-900 outline-none resize-none font-mono text-sm"
                         placeholder="Type your markdown here..."
                     />
                 </div>
 
-                <div className="bg-white/5 rounded-xl border border-white/10 overflow-hidden flex flex-col">
-                    <div className="p-3 border-b border-white/5 bg-black/20 flex justify-between items-center">
-                        <h3 className="text-sm font-medium text-gray-400 flex items-center gap-2">
+                <div className="bg-white rounded-xl border border-gray-200 overflow-hidden flex flex-col shadow-sm">
+                    <div className="p-3 border-b border-gray-200 bg-gray-50 flex justify-between items-center">
+                        <h3 className="text-sm font-medium text-gray-700 flex items-center gap-2">
                             <Eye className="w-4 h-4" /> Preview
                         </h3>
-                        <button onClick={copyHtml} className="p-1.5 rounded-lg hover:bg-white/10 text-gray-400 hover:text-white text-xs flex items-center gap-1">
-                            {copied ? <Check className="w-3 h-3 text-green-400" /> : <Copy className="w-3 h-3" />}
+                        <button onClick={copyHtml} className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-500 hover:text-gray-900 text-xs flex items-center gap-1">
+                            {copied ? <Check className="w-3 h-3 text-green-600" /> : <Copy className="w-3 h-3" />}
                             Copy HTML
                         </button>
                     </div>
                     <div
-                        className="flex-1 p-4 overflow-auto prose prose-invert prose-sm max-w-none"
+                        className="flex-1 p-4 overflow-auto prose prose-sm max-w-none"
                         dangerouslySetInnerHTML={{ __html: html }}
                         style={{
                             lineHeight: 1.6,

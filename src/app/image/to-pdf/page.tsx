@@ -119,8 +119,8 @@ export default function ImageToPDFPage() {
             <div className="flex flex-col lg:flex-row gap-6">
                 {/* Left: Controls */}
                 <div className="w-full lg:w-[360px] shrink-0 flex flex-col gap-5">
-                    <div className="bg-white/5 p-4 rounded-xl border border-white/10">
-                        <h3 className="text-sm font-medium text-gray-400 uppercase tracking-wider mb-3">Page Size</h3>
+                    <div className="bg-white/50 p-4 rounded-xl border border-gray-200 shadow-sm">
+                        <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-3">Page Size</h3>
                         <div className="grid grid-cols-3 gap-2">
                             {[
                                 { id: 'fit', label: 'Fit Image' },
@@ -131,8 +131,8 @@ export default function ImageToPDFPage() {
                                     key={id}
                                     onClick={() => setPageSize(id as typeof pageSize)}
                                     className={`py-2 px-3 rounded-lg text-sm font-medium transition-all ${pageSize === id
-                                        ? 'bg-indigo-500 text-white'
-                                        : 'bg-black/20 text-gray-400 hover:bg-white/10'
+                                        ? 'bg-indigo-500 text-white shadow-sm'
+                                        : 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-200'
                                         }`}
                                 >
                                     {label}
@@ -161,7 +161,7 @@ export default function ImageToPDFPage() {
                     {pdfBlob && (
                         <button
                             onClick={downloadPDF}
-                            className="w-full py-3 rounded-xl font-medium bg-green-500 text-white hover:bg-green-600 flex items-center justify-center gap-2"
+                            className="w-full py-3 rounded-xl font-medium bg-green-500 text-white hover:bg-green-600 flex items-center justify-center gap-2 shadow-lg shadow-green-500/25"
                         >
                             <Download className="w-4 h-4" />
                             Download PDF
@@ -170,7 +170,7 @@ export default function ImageToPDFPage() {
                 </div>
 
                 {/* Right: Preview */}
-                <div className="flex-1 bg-white/5 rounded-xl border border-white/10 min-h-[400px] flex items-center justify-center">
+                <div className="flex-1 bg-white/50 rounded-xl border border-gray-200 min-h-[400px] flex items-center justify-center shadow-sm">
                     {files.length === 0 ? (
                         <div className="text-center text-gray-500">
                             <Upload className="w-12 h-12 mx-auto mb-3 opacity-30" />
@@ -178,10 +178,10 @@ export default function ImageToPDFPage() {
                         </div>
                     ) : (
                         <div className="p-4 w-full">
-                            <p className="text-sm text-gray-400 mb-3">{files.length} image(s) selected</p>
+                            <p className="text-sm text-gray-500 mb-3">{files.length} image(s) selected</p>
                             <div className="grid grid-cols-4 gap-2">
                                 {files.slice(0, 8).map((file, i) => (
-                                    <div key={i} className="aspect-square rounded-lg bg-black/30 overflow-hidden relative group">
+                                    <div key={i} className="aspect-square rounded-lg bg-gray-100 overflow-hidden relative group border border-gray-200">
                                         <img
                                             src={URL.createObjectURL(file)}
                                             alt=""
@@ -189,14 +189,14 @@ export default function ImageToPDFPage() {
                                         />
                                         <button
                                             onClick={() => handleRemoveFile(i)}
-                                            className="absolute top-1 right-1 p-1 rounded bg-black/50 text-white opacity-0 group-hover:opacity-100 transition-opacity"
+                                            className="absolute top-1 right-1 p-1 rounded bg-black/50 text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-500"
                                         >
                                             <Trash2 className="w-3 h-3" />
                                         </button>
                                     </div>
                                 ))}
                                 {files.length > 8 && (
-                                    <div className="aspect-square rounded-lg bg-black/30 flex items-center justify-center text-gray-400 text-sm">
+                                    <div className="aspect-square rounded-lg bg-gray-50 border border-gray-200 flex items-center justify-center text-gray-500 text-sm font-medium">
                                         +{files.length - 8} more
                                     </div>
                                 )}

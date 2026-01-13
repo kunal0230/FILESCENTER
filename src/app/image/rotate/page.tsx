@@ -86,16 +86,16 @@ export default function RotateImagePage() {
 
                     {files.length > 0 && (
                         <>
-                            <div className="bg-white/5 p-4 rounded-xl border border-white/10">
-                                <h3 className="text-sm font-medium text-gray-400 uppercase tracking-wider mb-3">Quick Rotate</h3>
+                            <div className="bg-white/50 p-4 rounded-xl border border-gray-200 shadow-sm">
+                                <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-3">Quick Rotate</h3>
                                 <div className="grid grid-cols-4 gap-2">
                                     {[90, 180, 270, 0].map((deg) => (
                                         <button
                                             key={deg}
                                             onClick={() => setRotation(deg)}
                                             className={`py-2 px-3 rounded-lg text-sm font-medium transition-all ${rotation === deg
-                                                    ? 'bg-indigo-500 text-white'
-                                                    : 'bg-black/20 text-gray-400 hover:bg-white/10'
+                                                ? 'bg-indigo-500 text-white shadow-sm'
+                                                : 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-200'
                                                 }`}
                                         >
                                             {deg === 0 ? 'Reset' : `${deg}°`}
@@ -104,21 +104,21 @@ export default function RotateImagePage() {
                                 </div>
                             </div>
 
-                            <div className="bg-white/5 p-4 rounded-xl border border-white/10">
-                                <h3 className="text-sm font-medium text-gray-400 uppercase tracking-wider mb-3">Fine Control</h3>
+                            <div className="bg-white/50 p-4 rounded-xl border border-gray-200 shadow-sm">
+                                <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-3">Fine Control</h3>
                                 <div className="flex items-center gap-3">
                                     <button
                                         onClick={() => rotateBy(-90)}
-                                        className="p-3 rounded-lg bg-black/20 text-gray-400 hover:bg-white/10 hover:text-white"
+                                        className="p-3 rounded-lg bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors"
                                     >
                                         <RotateCw className="w-5 h-5 transform -scale-x-100" />
                                     </button>
                                     <div className="flex-1 text-center">
-                                        <p className="text-2xl font-bold text-white">{rotation}°</p>
+                                        <p className="text-2xl font-bold text-gray-900">{rotation}°</p>
                                     </div>
                                     <button
                                         onClick={() => rotateBy(90)}
-                                        className="p-3 rounded-lg bg-black/20 text-gray-400 hover:bg-white/10 hover:text-white"
+                                        className="p-3 rounded-lg bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors"
                                     >
                                         <RotateCw className="w-5 h-5" />
                                     </button>
@@ -129,7 +129,7 @@ export default function RotateImagePage() {
                                     max="359"
                                     value={rotation}
                                     onChange={(e) => setRotation(Number(e.target.value))}
-                                    className="w-full mt-3 accent-indigo-500"
+                                    className="w-full mt-3 accent-indigo-500 bg-gray-200 h-1.5 rounded-lg appearance-none cursor-pointer"
                                 />
                             </div>
 
@@ -145,7 +145,7 @@ export default function RotateImagePage() {
                 </div>
 
                 {/* Right: Preview */}
-                <div className="flex-1 bg-white/5 rounded-xl border border-white/10 min-h-[400px] flex items-center justify-center overflow-hidden">
+                <div className="flex-1 bg-white/50 rounded-xl border border-gray-200 min-h-[400px] flex items-center justify-center overflow-hidden">
                     {previewUrl ? (
                         <div className="p-8">
                             <img
