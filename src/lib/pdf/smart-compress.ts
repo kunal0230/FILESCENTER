@@ -54,8 +54,7 @@ export async function compressPDFSmart(file: File, onProgress?: (p: number) => v
                 // Compress logic
                 const compressedFile = await compressImage(new File([blob], "image.jpg"), {
                     maxSizeMB: 0.5,
-                    maxWidthOrHeight: 2048,
-                    useWebWorker: false // pdf-lib might not like workers here
+                    maxWidthOrHeight: 2048
                 });
 
                 // If compressed is smaller, replace!
