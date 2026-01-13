@@ -231,10 +231,10 @@ export default function HomePage() {
       </section>
 
       {/* Tool Sections */}
-      <div id="pdf-tools">
+      <div id="pdf-tools" className="scroll-mt-20">
         <ToolSection title="PDF Tools" description="Edit, convert, and optimize PDFs" tools={pdfTools} icon={FileText} color="badge-pdf" />
       </div>
-      <div id="image-tools">
+      <div id="image-tools" className="scroll-mt-20">
         <ToolSection title="Image Tools" description="Resize, convert, and enhance images" tools={imageTools} icon={Image} color="badge-image" />
       </div>
       <div id="text-tools">

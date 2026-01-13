@@ -26,8 +26,8 @@ export default function Navbar() {
 
                 {/* Desktop Navigation */}
                 <div className="hidden md:flex items-center gap-1 lg:gap-2">
-                    <NavLink href="/pdf" label="PDF Tools" active={isActive("/pdf")} />
-                    <NavLink href="/image" label="Image Tools" active={isActive("/image")} />
+                    <NavLink href="/#pdf-tools" label="PDF Tools" active={isActive("/#pdf-tools")} />
+                    <NavLink href="/#image-tools" label="Image Tools" active={isActive("/#image-tools")} />
                     <NavLink href="/catalog" label="Catalog" active={isActive("/catalog")} />
                     <div className="w-px h-6 bg-gray-200 mx-2"></div>
                     <Link
@@ -62,8 +62,8 @@ export default function Navbar() {
                     }`}
             >
                 <div className="px-4 py-3 space-y-2 bg-white/95 backdrop-blur-sm">
-                    <MobileNavLink href="/pdf" label="PDF Tools" onClick={closeMenu} />
-                    <MobileNavLink href="/image" label="Image Tools" onClick={closeMenu} />
+                    <MobileNavLink href="/#pdf-tools" label="PDF Tools" onClick={closeMenu} />
+                    <MobileNavLink href="/#image-tools" label="Image Tools" onClick={closeMenu} />
                     <MobileNavLink href="/catalog" label="Full Catalog" onClick={closeMenu} />
                     <div className="border-t border-gray-100 my-2 pt-2">
                         <Link
@@ -85,8 +85,8 @@ function NavLink({ href, label, active }: { href: string; label: string; active:
         <Link
             href={href}
             className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${active
-                    ? "text-primary bg-primary/5"
-                    : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+                ? "text-primary bg-primary/5"
+                : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
                 }`}
         >
             {label}
