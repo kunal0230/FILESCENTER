@@ -1,3 +1,5 @@
+'use client';
+
 import { useState, useCallback, useMemo } from 'react';
 import { FileJson, Copy, Check, RefreshCw, AlertCircle } from 'lucide-react';
 import { ToolLayout } from '@/components/tools/ToolLayout';
