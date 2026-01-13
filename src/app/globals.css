@@ -1,26 +1,345 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Forest Calm Theme - Default */
+  /* Primary colors */
+  --primary: #2e7d52;
+  --primary-light: #4a9a6e;
+  --primary-dark: #1b5e3a;
+  --secondary: #81c995;
+  --accent: #8b6914;
+
+  /* Backgrounds */
+  --background: #f6f9f4;
+  --background-alt: #eef4ea;
+  --surface: #fcfdf8;
+
+  /* Text colors */
+  --text: #1a3023;
+  --text-muted: #4a6050;
+  --text-light: #7a907a;
+  --text-heading: #0a2013;
+  --text-link: #2e7d52;
+  --text-link-hover: #1b5e3a;
+
+  /* Borders */
+  --border: #d8e5d4;
+  --border-light: #e8f0e4;
+  --border-focus: #2e7d52;
+
+  /* Feedback colors */
+  --success: #43a047;
+  --success-bg: #e8f5e9;
+  --warning: #ff8f00;
+  --warning-bg: #fff8e1;
+  --error: #e53935;
+  --error-bg: #ffebee;
+
+  /* Cards & Components */
+  --card-bg: #fcfdf8;
+  --card-border: #d8e5d4;
+  --card-hover-border: #2e7d52;
+  --card-shadow: rgba(26, 48, 35, 0.05);
+
+  /* Buttons */
+  --btn-primary-bg: linear-gradient(135deg, #2e7d52 0%, #1b5e3a 100%);
+  --btn-primary-text: #ffffff;
+  --btn-secondary-bg: #eef4ea;
+  --btn-secondary-text: #1a3023;
+  --btn-secondary-border: #d8e5d4;
+
+  /* Input fields */
+  --input-bg: #fcfdf8;
+  --input-border: #d8e5d4;
+  --input-text: #1a3023;
+  --input-placeholder: #7a907a;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--text-heading);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+a {
+  color: var(--text-link);
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--text-link-hover);
+}
+
+/* Soft glass effect */
+.glass {
+  background: var(--surface);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border-light);
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Tool cards - uses theme variables */
+.tool-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 3px var(--card-shadow);
+}
+
+.tool-card:hover {
+  border-color: var(--card-hover-border);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px var(--card-shadow);
+}
+
+/* Button styles - uses theme variables */
+.btn-primary {
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  padding: 0.875rem 1.75rem;
+  border-radius: 12px;
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: none;
+  cursor: pointer;
+  letter-spacing: 0.01em;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px var(--card-shadow);
+  filter: brightness(1.05);
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-secondary {
+  background: var(--btn-secondary-bg);
+  color: var(--btn-secondary-text);
+  padding: 0.875rem 1.75rem;
+  border-radius: 12px;
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid var(--btn-secondary-border);
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  background: var(--border);
+  border-color: var(--text-light);
+}
+
+/* Upload zone - uses theme variables */
+.upload-zone {
+  border: 2px dashed var(--border);
+  background: var(--background-alt);
+  border-radius: 16px;
+  transition: all 0.3s ease;
+}
+
+.upload-zone:hover,
+.upload-zone.drag-over {
+  border-color: var(--primary-light);
+  background: var(--surface);
+}
+
+/* Progress bar */
+.progress-bar {
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Animations */
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out;
+}
+
+/* Scrollbar - uses theme variables */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background-alt);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-light);
+}
+
+/* Category badges */
+.badge-pdf {
+  background: linear-gradient(135deg, #d9806c 0%, #e5a08b 100%);
+}
+
+.badge-image {
+  background: linear-gradient(135deg, #7cb798 0%, #9ecdb3 100%);
+}
+
+/* Form inputs - uses theme variables */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--primary);
+  cursor: pointer;
+  margin-top: -7px;
+  box-shadow: 0 2px 8px var(--card-shadow);
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+}
+
+/* Text inputs - uses theme variables */
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="password"],
+textarea,
+select {
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  color: var(--input-text);
+  border-radius: 10px;
+  padding: 0.625rem 0.875rem;
+  transition: all 0.2s ease;
+}
+
+input[type="text"]::placeholder,
+input[type="number"]::placeholder,
+input[type="email"]::placeholder,
+input[type="password"]::placeholder,
+textarea::placeholder {
+  color: var(--input-placeholder);
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px var(--card-shadow);
+}
+
+/* Feedback states */
+.success {
+  color: var(--success);
+  background: var(--success-bg);
+}
+
+.warning {
+  color: var(--warning);
+  background: var(--warning-bg);
+}
+
+.error {
+  color: var(--error);
+  background: var(--error-bg);
+}
+
+/* Text utilities */
+.text-muted {
+  color: var(--text-muted) !important;
+}
+
+.text-light {
+  color: var(--text-light) !important;
+}
+
+/* Section spacing */
+section {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 }

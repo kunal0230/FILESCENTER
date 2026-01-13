@@ -1,0 +1,16 @@
+{
+    "name": "FilesCenter",
+    "short_name": "FilesCenter",
+    "description": "Free online tools for PDF, Image, Text processing and more",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#0a0a0f",
+    "theme_color": "#6366f1",
+    "icons": [
+        {
+            "src": "/favicon.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}

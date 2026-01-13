@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 120" fill="none">
+  <defs>
+    <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#a855f7"/>
+    </linearGradient>
+  </defs>
+  <!-- Document shape with folded corner -->
+  <path d="M20 10 L70 10 L85 25 L85 110 Q85 115 80 115 L25 115 Q20 115 20 110 Z" 
+        stroke="url(#logoGrad)" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Folded corner -->
+  <path d="M70 10 L70 25 L85 25" 
+        stroke="url(#logoGrad)" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Pen loop decoration -->
+  <path d="M35 45 Q15 55 25 75 Q35 95 25 105 M25 75 Q45 65 55 80 Q65 95 55 105" 
+        stroke="url(#logoGrad)" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
