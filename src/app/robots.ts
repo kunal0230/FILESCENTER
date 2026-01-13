@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
             allow: '/',
             disallow: '/api/',
         },
-        sitemap: 'https://filescenter.vercel.app/sitemap.xml',
+        sitemap: 'https://filecenter.app/sitemap.xml',
     };
 }

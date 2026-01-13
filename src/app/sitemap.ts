@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    const baseUrl = 'https://filescenter.vercel.app';
+    const baseUrl = 'https://filecenter.app';
 
     const pdfTools = ['merge', 'split', 'compress', 'to-image', 'rotate', 'watermark', 'protect', 'unlock'];
     const imageTools = ['compress', 'resize', 'crop', 'convert', 'to-pdf', 'to-base64', 'rotate', 'flip'];
