@@ -28,6 +28,7 @@ export default function Navbar() {
                 <div className="hidden md:flex items-center gap-1 lg:gap-2">
                     <NavLink href="/#pdf-tools" label="PDF Tools" active={isActive("/#pdf-tools")} />
                     <NavLink href="/#image-tools" label="Image Tools" active={isActive("/#image-tools")} />
+                    <NavLink href="/blog" label="Blog" active={isActive("/blog")} />
                     <NavLink href="/catalog" label="Catalog" active={isActive("/catalog")} />
                     <div className="w-px h-6 bg-gray-200 mx-2"></div>
                     <Link
@@ -64,6 +65,7 @@ export default function Navbar() {
                 <div className="px-4 py-3 space-y-2 bg-white/95 backdrop-blur-sm">
                     <MobileNavLink href="/#pdf-tools" label="PDF Tools" onClick={closeMenu} />
                     <MobileNavLink href="/#image-tools" label="Image Tools" onClick={closeMenu} />
+                    <MobileNavLink href="/blog" label="Blog" onClick={closeMenu} />
                     <MobileNavLink href="/catalog" label="Full Catalog" onClick={closeMenu} />
                     <div className="border-t border-gray-100 my-2 pt-2">
                         <Link
