@@ -1,152 +1,123 @@
-import Link from 'next/link';
 import { getAllPosts } from '@/lib/blog';
-import { Metadata } from 'next';
-import { Calendar, User, ArrowRight } from 'lucide-react';
+import Link from 'next/link';
+import { ArrowRight, Search, Zap, Newspaper } from 'lucide-react';
+import { BlogSidebar } from '@/components/blog/BlogSidebar';
 
-export const metadata: Metadata = {
-    title: 'Blog - FilesCenter | Tips, Tutorials & Updates',
-    description: 'Read the latest articles about PDF management, image editing, and productivity tools. Learn how to get the most out of FilesCenter.',
+// Map specific posts to our new abstract images
+// We should eventually move this to frontmatter, but this override ensures design consistency
+const postImages: Record<string, string> = {
+    'pdf-manifestation-internals': '/images/blog/blog_hero_abstract_1.png',
+    'ultimate-image-compression-guide': '/images/blog/blog_hero_abstract_2.png',
+    'securing-sensitive-data': '/images/blog/blog_hero_security.png',
+    'psychology-of-security': '/images/blog/blog_hero_security.png',
+    'why-client-side-pdf-merging-is-safer': '/images/blog/blog_hero_pdf_privacy.png',
+    'understanding-image-compression-algorithms': '/images/blog/blog_hero_image_algorithms.png',
+    'the-hidden-risks-of-online-converters': '/images/blog/blog_hero_converters.png'
 };
 
 export default function BlogIndex() {
     const posts = getAllPosts();
-    const featuredPost = posts[0];
-    const remainingPosts = posts.slice(1);
 
     return (
-        <div className="min-h-screen pb-20 bg-gray-50/30">
-            {/* Featured Post / Hero Section */}
-            {featuredPost && (
-                <section className="relative h-[500px] flex items-center overflow-hidden">
-                    <div className="absolute inset-0">
-                        <img
-                            src="/images/blog/featured-hero.png"
-                            alt="Featured background"
-                            className="w-full h-full object-cover"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-r from-gray-900 via-gray-900/80 to-transparent"></div>
-                    </div>
-
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-                        <div className="max-w-2xl">
-                            <span className="inline-block px-3 py-1 rounded-full bg-primary/20 text-primary-light text-xs font-bold tracking-wider uppercase mb-4 border border-primary/30 blur-backdrop-sm">
-                                Featured Article
-                            </span>
-                            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight">
-                                {featuredPost.title}
-                            </h1>
-                            <p className="text-lg text-gray-300 mb-8 line-clamp-2 max-w-xl">
-                                {featuredPost.description}
-                            </p>
-                            <Link
-                                href={`/blog/${featuredPost.slug}`}
-                                className="btn-primary inline-flex items-center gap-2 group"
-                            >
-                                Read Featured Article
-                                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                            </Link>
-                        </div>
-                    </div>
-                </section>
-            )}
-
-            {/* Categories & Filter Bar (Optional) */}
-            <div className="bg-white border-b border-gray-200 sticky top-16 z-30">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex items-center justify-between h-14">
-                        <div className="flex items-center gap-8 overflow-x-auto no-scrollbar">
-                            {['All Posts', 'PDF', 'Images', 'Security', 'Tutorials'].map((cat) => (
-                                <button key={cat} className={`text-sm font-medium whitespace-nowrap ${cat === 'All Posts' ? 'text-primary border-b-2 border-primary' : 'text-gray-500 hover:text-gray-900'} h-14 px-1`}>
-                                    {cat}
-                                </button>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {/* Blog Posts Grid */}
-            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-                <div className="flex items-center justify-between mb-10">
-                    <div>
-                        <h2 className="text-3xl font-bold text-gray-900">Latest Updates</h2>
-                        <p className="text-gray-500 mt-1">Insights and guides from the FilesCenter team.</p>
-                    </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                    {remainingPosts.map((post) => (
-                        <article key={post.slug} className="glass rounded-2xl overflow-hidden group border border-gray-100/50 hover:border-primary/50 transition-all duration-500 flex flex-col h-full bg-white shadow-sm hover:shadow-2xl hover:-translate-y-1">
-                            {/* Card Image */}
-                            <div className="aspect-[16/9] overflow-hidden relative">
-                                {post.image ? (
-                                    <img
-                                        src={post.image}
-                                        alt={post.title}
-                                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                                    />
-                                ) : (
-                                    <div className="w-full h-full bg-gradient-to-br from-emerald-100 to-teal-200 flex items-center justify-center">
-                                        <ArrowRight className="w-12 h-12 text-teal-400 opacity-20" />
-                                    </div>
-                                )}
-                                <div className="absolute top-4 left-4">
-                                    <span className="bg-white/90 backdrop-blur-md text-gray-900 px-3 py-1 rounded-lg text-xs font-bold shadow-sm">
-                                        {post.tags?.[0] || 'General'}
-                                    </span>
-                                </div>
+        <div className="min-h-screen bg-[var(--background)]">
+            {/* Search Header - Matches Hero styles */}
+            <header className="border-b border-[var(--border-light)] bg-[var(--surface)] sticky top-0 z-30 shadow-sm/50 backdrop-blur-xl bg-opacity-90">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
+                    <div className="flex items-center justify-between gap-6">
+                        <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-xl bg-[var(--background-alt)] flex items-center justify-center text-[var(--primary)]">
+                                <Newspaper className="w-5 h-5" />
                             </div>
-
-                            <div className="p-8 flex-1 flex flex-col">
-                                <div className="flex items-center gap-4 text-xs font-semibold text-gray-400 mb-4 uppercase tracking-wider">
-                                    <span className="flex items-center gap-1.5">
-                                        <Calendar className="w-3 h-3" />
-                                        {post.date}
-                                    </span>
-                                    <span>•</span>
-                                    <span className="flex items-center gap-1.5 text-primary">
-                                        5 min read
-                                    </span>
-                                </div>
-
-                                <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-primary transition-colors leading-snug">
-                                    <Link href={`/blog/${post.slug}`} className="focus:outline-none">
-                                        {post.title}
-                                    </Link>
-                                </h3>
-
-                                <p className="text-gray-600 mb-8 line-clamp-3 text-sm leading-relaxed">
-                                    {post.description}
-                                </p>
-
-                                <div className="flex items-center justify-between mt-auto pt-6 border-t border-gray-50">
-                                    <div className="flex items-center gap-3">
-                                        <div className="w-9 h-9 rounded-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center border border-white shadow-sm">
-                                            <User className="w-5 h-5 text-gray-500" />
-                                        </div>
-                                        <span className="text-sm font-bold text-gray-700">{post.author || 'FilesCenter Team'}</span>
-                                    </div>
-                                    <Link
-                                        href={`/blog/${post.slug}`}
-                                        className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center group-hover:bg-primary group-hover:border-primary transition-all duration-300"
-                                    >
-                                        <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-white transition-colors" />
-                                    </Link>
-                                </div>
+                            <div>
+                                <h1 className="text-lg font-bold text-[var(--text-heading)] leading-none">The Journal</h1>
+                                <p className="text-xs text-[var(--text-muted)] font-medium mt-0.5">Engineering & Privacy</p>
                             </div>
-                        </article>
-                    ))}
-                </div>
-
-                {posts.length === 0 && (
-                    <div className="text-center py-32 glass rounded-3xl">
-                        <div className="w-20 h-20 mx-auto bg-gray-100 rounded-full flex items-center justify-center mb-6">
-                            <ArrowRight className="w-10 h-10 text-gray-300" />
                         </div>
-                        <p className="text-gray-500 text-xl font-medium">Coming soon: Insights, guides, and tutorials.</p>
+
+                        <div className="relative w-full max-w-sm hidden md:block">
+                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-light)]" />
+                            <input
+                                type="text"
+                                placeholder="Search articles..."
+                                className="w-full pl-10 pr-4 py-2.5 bg-[var(--background)] border border-[var(--input-border)] rounded-xl text-sm text-[var(--text)] focus:ring-2 focus:ring-[var(--primary)]/10 focus:border-[var(--primary)] transition-all placeholder:text-[var(--text-light)]"
+                            />
+                        </div>
                     </div>
-                )}
-            </section>
+                </div>
+            </header>
+
+            <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
+                    {/* Theme-Consistent Sidebar */}
+                    <BlogSidebar />
+
+                    {/* Denser Feed - Using Global Card Styles */}
+                    <div className="flex-1">
+                        <div className="flex items-baseline justify-between mb-6 border-b border-[var(--border)] pb-4">
+                            <h2 className="text-sm font-bold text-[var(--text-muted)] uppercase tracking-wider">Latest</h2>
+                            <span className="text-xs font-semibold text-[var(--text-light)] bg-[var(--background-alt)] px-2 py-1 rounded-md">{posts.length} Articles</span>
+                        </div>
+
+                        {posts.length > 0 ? (
+                            <div className="grid grid-cols-1 gap-6">
+                                {posts.map((post) => {
+                                    const heroImage = postImages[post.slug] || post.image || '/images/blog/blog_hero_abstract_1.png';
+
+                                    return (
+                                        <article key={post.slug} className="group tool-card overflow-hidden hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                                            <Link href={`/blog/${post.slug}`} className="flex flex-col md:flex-row h-full">
+                                                {/* Image Section */}
+                                                <div className="w-full md:w-64 h-48 md:h-auto shrink-0 relative overflow-hidden md:border-r border-[var(--border-light)]">
+                                                    <img
+                                                        src={heroImage}
+                                                        alt={post.title}
+                                                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                                    />
+                                                    <div className="absolute inset-0 bg-[var(--primary)]/5 group-hover:bg-transparent transition-colors"></div>
+                                                </div>
+
+                                                {/* Content Section */}
+                                                <div className="flex-1 p-6 flex flex-col justify-center">
+                                                    <div className="flex items-center gap-3 mb-3">
+                                                        <span className="px-2.5 py-1 rounded-lg bg-[var(--background-alt)] text-[10px] font-bold uppercase tracking-wider text-[var(--primary)]">
+                                                            {post.tags?.[0] || 'Engineering'}
+                                                        </span>
+                                                        <span className="text-[10px] font-bold text-[var(--text-light)] uppercase tracking-wider">{post.date}</span>
+                                                    </div>
+
+                                                    <h2 className="text-xl sm:text-2xl font-bold text-[var(--text-heading)] mb-3 group-hover:text-[var(--primary)] transition-colors leading-tight">
+                                                        {post.title}
+                                                    </h2>
+
+                                                    <p className="text-[var(--text-muted)] text-sm leading-relaxed mb-6 line-clamp-2">
+                                                        {post.description}
+                                                    </p>
+
+                                                    <div className="flex items-center justify-between mt-auto pt-4 border-t border-[var(--border-light)]">
+                                                        <div className="flex items-center gap-2">
+                                                            <div className="w-6 h-6 rounded-full bg-[var(--background-alt)] flex items-center justify-center text-[10px] font-bold text-[var(--text-muted)]">
+                                                                {post.author?.[0] || 'F'}
+                                                            </div>
+                                                            <span className="text-[11px] font-bold text-[var(--text)]">{post.author || 'FilesCenter'}</span>
+                                                        </div>
+                                                        <div className="flex items-center gap-1 text-[var(--primary)] font-bold text-[11px] uppercase tracking-wider group-hover:gap-2 transition-all">
+                                                            Read Article <ArrowRight className="w-3.5 h-3.5" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </Link>
+                                        </article>
+                                    );
+                                })}
+                            </div>
+                        ) : (
+                            <div className="py-20 text-center rounded-2xl border-2 border-dashed border-[var(--border)] bg-[var(--background-alt)]/30">
+                                <p className="text-[var(--text-light)] font-medium">No publications found.</p>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            </main>
         </div>
     );
 }
