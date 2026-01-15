@@ -1,9 +1,13 @@
 import { PDFDocument, degrees } from 'pdf-lib';
 import * as pdfjsLib from 'pdfjs-dist';
+import { compressPDFLossless } from './qpdf';
 
 // Initialize worker (idempotent)
-if (typeof window !== 'undefined' && !pdfjsLib.GlobalWorkerOptions.workerSrc) {
-    pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+if (typeof window !== 'undefined') {
+    // Force local worker to avoid CDN/Version mismatches
+    // This file is automatically managed by next.config.mjs
+    const workerPath = '/pdf.worker.min.js';
+    pdfjsLib.GlobalWorkerOptions.workerSrc = workerPath;
 }
 
 export async function mergePDFs(files: File[]): Promise<Blob> {
@@ -39,91 +43,160 @@ export async function compressPDF(
 ): Promise<Blob> {
     const arrayBuffer = await file.arrayBuffer();
 
-    // Load with PDF.js for rendering
-    const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
-    const pageCount = pdf.numPages;
+    // Clone buffer for PDF.js to prevent main thread detachment if worker transfers it
+    const pdfJsBuffer = arrayBuffer.slice(0);
 
-    // Create new PDF with pdf-lib for assembly
-    const newPdf = await PDFDocument.create();
+    try {
+        // Load with PDF.js for rendering
+        const loadingTask = pdfjsLib.getDocument({ data: pdfJsBuffer });
+        const pdf = await loadingTask.promise;
+        const pageCount = pdf.numPages;
 
-    // FIXED SCALING (Requested by user to avoid "trash" quality and 100% reduction)
-    // Scale: Higher = sharper text, larger size. Lower = blurry text, smaller size.
-    // Quality: JPEG compression (0 to 1).
-    const settings = {
-        low: { scale: 2.0, quality: 0.9 },     // 144 DPI, High Quality (UI 'Low' = Low Compression)
-        medium: { scale: 1.5, quality: 0.75 }, // 108 DPI, Balanced
-        high: { scale: 1.0, quality: 0.6 }      // 72 DPI, High Compression (UI 'High' = Smallest Size)
-    }[quality];
+        // Create new PDF with pdf-lib for assembly
+        const newPdf = await PDFDocument.create();
 
-    console.log(`Starting Strong Compression: ${quality}, Scale: ${settings.scale}, Grayscale: ${grayscale}`);
+        // FIXED SCALING
+        const settings = {
+            low: { scale: 2.0, quality: 0.9 },
+            medium: { scale: 1.5, quality: 0.75 },
+            high: { scale: 1.0, quality: 0.6 }
+        }[quality];
 
-    for (let i = 1; i <= pageCount; i++) {
-        const page = await pdf.getPage(i);
-        let viewport = page.getViewport({ scale: settings.scale });
+        let processedPages = 0;
 
-        // Safety check: Cap dimensions at 4096px to avoid browser canvas limits
-        const MAX_DIMENSION = 4096;
-        if (viewport.width > MAX_DIMENSION || viewport.height > MAX_DIMENSION) {
-            const ratio = Math.min(MAX_DIMENSION / viewport.width, MAX_DIMENSION / viewport.height);
-            viewport = page.getViewport({ scale: settings.scale * ratio });
+        for (let i = 1; i <= pageCount; i++) {
+            try {
+                // Yield to main thread to allow UI updates and Garbage Collection
+                await new Promise(resolve => setTimeout(resolve, 10));
+
+                const page = await pdf.getPage(i);
+                let viewport = page.getViewport({ scale: settings.scale });
+
+                // Safety check: Cap dimensions to safer limits for stability
+                const MAX_DIMENSION = 3500; // Reduced from 4096 to prevent memory spikes
+                if (viewport.width > MAX_DIMENSION || viewport.height > MAX_DIMENSION) {
+                    const ratio = Math.min(MAX_DIMENSION / viewport.width, MAX_DIMENSION / viewport.height);
+                    viewport = page.getViewport({ scale: settings.scale * ratio });
+                }
+
+                // Create canvas
+                const canvas = document.createElement('canvas');
+                const context = canvas.getContext('2d', { willReadFrequently: true });
+
+                if (!context) {
+                    console.warn(`Failed to create context for page ${i}`);
+                    continue;
+                }
+
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                // Apply Grayscale filter if requested
+                if (grayscale) {
+                    context.filter = 'grayscale(100%)';
+                }
+
+                // Render page
+                await page.render({
+                    canvasContext: context,
+                    viewport: viewport
+                }).promise;
+
+                // Convert to blob (JPEG)
+                const imageBlob = await new Promise<Blob | null>(resolve =>
+                    canvas.toBlob(resolve, 'image/jpeg', settings.quality)
+                );
+
+                if (imageBlob) {
+                    const imageBuffer = await imageBlob.arrayBuffer();
+                    const embeddedImage = await newPdf.embedJpg(imageBuffer);
+
+                    // Maintain original physical size
+                    const originalWidth = viewport.width / viewport.scale;
+                    const originalHeight = viewport.height / viewport.scale;
+
+                    const newPage = newPdf.addPage([originalWidth, originalHeight]);
+                    newPage.drawImage(embeddedImage, {
+                        x: 0,
+                        y: 0,
+                        width: originalWidth,
+                        height: originalHeight,
+                    });
+                    processedPages++;
+                }
+
+                // Explicit Cleanup to prevent memory leaks in loop
+                canvas.width = 0;
+                canvas.height = 0;
+                page.cleanup(); // PDF.js cleanup
+
+            } catch (pageError) {
+                console.error(`Error processing page ${i}:`, pageError);
+                // Continue to next page instead of failing entire document
+            }
         }
 
-        // Create canvas
-        const canvas = document.createElement('canvas');
-        const context = canvas.getContext('2d');
-        if (!context) continue;
+        const bytes = await newPdf.save();
 
-        canvas.height = viewport.height;
-        canvas.width = viewport.width;
-
-        // Apply Grayscale filter if requested
-        if (grayscale) {
-            context.filter = 'grayscale(100%)';
+        // STRICT Safety Guard: 
+        // 1. Check for 0-byte output
+        // 2. Check if we actually processed any pages (if original had pages)
+        if (bytes.length === 0 || (processedPages === 0 && pageCount > 0)) {
+            console.warn('Compression produced invalid output. Reverting to original.');
+            return new Blob([await file.arrayBuffer()], { type: 'application/pdf' });
         }
 
-        // Render page to canvas
-        await page.render({
-            canvasContext: context,
-            viewport: viewport
-        }).promise;
-
-        // Convert to blob (JPEG)
-        const imageBlob = await new Promise<Blob | null>(resolve =>
-            canvas.toBlob(resolve, 'image/jpeg', settings.quality)
-        );
-
-        if (imageBlob) {
-            const imageBuffer = await imageBlob.arrayBuffer();
-            const embeddedImage = await newPdf.embedJpg(imageBuffer);
-
-            // Maintain original physical size
-            const originalWidth = viewport.width / viewport.scale;
-            const originalHeight = viewport.height / viewport.scale;
-
-            const newPage = newPdf.addPage([originalWidth, originalHeight]);
-            newPage.drawImage(embeddedImage, {
-                x: 0,
-                y: 0,
-                width: originalWidth,
-                height: originalHeight,
-            });
+        // Safety Check: If compression actually increased size, return original.
+        if (bytes.length > file.size) {
+            console.warn(`Compression increased size: ${bytes.length} > ${file.size}. Reverting.`);
+            return new Blob([await file.arrayBuffer()], { type: 'application/pdf' });
         }
 
-        // Cleanup canvas early to help memory
-        canvas.width = 0;
-        canvas.height = 0;
+        return new Blob([bytes as BlobPart], { type: 'application/pdf' });
+
+    } catch (error) {
+        console.error('Error in compressPDF:', error);
+        throw error;
     }
+}
 
-    const bytes = await newPdf.save();
+/**
+ * Smart Compression: 
+ * 1. Tries Lossless optimization first (Fastest, preserves text)
+ * 2. Checks if reduction is significant.
+ * 3. Fallbacks to adaptive methods if needed.
+ */
+export async function compressPDFSmart(file: File): Promise<Blob> {
+    try {
+        // Step 1: Try Lossless Structural Optimization (QPDF)
+        console.log('SmartCompress: Trying Lossless structural optimization...');
+        const losslessBlob = await compressPDFLossless(file);
 
-    // Safety Check: If compression actually increased size, return original.
-    if (bytes.length > file.size) {
-        console.warn(`Compression increased size: ${bytes.length} > ${file.size}. Reverting.`);
-        return new Blob([arrayBuffer], { type: 'application/pdf' });
+        // If lossless reduced more than 10%, we're happy
+        const losslessReduction = (1 - losslessBlob.size / file.size) * 100;
+        if (losslessReduction > 10) {
+            console.log(`SmartCompress: Lossless was effective (${losslessReduction.toFixed(1)}%). Done.`);
+            return losslessBlob;
+        }
+
+        // Step 2: If lossless wasn't enough, try "Balanced" Rasterization
+        // This handles image-heavy PDFs where text optimization does little.
+        console.log('SmartCompress: Lossless ineffective. Trying Weighted Rasterization...');
+        const rasterizedBlob = await compressPDF(file, 'medium', false);
+
+        const rasterizedReduction = (1 - rasterizedBlob.size / file.size) * 100;
+
+        // Pick the best of both
+        if (rasterizedBlob.size < losslessBlob.size && rasterizedBlob.size < file.size) {
+            console.log(`SmartCompress: Rasterization won (${rasterizedReduction.toFixed(1)}%).`);
+            return rasterizedBlob;
+        }
+
+        return losslessBlob;
+    } catch (error) {
+        console.warn('SmartCompress: Combined strategy failed, using original.', error);
+        return new Blob([await file.arrayBuffer()], { type: 'application/pdf' });
     }
-
-    console.log(`Compression finished: ${file.size} -> ${bytes.length} (${Math.round((1 - bytes.length / file.size) * 100)}% reduction)`);
-    return new Blob([bytes as BlobPart], { type: 'application/pdf' });
 }
 
 export async function rotatePDF(file: File, rotation: 0 | 90 | 180 | 270): Promise<Blob> {

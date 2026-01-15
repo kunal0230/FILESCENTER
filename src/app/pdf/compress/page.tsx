@@ -4,18 +4,18 @@ import { useState } from 'react';
 import { Minimize2, Download, Loader2, Upload, FileText, CheckCircle2, X, AlertCircle, Settings2, ShieldCheck } from 'lucide-react';
 import { ToolLayout } from '@/components/tools/ToolLayout';
 import { ProgressBar } from '@/components/ui/ProgressBar';
-import { compressPDF } from '@/lib/pdf/utils';
+import { compressPDF, compressPDFSmart } from '@/lib/pdf/utils';
 import { compressPDFLossless } from '@/lib/pdf/qpdf';
 
 type CompressionLevel = 'low' | 'medium' | 'high';
-type CompressionType = 'lossless' | 'strong';
+type CompressionType = 'smart' | 'lossless' | 'strong';
 
 export default function PDFCompressPage() {
     const [files, setFiles] = useState<File[]>([]);
     const [compressedFiles, setCompressedFiles] = useState<{ original: File; compressed: Blob }[]>([]);
     const [isProcessing, setIsProcessing] = useState(false);
     const [progress, setProgress] = useState(0);
-    const [compressionType, setCompressionType] = useState<CompressionType>('lossless');
+    const [compressionType, setCompressionType] = useState<CompressionType>('smart');
     const [compressionLevel, setCompressionLevel] = useState<CompressionLevel>('medium');
     const [grayscale, setGrayscale] = useState(false);
     const [isDragging, setIsDragging] = useState(false);
@@ -46,7 +46,9 @@ export default function PDFCompressPage() {
 
             try {
                 let compressed: Blob;
-                if (compressionType === 'lossless') {
+                if (compressionType === 'smart') {
+                    compressed = await compressPDFSmart(file);
+                } else if (compressionType === 'lossless') {
                     compressed = await compressPDFLossless(file);
                 } else {
                     compressed = await compressPDF(file, compressionLevel, grayscale);
@@ -117,6 +119,20 @@ export default function PDFCompressPage() {
                     <div className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
                         <h3 className="text-sm font-medium text-gray-700 uppercase tracking-wider mb-4">Compression Method</h3>
                         <div className="space-y-3">
+                            <button
+                                onClick={() => setCompressionType('smart')}
+                                className={`w-full p-3 rounded-lg border text-left transition-all ${compressionType === 'smart'
+                                    ? 'bg-indigo-50 border-indigo-500 ring-1 ring-indigo-500'
+                                    : 'bg-white border-gray-200 hover:border-indigo-300'
+                                    }`}
+                            >
+                                <div className="flex items-center gap-2 mb-1">
+                                    <CheckCircle2 className={`w-4 h-4 ${compressionType === 'smart' ? 'text-indigo-600' : 'text-gray-400'}`} />
+                                    <span className={`font-medium ${compressionType === 'smart' ? 'text-indigo-700' : 'text-gray-700'}`}>Smart (Recommended)</span>
+                                </div>
+                                <p className="text-xs text-gray-500">Auto-picks the best compression strategy for your file.</p>
+                            </button>
+
                             <button
                                 onClick={() => setCompressionType('lossless')}
                                 className={`w-full p-3 rounded-lg border text-left transition-all ${compressionType === 'lossless'
@@ -243,7 +259,14 @@ export default function PDFCompressPage() {
 
                     {isProcessing && (
                         <div className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
-                            <ProgressBar progress={progress} label={compressionType === 'lossless' ? "Optimizing structure..." : "Rasterizing & Compressing..."} />
+                            <ProgressBar
+                                progress={progress}
+                                label={
+                                    compressionType === 'smart' ? "Analyzing & Compressing..." :
+                                        compressionType === 'lossless' ? "Optimizing structure..." :
+                                            "Rasterizing & Compressing..."
+                                }
+                            />
                         </div>
                     )}
                 </div>
