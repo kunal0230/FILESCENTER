@@ -107,7 +107,7 @@ export default function JsonFormatterPage() {
             setOutput('');
         } else {
             setError(null);
-            setOutput('✓ Valid JSON');
+            setOutput('Success: Valid JSON');
         }
     }, [input]);
 
@@ -159,7 +159,7 @@ export default function JsonFormatterPage() {
     }, []);
 
     const stats = useMemo(() => {
-        if (!output || output === '✓ Valid JSON') return null;
+        if (!output || output === 'Success: Valid JSON') return null;
         try {
             const parsed = JSON.parse(output);
             const type = Array.isArray(parsed) ? 'Array' : typeof parsed;
@@ -235,7 +235,7 @@ export default function JsonFormatterPage() {
                         value={output}
                         readOnly
                         placeholder="Formatted JSON will appear here..."
-                        className={`w-full h-64 p-4 rounded-xl bg-gray-50 border border-gray-200 resize-none font-mono text-sm shadow-sm ${output === '✓ Valid JSON' ? 'text-green-600' : 'text-gray-900 placeholder-gray-400'
+                        className={`w-full h-64 p-4 rounded-xl bg-gray-50 border border-gray-200 resize-none font-mono text-sm shadow-sm ${output === 'Success: Valid JSON' ? 'text-green-600' : 'text-gray-900 placeholder-gray-400'
                             }`}
                     />
                 </div>
@@ -296,7 +296,7 @@ export default function JsonFormatterPage() {
                 >
                     Validate
                 </button>
-                {output && output !== '✓ Valid JSON' && (
+                {output && output !== 'Success: Valid JSON' && (
                     <button
                         onClick={copyOutput}
                         className="btn-secondary flex items-center gap-2 text-gray-700 bg-white border-gray-200 hover:bg-gray-50"

@@ -52,10 +52,9 @@ export async function compressPDF(
         const pdf = await loadingTask.promise;
         const pageCount = pdf.numPages;
 
-        // Create new PDF with pdf-lib for assembly
+        // Create new PDF for assembly
         const newPdf = await PDFDocument.create();
 
-        // FIXED SCALING
         const settings = {
             low: { scale: 2.0, quality: 0.9 },
             medium: { scale: 1.5, quality: 0.75 },
@@ -66,14 +65,14 @@ export async function compressPDF(
 
         for (let i = 1; i <= pageCount; i++) {
             try {
-                // Yield to main thread to allow UI updates and Garbage Collection
+                // Avoid blocking the main thread
                 await new Promise(resolve => setTimeout(resolve, 10));
 
                 const page = await pdf.getPage(i);
                 let viewport = page.getViewport({ scale: settings.scale });
 
-                // Safety check: Cap dimensions to safer limits for stability
-                const MAX_DIMENSION = 3500; // Reduced from 4096 to prevent memory spikes
+                // Scale down if dimensions are too large
+                const MAX_DIMENSION = 3500;
                 if (viewport.width > MAX_DIMENSION || viewport.height > MAX_DIMENSION) {
                     const ratio = Math.min(MAX_DIMENSION / viewport.width, MAX_DIMENSION / viewport.height);
                     viewport = page.getViewport({ scale: settings.scale * ratio });
@@ -125,7 +124,7 @@ export async function compressPDF(
                     processedPages++;
                 }
 
-                // Explicit Cleanup to prevent memory leaks in loop
+                // Cleanup
                 canvas.width = 0;
                 canvas.height = 0;
                 page.cleanup(); // PDF.js cleanup
@@ -138,15 +137,13 @@ export async function compressPDF(
 
         const bytes = await newPdf.save();
 
-        // STRICT Safety Guard: 
-        // 1. Check for 0-byte output
-        // 2. Check if we actually processed any pages (if original had pages)
+        // Safety check: If the compressed output is invalid (e.g., empty or no pages processed), revert to the original.
         if (bytes.length === 0 || (processedPages === 0 && pageCount > 0)) {
             console.warn('Compression produced invalid output. Reverting to original.');
             return new Blob([await file.arrayBuffer()], { type: 'application/pdf' });
         }
 
-        // Safety Check: If compression actually increased size, return original.
+        // Fallback if compression increased size
         if (bytes.length > file.size) {
             console.warn(`Compression increased size: ${bytes.length} > ${file.size}. Reverting.`);
             return new Blob([await file.arrayBuffer()], { type: 'application/pdf' });
@@ -161,10 +158,8 @@ export async function compressPDF(
 }
 
 /**
- * Smart Compression: 
- * 1. Tries Lossless optimization first (Fastest, preserves text)
- * 2. Checks if reduction is significant.
- * 3. Fallbacks to adaptive methods if needed.
+ * Smart Compression:
+ * Tries lossless first, then falls back to rasterization if needed.
  */
 export async function compressPDFSmart(file: File): Promise<Blob> {
     try {

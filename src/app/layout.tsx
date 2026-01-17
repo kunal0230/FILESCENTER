@@ -172,7 +172,7 @@ export default function RootLayout({
               </div>
 
               <div className="border-t border-gray-200 mt-8 pt-8 text-center text-sm text-gray-500">
-                <p>© {new Date().getFullYear()} FilesCenter. All rights reserved. Made with ❤️ for everyone.</p>
+                <p>© {new Date().getFullYear()} FilesCenter. All rights reserved. Built for everyone.</p>
               </div>
             </div>
           </footer>

@@ -63,11 +63,11 @@ interface Theme {
     colors: ThemeColors;
 }
 
-// DETAILED THEMES with complete color specifications
+// Theme definitions with complete color specifications
 const themes: Record<string, Theme> = {
     // ===== WARM & COZY LIGHT THEMES =====
     "warm-cream": {
-        name: "☀️ Warm Cream",
+        name: "Warm Cream",
         category: "Light",
         colors: {
             "--primary": "#4a7c7e",
@@ -110,7 +110,7 @@ const themes: Record<string, Theme> = {
     },
 
     "peach-blossom": {
-        name: "🍑 Peach Blossom",
+        name: "Peach Blossom",
         category: "Light",
         colors: {
             "--primary": "#d97756",
@@ -154,7 +154,7 @@ const themes: Record<string, Theme> = {
 
     // ===== COOL & PROFESSIONAL LIGHT THEMES =====
     "cool-slate": {
-        name: "🌫️ Cool Slate",
+        name: "Cool Slate",
         category: "Light",
         colors: {
             "--primary": "#5c6bc0",
@@ -197,7 +197,7 @@ const themes: Record<string, Theme> = {
     },
 
     "ocean-breeze": {
-        name: "🌊 Ocean Breeze",
+        name: "Ocean Breeze",
         category: "Light",
         colors: {
             "--primary": "#0288d1",
@@ -241,7 +241,7 @@ const themes: Record<string, Theme> = {
 
     // ===== NATURE THEMES =====
     "forest-calm": {
-        name: "🌲 Forest Calm",
+        name: "Forest Calm",
         category: "Light",
         colors: {
             "--primary": "#2e7d52",
@@ -285,7 +285,7 @@ const themes: Record<string, Theme> = {
 
     // ===== SOFT & PLEASING =====
     "lavender-mist": {
-        name: "💜 Lavender Mist",
+        name: "Lavender Mist",
         category: "Light",
         colors: {
             "--primary": "#7c4dff",
@@ -328,7 +328,7 @@ const themes: Record<string, Theme> = {
     },
 
     "rose-garden": {
-        name: "🌹 Rose Garden",
+        name: "Rose Garden",
         category: "Light",
         colors: {
             "--primary": "#e91e63",
@@ -372,7 +372,7 @@ const themes: Record<string, Theme> = {
 
     // ===== COLORFUL & VIBRANT =====
     "sunset-vibes": {
-        name: "🌅 Sunset Vibes",
+        name: "Sunset Vibes",
         category: "Colorful",
         colors: {
             "--primary": "#ff6b35",
@@ -415,7 +415,7 @@ const themes: Record<string, Theme> = {
     },
 
     "tropical-paradise": {
-        name: "🌴 Tropical Paradise",
+        name: "Tropical Paradise",
         category: "Colorful",
         colors: {
             "--primary": "#00bcd4",
@@ -459,7 +459,7 @@ const themes: Record<string, Theme> = {
 
     // ===== DARK THEMES =====
     "midnight-blue": {
-        name: "🌙 Midnight Blue",
+        name: "Midnight Blue",
         category: "Dark",
         colors: {
             "--primary": "#60a5fa",
@@ -502,7 +502,7 @@ const themes: Record<string, Theme> = {
     },
 
     "deep-purple": {
-        name: "🔮 Deep Purple",
+        name: "Deep Purple",
         category: "Dark",
         colors: {
             "--primary": "#a78bfa",
@@ -545,7 +545,7 @@ const themes: Record<string, Theme> = {
     },
 
     "charcoal-minimal": {
-        name: "⬛ Charcoal Minimal",
+        name: "Charcoal Minimal",
         category: "Dark",
         colors: {
             "--primary": "#ffffff",
@@ -588,7 +588,7 @@ const themes: Record<string, Theme> = {
     },
 
     "nord-night": {
-        name: "🏔️ Nord Night",
+        name: "Nord Night",
         category: "Dark",
         colors: {
             "--primary": "#88c0d0",
@@ -631,7 +631,7 @@ const themes: Record<string, Theme> = {
     },
 
     "dracula": {
-        name: "🧛 Dracula",
+        name: "Dracula",
         category: "Dark",
         colors: {
             "--primary": "#bd93f9",
@@ -674,7 +674,7 @@ const themes: Record<string, Theme> = {
     },
 
     "amoled-black": {
-        name: "🖤 AMOLED Black",
+        name: "Amoled Black",
         category: "Dark",
         colors: {
             "--primary": "#6366f1",
@@ -766,7 +766,7 @@ export default function ThemeTester() {
             {isOpen && (
                 <div className="absolute bottom-12 right-0 bg-white rounded-xl shadow-2xl border border-gray-200 p-4 w-80 max-h-[75vh] overflow-hidden flex flex-col">
                     <div className="flex justify-between items-center mb-3">
-                        <h3 className="font-semibold text-gray-900 text-sm">🎨 Advanced Themes</h3>
+                        <h3 className="font-semibold text-gray-900 text-sm">Themes</h3>
                         <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded">DEV</span>
                     </div>
 
@@ -796,8 +796,8 @@ export default function ThemeTester() {
                                 key={key}
                                 onClick={() => applyTheme(key)}
                                 className={`w-full text-left px-3 py-2.5 rounded-lg text-sm transition-all flex items-center gap-3 ${currentTheme === key
-                                        ? "bg-indigo-50 text-indigo-700 font-medium ring-2 ring-indigo-200"
-                                        : "hover:bg-gray-50 text-gray-700"
+                                    ? "bg-indigo-50 text-indigo-700 font-medium ring-2 ring-indigo-200"
+                                    : "hover:bg-gray-50 text-gray-700"
                                     }`}
                             >
                                 {/* Color preview stack */}
